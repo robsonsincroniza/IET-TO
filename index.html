@@ -90,7 +90,7 @@
             <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end">
                 <div class="flex items-center bg-white/10 rounded px-3 py-1.5 border border-white/20">
                     <div class="w-6 h-6 rounded-full bg-ietYellow flex items-center justify-center text-xs font-bold text-ietDark mr-2">IET</div>
-                    <span class="text-sm font-semibold"></span>
+                    <span class="text-sm font-semibold">Gestor Estadual</span>
                 </div>
                 <button id="btn-export" class="bg-ietYellow hover:bg-yellow-500 text-ietDark px-4 py-2 rounded-md text-sm font-bold shadow transition-colors flex items-center" onclick="generatePDF()">
                     <i data-lucide="download" class="w-4 h-4 mr-2"></i> Exportar PDF
@@ -101,23 +101,23 @@
         <!-- Navigation Bar (Módulos) -->
         <div class="bg-white px-6 border-b border-gray-200 w-full overflow-x-auto">
             <nav class="flex space-x-1 min-w-max h-14" id="nav-menu">
-                <a href="#" onclick="navigate('view-guia', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="book-open" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Guia e Orientações
+                <a href="#" onclick="navigate('view-guia', this, 'Guia e Orientações')" class="nav-link flex items-center px-4 border-b-4 border-ietYellow text-ietBlue font-bold active-nav transition-colors">
+                    <i data-lucide="book-open" class="w-4 h-4 mr-2 text-ietYellow icon-element"></i> Guia e Orientações
                 </a>
-                <a href="#" onclick="navigate('view-match', this)" class="nav-link flex items-center px-4 border-b-4 border-ietYellow text-ietBlue font-bold active-nav transition-colors">
-                    <i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow icon-element"></i> Simulador: Match
+                <a href="#" onclick="navigate('view-match', this, 'Simulador: Match Perfeito')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="target" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Simulador: Match
                 </a>
-                <a href="#" onclick="navigate('view-pne', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas
+                <a href="#" onclick="navigate('view-pne', this, 'Monitoramento PVE / PNE')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas PNE / Propag
                 </a>
-                <a href="#" onclick="navigate('view-territorio', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores sociais estudantes
+                <a href="#" onclick="navigate('view-territorio', this, 'Socioeconomia e Equidade')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores Sociais
                 </a>
-                <a href="#" onclick="navigate('view-infra', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                <a href="#" onclick="navigate('view-infra', this, 'Raio-X Infraestrutura')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Infraestrutura
                 </a>
-                <a href="#" onclick="navigate('view-escutas', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Desenho da oferta Coparticipação
+                <a href="#" onclick="navigate('view-escutas', this, 'Escutas e Coparticipação')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Escutas e Coparticipação
                 </a>
             </nav>
         </div>
@@ -128,7 +128,7 @@
         
         <div class="mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
             <div>
-                <span class="text-xs text-gray-500 uppercase tracking-wider font-bold">Plataforma de Decisão > <span class="text-ietBlue" id="breadcrumb-title">Simulador: Match Perfeito</span></span>
+                <span class="text-xs text-gray-500 uppercase tracking-wider font-bold">Plataforma de Decisão > <span class="text-ietBlue" id="breadcrumb-title">Guia e Orientações</span></span>
             </div>
             <div class="flex space-x-2 mt-3 md:mt-0">
                 <select class="text-sm border-gray-300 rounded-md shadow-sm focus:border-ietBlue py-1.5 px-3 bg-white font-medium outline-none">
@@ -143,8 +143,8 @@
             </div>
         </div>
 
-        <!-- ================= VIEW: GUIA E ORIENTAÇÕES ================= -->
-        <div id="view-guia" class="view-section">
+        <!-- ================= VIEW: GUIA E ORIENTAÇÕES (PÁGINA INICIAL) ================= -->
+        <div id="view-guia" class="view-section active">
             <div class="bg-gradient-to-r from-ietDark to-ietBlue rounded-xl shadow-md p-8 mb-6 text-white flex items-center justify-between">
                 <div class="max-w-3xl">
                     <h1 class="text-3xl font-black mb-3">Guia de Uso e Interpretação do Painel</h1>
@@ -157,29 +157,29 @@
                 </div>
             </div>
 
-            <!-- Descrição dos Módulos Completos -->
+            <!-- Descrição dos Módulos -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
                 <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
                     <i data-lucide="layout-dashboard" class="w-6 h-6 mr-2 text-ietBlue"></i> Módulos do Painel
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-ietBlue flex items-center mb-2"><i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow"></i> Simulador: Match</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">O motor de decisão estratégico. Utiliza um algoritmo ajustável para cruzar indicadores (demanda, infraestrutura, vulnerabilidade e engajamento) gerando um ranking automatizado com a recomendação ideal de alocação de cursos.</p>
                     </div>
-                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400"></i> Metas PNE/Propag</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">Módulo de acompanhamento contínuo das exigências legais (PNE 11, 12a, 10 e PROPAG). Evidencia o déficit atual do estado, foca em gargalos como a EJA e traça as projeções de crescimento necessárias.</p>
                     </div>
-                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400"></i> Marcadores Sociais</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">Analisa a vocação econômica regional e a cruza com a vulnerabilidade territorial (taxa de jovens "Nem-Nem"). O objetivo é garantir que a expansão atue ativamente como política de inclusão produtiva.</p>
                     </div>
-                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400"></i> Infraestrutura</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">Diagnóstico físico consolidado. Classifica a prontidão das escolas em níveis padronizados de conectividade e adequação de laboratórios, embasando a viabilidade operacional sem subjetividades.</p>
                     </div>
-                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 md:col-span-2 lg:col-span-2">
+                    <div class="p-5 bg-gray-50 rounded-lg border border-gray-100 md:col-span-2 lg:col-span-2">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400"></i> Escutas e Coparticipação</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">Sintetiza as metodologias e os resultados das escutas do ecossistema. Alinha o interesse dos estudantes e a capacidade da gestão escolar às demandas reais validadas junto ao setor produtivo e de mercado (Projeções CBO).</p>
                     </div>
@@ -242,15 +242,19 @@
                         <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
                             <i data-lucide="book-open" class="w-6 h-6 mr-2 text-gray-400"></i> Glossário de Termos
                         </h2>
-                        <dl class="space-y-3 text-sm">
-                            <dt class="font-bold text-gray-800">Geração Nem-Nem:</dt>
-                            <dd class="text-gray-500 mb-2 leading-tight">Jovens de 15 a 29 anos que não estudam nem trabalham. Principal marcador de vulnerabilidade social do projeto.</dd>
-                            
-                            <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
-                            <dd class="text-gray-500 mb-2 leading-tight">Classificação Brasileira de Ocupações e Atividades Econômicas. Bases usadas para entender onde os empregos estão surgindo.</dd>
-                            
-                            <dt class="font-bold text-gray-800">PROPAG:</dt>
-                            <dd class="text-gray-500 leading-tight">Programa federal de fomento à EPT. Suas metas (como a de 2026) condicionam o repasse de recursos financeiros aos estados.</dd>
+                        <dl class="space-y-4 text-sm">
+                            <div>
+                                <dt class="font-bold text-gray-800">Geração Nem-Nem:</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Jovens de 15 a 29 anos que não estudam nem trabalham. Principal marcador de vulnerabilidade social do projeto.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Classificação Brasileira de Ocupações e Atividades Econômicas. Bases usadas para entender onde os empregos reais estão surgindo.</dd>
+                            </div>
+                            <div>
+                                <dt class="font-bold text-gray-800">PROPAG:</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Programa federal de fomento à EPT. Suas metas (como a de 2026) condicionam o repasse de recursos financeiros aos estados.</dd>
+                            </div>
                         </dl>
                     </div>
                 </div>
@@ -282,7 +286,7 @@
         </div>
 
         <!-- ================= VIEW: MATCH PERFEITO (SIMULADOR) ================= -->
-        <div id="view-match" class="view-section active">
+        <div id="view-match" class="view-section">
             <!-- Cards de KPIs Superiores -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                 <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietBlue">
@@ -406,7 +410,7 @@
                 </div>
 
                 <!-- Mapa de Calor Territorial Redimensionado (66% da tela) -->
-                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-auto xl:h-[640px] xl:col-span-8 border border-gray-100">
+                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-[550px] xl:h-auto xl:col-span-8 border border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                         <h2 class="text-lg font-bold text-gray-800">Mapeamento Territorial Multi-camadas</h2>
                         <div class="flex space-x-3 text-sm bg-gray-50 p-1.5 rounded-lg border border-gray-200 shrink-0">
@@ -425,7 +429,7 @@
                 </div>
             </div>
 
-            <!-- PROJEÇÕES E ALINHAMENTO ESTRATÉGICO (Posicionado abaixo do Mapa e Motor) -->
+            <!-- PROJEÇÕES E ALINHAMENTO ESTRATÉGICO -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4 border-ietLightBlue">
                 <div class="mb-6 border-b border-gray-100 pb-4">
                     <span class="bg-blue-50 text-ietBlue text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm border border-blue-200">INTELIGÊNCIA DE MERCADO E ESCUTAS</span>
@@ -480,29 +484,29 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                     <div>
                         <h2 class="text-lg font-bold text-gray-800">Mesa de Decisão: Match Escola x Curso</h2>
-                        <p class="text-sm text-gray-500">A tabela atua como uma bússola cruzando os cálculos do Motor de Decisão.</p>
+                        <p class="text-sm text-gray-500">O Output do Algoritmo gerando o Ranking de Prioridades para o Tocantins.</p>
                     </div>
                     <div class="flex space-x-2 mt-3 md:mt-0">
                         <div class="flex items-center text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span> Perfeito (≥80%)
+                            <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span> Perfeito (≥80)
                         </div>
                         <div class="flex items-center text-xs bg-yellow-50 text-yellow-700 px-2 py-1 rounded border border-yellow-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span> Parcial (50-79%)
+                            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span> Parcial (50-79)
                         </div>
                         <div class="flex items-center text-xs bg-red-50 text-red-700 px-2 py-1 rounded border border-red-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span> Sem Match (<50%)
+                            <span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span> Sem Match (<50)
                         </div>
                     </div>
                 </div>
                 
                 <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="w-full text-left border-collapse min-w-[800px]">
+                    <table class="w-full text-left border-collapse min-w-[900px]">
                         <thead>
                             <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
                                 <th class="p-4 font-bold">Município / Escola</th>
-                                <th class="p-4 font-bold">Contexto Escolar (Infra / Social)</th>
+                                <th class="p-4 font-bold">Contexto Escolar (Infra/Social)</th>
                                 <th class="p-4 font-bold">Eixo & Curso Sugerido</th>
-                                <th class="p-4 font-bold text-center">Demanda Produtiva (CBO)</th>
+                                <th class="p-4 font-bold text-center">Demanda CBO</th>
                                 <th class="p-4 font-bold text-center w-24">Score Final</th>
                                 <th class="p-4 font-bold text-center w-32">Status (Match)</th>
                             </tr>
@@ -1024,11 +1028,19 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </main>
+
+    <!-- NOVA TARJA DE ALERTA: EM CONSTRUÇÃO (RODAPÉ) -->
+    <div class="bg-red-600 text-white text-center py-2 px-4 text-[10px] sm:text-xs font-black uppercase tracking-widest shrink-0 z-50 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 shadow-[0_-4px_10px_rgba(0,0,0,0.15)] relative">
+        <span class="flex items-center text-yellow-300"><i data-lucide="alert-triangle" class="w-4 h-4 mr-1.5"></i> Modelo de Simulação - V0</span>
+        <span class="hidden sm:inline text-red-300">|</span>
+        <span>Não Validado</span>
+        <span class="hidden sm:inline text-red-300">|</span>
+        <span>Ambiente em Construção</span>
+    </div>
 
     <!-- Script de Funcionalidade e Interatividade -->
     <script>
@@ -1036,14 +1048,13 @@
 
         let map;
 
-        // Navegação Top Navbar
-        function navigate(viewId, element) {
+        // Navegação Top Navbar com destaque corrigido
+        function navigate(viewId, element, title) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // Atualiza o breadcrumb 
-            let title = element.innerText.trim();
-            document.getElementById('breadcrumb-title').innerText = title;
+            // Atualiza o breadcrumb (Títulos reais)
+            document.getElementById('breadcrumb-title').innerText = title || element.innerText.trim();
 
             // Reset menu styling
             document.querySelectorAll('.nav-link').forEach(el => {
@@ -1098,12 +1109,10 @@
             L.circle([-11.5, -46.8], { color: '#EF4444', fillOpacity: 0.25, radius: 35000 })
              .bindPopup("Região Sudeste (Dianópolis): Alta Vulnerabilidade Nem-Nem").addTo(map);
 
-            // Inicia o motor de decisão
             updateSimulation();
 
-            // --- INICIALIZA GRÁFICOS (COM PROTEÇÃO CONTRA ERROS DE TELA) ---
+            // --- INICIALIZA GRÁFICOS ORIGINAIS (Chart.js) COM VALIDAÇÃO (if(ctx)) ---
             
-            // 1. Meta 11 PNE
             const ctx11 = document.getElementById('chartMeta11')?.getContext('2d');
             if(ctx11) {
                 new Chart(ctx11, {
@@ -1121,7 +1130,6 @@
                 });
             }
 
-            // 2. Evolução PROPAG
             const ctxPropag = document.getElementById('chartPropagEvolucao')?.getContext('2d');
             if(ctxPropag) {
                 new Chart(ctxPropag, {
@@ -1156,7 +1164,6 @@
                 });
             }
 
-            // 3. Meta 12a
             const ctx12a = document.getElementById('chartMeta12')?.getContext('2d');
             if(ctx12a) {
                 new Chart(ctx12a, {
@@ -1173,7 +1180,6 @@
                 });
             }
 
-            // 4. Meta 10 (EJA)
             const ctxEja = document.getElementById('chartEjaProgresso')?.getContext('2d');
             if(ctxEja) {
                 new Chart(ctxEja, {
@@ -1190,7 +1196,6 @@
                 });
             }
 
-            // 5. Séries Matrícula (Escutas)
             const ctxSeries = document.getElementById('chartSeries')?.getContext('2d');
             if(ctxSeries) {
                 new Chart(ctxSeries, {
@@ -1207,7 +1212,6 @@
                 });
             }
 
-            // 6. Afinidade (Escutas)
             const ctxInteresse = document.getElementById('chartInteresse')?.getContext('2d');
             if(ctxInteresse) {
                 new Chart(ctxInteresse, {
@@ -1223,7 +1227,6 @@
                 });
             }
 
-            // 7. Articulação (Escutas)
             const ctxArticulacao = document.getElementById('chartArticulacaoDiretores')?.getContext('2d');
             if(ctxArticulacao) {
                 new Chart(ctxArticulacao, {
@@ -1240,7 +1243,6 @@
                 });
             }
 
-            // 8. Desafios (Escutas)
             const ctxDesafios = document.getElementById('chartDesafiosDiretores')?.getContext('2d');
             if(ctxDesafios) {
                 new Chart(ctxDesafios, {
@@ -1263,7 +1265,6 @@
                 });
             }
 
-            // 9. Nem-Nem (Marcadores Sociais)
             const ctxNemNemRaca = document.getElementById('chartNemNemRaca')?.getContext('2d');
             if(ctxNemNemRaca) {
                 new Chart(ctxNemNemRaca, {
@@ -1285,7 +1286,6 @@
                 });
             }
 
-            // 10. Matriz Prioridade (Marcadores Sociais)
             const ctxMatriz = document.getElementById('chartMatrizPrioridade')?.getContext('2d');
             if(ctxMatriz) {
                 new Chart(ctxMatriz, {
@@ -1323,7 +1323,6 @@
                 });
             }
 
-            // 11. Evolução Massa Salarial (Marcadores Sociais)
             const ctxMassaSalarial = document.getElementById('chartMassaSalarial')?.getContext('2d');
             if(ctxMassaSalarial) {
                 new Chart(ctxMassaSalarial, {
@@ -1344,7 +1343,6 @@
                 });
             }
 
-            // 12. Descompasso (Marcadores Sociais)
             const ctxDescompasso = document.getElementById('chartDescompasso')?.getContext('2d');
             if(ctxDescompasso) {
                 new Chart(ctxDescompasso, {
@@ -1374,7 +1372,6 @@
                 });
             }
 
-            // 13. Infra Itens
             const ctxInfraItens = document.getElementById('chartInfraItens')?.getContext('2d');
             if(ctxInfraItens) {
                 new Chart(ctxInfraItens, {
@@ -1396,13 +1393,12 @@
                 });
             }
 
-            // 14. Infra Níveis
             const ctxInfraNiveis = document.getElementById('chartInfraNiveis')?.getContext('2d');
             if(ctxInfraNiveis) {
                 new Chart(ctxInfraNiveis, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Nível 5 (Adequado)', 'Nível 4 (Ocasional)', 'Nível 2 (Professores)', 'Outros (Inadequada)'],
+                        labels: ['Nível 5 (Adequado p/ Alunos)', 'Nível 4 (Ocasional em Sala)', 'Nível 2 (Apenas Gestão/Prof)', 'Outros (Inadequada)'],
                         datasets: [{
                             data: [44.5, 15.1, 29.5, 10.9],
                             backgroundColor: ['#10B981', '#60A2D7', '#F59E0B', '#EF4444'], 
@@ -1418,7 +1414,6 @@
                 });
             }
 
-            // 15. Alinhamento Mercado (Match)
             const ctxAlinhamento = document.getElementById('chartMatchConvergencia')?.getContext('2d');
             if(ctxAlinhamento) {
                 new Chart(ctxAlinhamento, {
@@ -1454,7 +1449,6 @@
                 });
             }
 
-            // 16. Projeções (Match)
             const ctxMatchProj = document.getElementById('chartMatchProjecao')?.getContext('2d');
             if(ctxMatchProj) {
                 new Chart(ctxMatchProj, {
@@ -1489,30 +1483,6 @@
                     }
                 });
             }
-
-            // 17. Escutas Top Ocupações (Coparticipação)
-            const ctxTopOcupacoesEscuta = document.getElementById('chartTopOcupacoesEscuta')?.getContext('2d');
-            if(ctxTopOcupacoesEscuta) {
-                new Chart(ctxTopOcupacoesEscuta, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Téc. Enfermagem', 'Assist. Administrativo', 'Desenv. Sistemas', 'Téc. Agrícola', 'Eletrotécnico'],
-                        datasets: [{
-                            label: 'Vínculos Ativos Mapeados (CBO)',
-                            data: [12450, 9820, 7100, 5400, 3200],
-                            backgroundColor: ['#004990', '#60A2D7', '#60A2D7', '#FFB81C', '#FFB81C'],
-                            borderRadius: 4
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: { x: { beginAtZero: true } }
-                    }
-                });
-            }
-
         };
 
         // ---------------------------------------------------------
