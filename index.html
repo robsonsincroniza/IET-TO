@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Estratégico EPT - Tocantins (Governança Avançada)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ietBlue: '#004990',
+                        ietDark: '#002D4B',
+                        ietLightBlue: '#60A2D7',
+                        ietYellow: '#FFB81C', 
+                        ietLightYellow: '#FCE49C', 
+                        ietGray: '#F3F4F6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Leaflet (Mapas) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- HTML2PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #FFB81C; cursor: pointer; margin-top: -7px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 2px solid #fff; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e5e7eb; border-radius: 3px; }
+
+        .view-section { display: none; animation: fadeIn 0.4s ease-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .pdf-export-mode { padding: 20px !important; background-color: #F3F4F6 !important; }
+    </style>
+</head>
+<body class="bg-ietGray text-gray-800 flex flex-col h-screen overflow-hidden">
+
+    <!-- Cabeçalho Global e Navegação Superior (Top Nav) -->
+    <header class="flex flex-col shrink-0 z-20 shadow-md">
+        
+        <!-- Top Bar: Logo, Confiabilidade de Bases e Botões -->
+        <div class="bg-ietBlue text-white px-6 py-3 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex flex-col md:flex-row items-center w-full md:w-auto mb-3 md:mb-0">
+                <div class="flex items-center mr-6">
+                    <i data-lucide="layers" class="w-7 h-7 text-ietYellow mr-3"></i>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-extrabold tracking-wide leading-none">Sincroniza <span class="text-ietLightYellow">EPT</span></span>
+                        <span class="text-[10px] text-white/70 uppercase tracking-widest font-semibold mt-0.5">Governança de Oferta</span>
+                    </div>
+                </div>
+                
+                <!-- Bloco de Confiabilidade das Bases de Dados -->
+                <div class="hidden lg:flex flex-col border-l border-white/20 pl-6 space-y-1">
+                    <span class="text-[10px] text-ietLightYellow uppercase font-bold tracking-wider flex items-center">
+                        <i data-lucide="database" class="w-3 h-3 mr-1"></i> Transparência e Validade das Bases Analíticas
+                    </span>
+                    <div class="flex space-x-4 text-xs font-medium text-white/90">
+                        <span title="INEP - Usado para metas do PNE e matrículas atuais">Censo Escolar: <b class="text-white">2024</b></span>
+                        <span title="Ministério do Trabalho - Usado para cálculo de demanda econômica e massa salarial">RAIS/Caged: <b class="text-white">2024</b></span>
+                        <span title="IBGE - Usado para cálculo de vulnerabilidade e Jovens Nem-Nem">PNAD Contínua: <b class="text-white">2023</b></span>
+                        <span title="Anuário 2025 e SGE">Infraestrutura: <b class="text-white">2025/2026</b></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end">
+                <div class="flex items-center bg-white/10 rounded px-3 py-1.5 border border-white/20">
+                    <div class="w-6 h-6 rounded-full bg-ietYellow flex items-center justify-center text-xs font-bold text-ietDark mr-2">IET</div>
+                    <span class="text-sm font-semibold">Gestor Estadual</span>
+                </div>
+                <button id="btn-export" class="bg-ietYellow hover:bg-yellow-500 text-ietDark px-4 py-2 rounded-md text-sm font-bold shadow transition-colors flex items-center" onclick="generatePDF()">
+                    <i data-lucide="download" class="w-4 h-4 mr-2"></i> Exportar PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Bar (Módulos) -->
+        <div class="bg-white px-6 border-b border-gray-200 w-full overflow-x-auto">
+            <nav class="flex space-x-1 min-w-max h-14" id="nav-menu">
+                <a href="#" onclick="navigate('view-guia', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="book-open" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Guia e Orientações
+                </a>
+                <a href="#" onclick="navigate('view-match', this)" class="nav-link flex items-center px-4 border-b-4 border-ietYellow text-ietBlue font-bold active-nav transition-colors">
+                    <i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow icon-element"></i> Simulador: Match
+                </a>
+                <a href="#" onclick="navigate('view-pne', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas
+                </a>
+                <a href="#" onclick="navigate('view-territorio', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores Sociais
+                </a>
+                <a href="#" onclick="navigate('view-infra', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Infraestrutura
+                </a>
+                <a href="#" onclick="navigate('view-escutas', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Escutas e Coparticipação
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main id="main-content" class="flex-1 overflow-x-hidden overflow-y-auto bg-ietGray p-6">
+        
+        <div class="mb-4 flex flex-col md:flex-row md:justify-between md:items-center">
+            <div>
+                <span class="text-xs text-gray-500 uppercase tracking-wider font-bold">Plataforma de Decisão > <span class="text-ietBlue" id="breadcrumb-title">Simulador: Match Perfeito</span></span>
+            </div>
+            <div class="flex space-x-2 mt-3 md:mt-0">
+                <select class="text-sm border-gray-300 rounded-md shadow-sm focus:border-ietBlue py-1.5 px-3 bg-white font-medium outline-none">
+                    <option>Ciclo de Expansão (2026-2035)</option>
+                </select>
+                <select class="text-sm border-gray-300 rounded-md shadow-sm focus:border-ietBlue py-1.5 px-3 bg-white font-medium outline-none">
+                    <option>Todas as Redes Regionais</option>
+                    <option>SRE Araguaína</option>
+                    <option>SRE Palmas</option>
+                    <option>SRE Gurupi</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: GUIA E ORIENTAÇÕES ================= -->
+        <div id="view-guia" class="view-section">
+            <div class="bg-gradient-to-r from-ietDark to-ietBlue rounded-xl shadow-md p-8 mb-6 text-white flex items-center justify-between">
+                <div class="max-w-3xl">
+                    <h1 class="text-3xl font-black mb-3">Guia de Uso e Interpretação do Painel</h1>
+                    <p class="text-white/80 leading-relaxed">
+                        Este painel é uma ferramenta de Inteligência de Dados criada para ser a bússola do IET e da SEDUC-TO. O objetivo é substituir a subjetividade por uma <strong>Governança Orientada por Evidências</strong>, cruzando dados macroeconômicos, sociais e pedagógicos para direcionar a implementação de cursos de Educação Profissional e Tecnológica (EPT) nas cidades adequadas.
+                    </p>
+                </div>
+                <div class="hidden lg:block opacity-20">
+                    <i data-lucide="book-open" class="w-32 h-32"></i>
+                </div>
+            </div>
+
+            <!-- Descrição dos Módulos Completos -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+                <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
+                    <i data-lucide="layout-dashboard" class="w-6 h-6 mr-2 text-ietBlue"></i> Módulos do Painel
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-ietBlue flex items-center mb-2"><i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow"></i> Simulador: Match</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">O motor de decisão estratégico. Utiliza um algoritmo ajustável para cruzar indicadores (demanda, infraestrutura, vulnerabilidade e engajamento) gerando um ranking automatizado com a recomendação ideal de alocação de cursos.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400"></i> Metas PNE/Propag</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Módulo de acompanhamento contínuo das exigências legais (PNE 11, 12a, 10 e PROPAG). Evidencia o déficit atual do estado, foca em gargalos como a EJA e traça as projeções de crescimento necessárias.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400"></i> Marcadores Sociais</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Analisa a vocação econômica regional e a cruza com a vulnerabilidade territorial (taxa de jovens "Nem-Nem"). O objetivo é garantir que a expansão atue ativamente como política de inclusão produtiva.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400"></i> Infraestrutura</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Diagnóstico físico consolidado. Classifica a prontidão das escolas em níveis padronizados de conectividade e adequação de laboratórios, embasando a viabilidade operacional sem subjetividades.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 md:col-span-2 lg:col-span-2">
+                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400"></i> Escutas e Coparticipação</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Sintetiza as metodologias e os resultados das escutas do ecossistema. Alinha o interesse dos estudantes e a capacidade da gestão escolar às demandas reais validadas junto ao setor produtivo e de mercado (Projeções CBO).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                
+                <!-- Regras do Motor de Decisão -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                    <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
+                        <i data-lucide="cpu" class="w-6 h-6 mr-2 text-ietYellow"></i> A Lógica do Motor de Decisão
+                    </h2>
+                    <p class="text-sm text-gray-600 mb-4">A atribuição de cursos no "Match Perfeito" baseia-se em um algoritmo que calcula um <strong>Score Final (0 a 100%)</strong> para cada escola, a partir de 4 variáveis ajustáveis:</p>
+                    
+                    <ul class="space-y-4">
+                        <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                            <span class="font-bold text-ietBlue block mb-1">1. Demanda Econômica (CBO/RAIS)</span>
+                            <span class="text-xs text-gray-500">Mede se o curso atende à vocação econômica da região. Garante que os jovens se formem para áreas com vagas reais e boa massa salarial.</span>
+                        </li>
+                        <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                            <span class="font-bold text-yellow-600 block mb-1">2. Prontidão de Infraestrutura</span>
+                            <span class="text-xs text-gray-500">Avalia o checklist in loco da escola. Escolas sem laboratórios e conectividade perdem pontos, evitando a abertura de turmas sem qualidade mínima.</span>
+                        </li>
+                        <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                            <span class="font-bold text-purple-500 block mb-1">3. Prioridade Social</span>
+                            <span class="text-xs text-gray-500">Garante a função social da EPT. Direciona expansões prioritárias para os territórios de maior vulnerabilidade (alta taxa de jovens Nem-Nem).</span>
+                        </li>
+                        <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                            <span class="font-bold text-green-600 block mb-1">4. Engajamento e Coparticipação</span>
+                            <span class="text-xs text-gray-500">Traduz as pesquisas qualitativas em dados. Cursos com alta recusa por estudantes ou inviabilidade reportada por gestores perdem pontuação.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col gap-6">
+                    <!-- Interpretação Visual -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
+                            <i data-lucide="eye" class="w-6 h-6 mr-2 text-ietLightBlue"></i> Interpretação dos Níveis (Match)
+                        </h2>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold mr-3 mt-0.5 whitespace-nowrap border border-green-200">≥ 80% PERFEITO</span>
+                                <p class="text-sm text-gray-600 leading-tight">Escola pronta para receber a oferta. Contexto social, de infraestrutura e viabilidade econômica altamente favoráveis.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-bold mr-3 mt-0.5 whitespace-nowrap border border-yellow-200">50 a 79% PARCIAL</span>
+                                <p class="text-sm text-gray-600 leading-tight">A oferta é viável, porém exige intervenção prévia (ex: reforma de laboratório ou campanha de engajamento para alunos).</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="bg-red-50 text-red-600 text-xs px-2 py-1 rounded font-bold mr-3 mt-0.5 whitespace-nowrap border border-red-200">< 50% SEM MATCH</span>
+                                <p class="text-sm text-gray-600 leading-tight">Oferta contraindicada no momento. Infraestrutura crítica ou total desalinhamento com a realidade econômica do território.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Glossário -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex-1">
+                        <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
+                            <i data-lucide="book-open" class="w-6 h-6 mr-2 text-gray-400"></i> Glossário de Termos
+                        </h2>
+                        <dl class="space-y-3 text-sm">
+                            <dt class="font-bold text-gray-800">Geração Nem-Nem:</dt>
+                            <dd class="text-gray-500 mb-2 leading-tight">Jovens de 15 a 29 anos que não estudam nem trabalham. Principal marcador de vulnerabilidade social do projeto.</dd>
+                            
+                            <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
+                            <dd class="text-gray-500 mb-2 leading-tight">Classificação Brasileira de Ocupações e Atividades Econômicas. Bases usadas para entender onde os empregos estão surgindo.</dd>
+                            
+                            <dt class="font-bold text-gray-800">PROPAG:</dt>
+                            <dd class="text-gray-500 leading-tight">Programa federal de fomento à EPT. Suas metas (como a de 2026) condicionam o repasse de recursos financeiros aos estados.</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
+                    <i data-lucide="database" class="w-6 h-6 mr-2 text-ietDark"></i> Fontes e Confiabilidade
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <p class="font-bold text-gray-700 mb-1">Censo Escolar (INEP)</p>
+                        <p class="text-xs text-gray-500">Mapeamento oficial de matrículas e redes de ensino atuais.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <p class="font-bold text-gray-700 mb-1">RAIS / Caged</p>
+                        <p class="text-xs text-gray-500">Dados do Ministério do Trabalho sobre vínculos e salários formais.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <p class="font-bold text-gray-700 mb-1">PNAD Contínua (IBGE)</p>
+                        <p class="text-xs text-gray-500">Base demográfica para o cálculo da taxa de evasão e "Nem-Nem".</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <p class="font-bold text-gray-700 mb-1">Anuário da Ed. Básica</p>
+                        <p class="text-xs text-gray-500">Parâmetros do Todos Pela Educação para classificar níveis de infraestrutura.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: MATCH PERFEITO (SIMULADOR) ================= -->
+        <div id="view-match" class="view-section active">
+            <!-- Cards de KPIs Superiores -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietBlue">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Cobertura Estadual</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">29,4%</h3>
+                            <p class="text-xs text-gray-500 font-medium mt-1">41 de 139 municípios</p>
+                        </div>
+                        <div class="p-2 bg-blue-50 rounded-lg"><i data-lucide="map" class="w-5 h-5 text-ietBlue"></i></div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietYellow">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Escolas Aptas (Infra)</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">42 / 139</h3>
+                            <p class="text-xs text-gray-500 font-medium mt-1">Validadas via SGE</p>
+                        </div>
+                        <div class="p-2 bg-yellow-50 rounded-lg"><i data-lucide="check-circle" class="w-5 h-5 text-yellow-600"></i></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietLightBlue">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Setores em Alta (RAIS)</p>
+                            <h3 class="text-lg font-black text-gray-800 mt-1 leading-tight">Saúde &<br>Tecnologia</h3>
+                        </div>
+                        <div class="p-2 bg-blue-50 rounded-lg"><i data-lucide="briefcase" class="w-5 h-5 text-ietLightBlue"></i></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-wide">Jovens "Nem-Nem"</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">24,5%</h3>
+                            <p class="text-xs text-red-500 font-medium mt-1">Taxa de Vulnerabilidade</p>
+                        </div>
+                        <div class="p-2 bg-purple-50 rounded-lg"><i data-lucide="alert-triangle" class="w-5 h-5 text-purple-500"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção Principal: Simulador + Mapa (LAYOUT AJUSTADO: 4 colunas Motor / 8 colunas Mapa) -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
+                
+                <!-- O Motor do Match (Sliders com Otimização de Espaço - 33% da tela) -->
+                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col xl:col-span-4 border border-gray-100">
+                    <div class="mb-3 pb-3 border-b border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 flex items-center">
+                            <i data-lucide="sliders" class="w-5 h-5 mr-2 text-yellow-500"></i>
+                            Motor de Decisão (Algoritmo)
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-1 leading-relaxed">
+                            Cruze as quatro dimensões da EPT ajustando os pesos abaixo para gerar o <i>Score Final</i> e o ranking estratégico de prioridades.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                        <!-- Demanda Econômica -->
+                        <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-sm font-bold text-gray-800 flex items-center">
+                                    <i data-lucide="briefcase" class="w-4 h-4 mr-2 text-ietBlue"></i> Demanda Econômica
+                                </label>
+                                <span class="text-xs font-black text-white bg-ietBlue px-2 py-0.5 rounded shadow-sm" id="val-econ">30%</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Prioriza municípios com alta geração de empregos (CAGED) e forte massa salarial.</p>
+                            <input type="range" id="slider-econ" min="0" max="100" value="30" class="w-full" oninput="updateSimulation()">
+                        </div>
+
+                        <!-- Infraestrutura -->
+                        <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-sm font-bold text-gray-800 flex items-center">
+                                    <i data-lucide="server" class="w-4 h-4 mr-2 text-yellow-600"></i> Prontidão de Infra.
+                                </label>
+                                <span class="text-xs font-black text-yellow-900 bg-yellow-200 px-2 py-0.5 rounded shadow-sm" id="val-infra">30%</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Avalia a capacidade in loco (Conectividade Nível 5 e laboratórios ativos).</p>
+                            <input type="range" id="slider-infra" min="0" max="100" value="30" class="w-full" oninput="updateSimulation()">
+                        </div>
+
+                        <!-- Prioridade Social -->
+                        <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-sm font-bold text-gray-800 flex items-center">
+                                    <i data-lucide="scale" class="w-4 h-4 mr-2 text-purple-500"></i> Prioridade Social
+                                </label>
+                                <span class="text-xs font-black text-white bg-purple-500 px-2 py-0.5 rounded shadow-sm" id="val-equid">20%</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Foca na equidade. Maior peso para territórios com alta taxa de jovens "Nem-Nem".</p>
+                            <input type="range" id="slider-equid" min="0" max="100" value="20" class="w-full" oninput="updateSimulation()">
+                        </div>
+
+                        <!-- Engajamento -->
+                        <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-sm font-bold text-gray-800 flex items-center">
+                                    <i data-lucide="message-circle" class="w-4 h-4 mr-2 text-green-600"></i> Engajamento
+                                </label>
+                                <span class="text-xs font-black text-white bg-green-500 px-2 py-0.5 rounded shadow-sm" id="val-inter">20%</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Pondera o interesse dos estudantes cruzado com a viabilidade reportada pela gestão escolar.</p>
+                            <input type="range" id="slider-inter" min="0" max="100" value="20" class="w-full" oninput="updateSimulation()">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Distribuição dos Pesos:</span>
+                            <span class="text-2xl font-black text-green-600" id="total-weight">100%</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500 leading-tight">
+                            <strong class="text-gray-700">Regra de Normalização:</strong> O ideal é cravar a soma em 100%. Se a soma ultrapassar ou ficar abaixo, o algoritmo aplica uma correção matemática automática para calcular a proporção correta no Ranking.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mapa de Calor Territorial Redimensionado (66% da tela) -->
+                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-auto xl:h-[600px] xl:col-span-8 border border-gray-100">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
+                        <h2 class="text-lg font-bold text-gray-800">Mapeamento Territorial Multi-camadas</h2>
+                        <div class="flex space-x-3 text-sm bg-gray-50 p-1.5 rounded-lg border border-gray-200 shrink-0">
+                            <label class="flex items-center space-x-1.5 cursor-pointer px-2">
+                                <input type="checkbox" checked class="rounded text-ietBlue focus:ring-ietBlue">
+                                <span class="text-gray-700 font-bold text-[11px] uppercase">Escolas SEDUC</span>
+                            </label>
+                            <label class="flex items-center space-x-1.5 cursor-pointer border-l border-gray-300 pl-3">
+                                <input type="checkbox" checked class="rounded text-ietYellow focus:ring-ietYellow">
+                                <span class="text-gray-700 font-bold text-[11px] uppercase">Calor (Nem-Nem)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- O contêiner Leaflet DEVE ter flex-1 ou altura min para não colapsar -->
+                    <div id="map" class="flex-1 rounded-lg border border-gray-200 z-0 min-h-[400px]"></div>
+                </div>
+            </div>
+
+            <!-- PROJEÇÕES E ALINHAMENTO ESTRATÉGICO (Posicionado abaixo do Mapa e Motor) -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4 border-ietLightBlue">
+                <div class="mb-6 border-b border-gray-100 pb-4">
+                    <span class="bg-blue-50 text-ietBlue text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm border border-blue-200">INTELIGÊNCIA DE MERCADO</span>
+                    <h2 class="text-xl font-bold text-ietDark flex items-center">
+                        <i data-lucide="git-merge" class="w-6 h-6 mr-2 text-ietLightBlue"></i>
+                        Projeções Setoriais e Alinhamento de Expectativas
+                    </h2>
+                    <p class="text-gray-500 text-sm mt-1">Cruzamento quantitativo entre o que as Escolas demandam e as tendências reais do Mundo do Trabalho (CBO/RAIS).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                        <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Alinhamento Escuta x Mercado</h3>
+                        <p class="text-2xl font-black text-ietBlue mt-1">78,5%</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Convergência em Saúde e TI.</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                        <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Gap de Egressos Projetado (2026)</h3>
+                        <p class="text-2xl font-black text-red-500 mt-1">- 8.500</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Vagas sem profissionais locais.</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                        <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Potencial de Inclusão Produtiva</h3>
+                        <p class="text-2xl font-black text-green-600 mt-1">Alta</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Para cursos validados pelo Algoritmo.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Matriz de Convergência: Alunos x Mercado x Oferta</h3>
+                        <div class="flex justify-center h-64">
+                            <canvas id="chartMatchConvergencia"></canvas>
+                        </div>
+                    </div>
+                    <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Projeção: Vagas Formais vs. Capacidade EPT</h3>
+                        <div class="flex justify-center h-64">
+                            <canvas id="chartMatchProjecao"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Recomendações (Mesa de Decisão) -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800">Mesa de Decisão: Match Escola x Curso</h2>
+                        <p class="text-sm text-gray-500">O Output do Algoritmo gerando o Ranking de Prioridades para o Tocantins.</p>
+                    </div>
+                    <div class="flex space-x-2 mt-3 md:mt-0">
+                        <div class="flex items-center text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200 font-bold shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span> Perfeito (≥80)
+                        </div>
+                        <div class="flex items-center text-xs bg-yellow-50 text-yellow-700 px-2 py-1 rounded border border-yellow-200 font-bold shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span> Parcial (50-79)
+                        </div>
+                        <div class="flex items-center text-xs bg-red-50 text-red-700 px-2 py-1 rounded border border-red-200 font-bold shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span> Sem Match (<50)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[900px]">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-4 font-bold">Município / Escola</th>
+                                <th class="p-4 font-bold">Contexto Escolar (Infra / Social)</th>
+                                <th class="p-4 font-bold">Eixo & Curso Sugerido</th>
+                                <th class="p-4 font-bold text-center">Demanda CBO</th>
+                                <th class="p-4 font-bold text-center w-24">Score Final</th>
+                                <th class="p-4 font-bold text-center w-32">Status (Match)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table" class="divide-y divide-gray-100">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: MONITORAMENTO PNE ================= -->
+        <div id="view-pne" class="view-section">
+            
+            <div class="bg-gradient-to-r from-ietDark to-ietBlue text-white rounded-xl p-6 mb-6 shadow-md flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="bg-white/10 p-3 rounded-full mr-5 shrink-0">
+                        <i data-lucide="clock" class="w-8 h-8 text-ietLightYellow"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">Alerta Estratégico: O Relógio Demográfico (2039)</h3>
+                        <p class="text-sm text-white/80 leading-relaxed max-w-4xl">
+                            O diagnóstico de juventudes indica que o Tocantins viverá uma <strong>inversão demográfica a partir de 2039</strong>, quando haverá redução drástica da população jovem. A janela de oportunidade para qualificar a força de trabalho através da EPT é crítica e imediata, justificando a aceleração das Metas 11 e 12a do PNE.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Perfil da Oferta EPT (Legendas e Distribuição)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="p-4 border border-gray-100 rounded-lg flex items-center bg-gray-50">
+                        <span class="w-4 h-4 rounded-full bg-ietBlue mr-3 shrink-0"></span>
+                        <div><p class="font-bold text-gray-700 text-sm">Ensino Médio Integral</p><p class="text-[11px] text-gray-500">Jornada ampliada articulada à EPT.</p></div>
+                    </div>
+                    <div class="p-4 border border-gray-100 rounded-lg flex items-center bg-gray-50">
+                        <span class="w-4 h-4 rounded-full bg-ietLightBlue mr-3 shrink-0"></span>
+                        <div><p class="font-bold text-gray-700 text-sm">Concomitante</p><p class="text-[11px] text-gray-500">Curso técnico em paralelo ao EM regular.</p></div>
+                    </div>
+                    <div class="p-4 border border-gray-100 rounded-lg flex items-center bg-gray-50">
+                        <span class="w-4 h-4 rounded-full bg-ietYellow mr-3 shrink-0"></span>
+                        <div><p class="font-bold text-gray-700 text-sm">Rede Pública (Seduc)</p><p class="text-[11px] text-gray-500">Oferta direta da secretaria de educação.</p></div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-bold text-ietDark mb-2 mt-8">Monitoramento PNE e PROPAG</h2>
+                <p class="text-gray-500 text-sm mb-6">Acompanhamento do déficit de matrículas do Estado do Tocantins em relação às obrigações do Plano Nacional de Educação (Metas 11, 12a e 10).</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Chart Meta 11 -->
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                        <h3 class="font-bold text-center text-gray-700 mb-4">Meta 11: Triplicar Matrículas EPT (Base 2013)</h3>
+                        <div class="h-64 relative">
+                            <canvas id="chartMeta11"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-red-500 font-bold mt-4">*Déficit de -16.145 vagas para alcance do plano original</p>
+                    </div>
+
+                    <!-- Chart Evolução PROPAG -->
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                        <h3 class="font-bold text-center text-gray-700 mb-4">Evolução PROPAG: Histórico, Atual e Futura</h3>
+                        <div class="h-64 relative">
+                            <canvas id="chartPropagEvolucao"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-ietOrange font-bold mt-4">Meta Pactuada (2026): Atingir 13.481 novas vagas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Meta 10 EJA e Meta 12a EM -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-ietLightBlue">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">EM Regular vs. EJA Integrada à EPT</h3>
+                    <div class="flex items-center h-48">
+                        <div class="w-1/2 relative h-full">
+                            <canvas id="chartEjaProgresso"></canvas>
+                            <div class="absolute inset-0 flex items-center justify-center flex-col mt-2">
+                                <span class="text-2xl font-black text-ietBlue">5,1%</span>
+                                <span class="text-[10px] text-gray-500 font-bold">EJA-EPT</span>
+                            </div>
+                        </div>
+                        <div class="w-1/2 pl-4">
+                            <ul class="space-y-3">
+                                <li class="flex flex-col text-sm">
+                                    <span class="font-bold text-gray-700">Meta 10 (EJA):</span>
+                                    <span class="text-gray-500">Mínimo de 25% (Alvo: ~1.030)</span>
+                                </li>
+                                <li class="flex flex-col text-sm">
+                                    <span class="font-bold text-gray-700">Meta 12a (EM):</span>
+                                    <span class="text-gray-500">50% dos alunos do EM na EPT</span>
+                                </li>
+                                <li class="flex flex-col mt-2 pt-2 border-t border-gray-100">
+                                    <span class="font-bold text-red-500">Déficit EJA: 820 vagas.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Adesão Territorial SEDUC</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mt-6">
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                            <p class="text-3xl font-black text-ietBlue">139</p>
+                            <p class="text-sm text-gray-600 mt-1 font-medium">Municípios no TO</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-100">
+                            <p class="text-3xl font-black text-green-600">41</p>
+                            <p class="text-sm text-gray-600 mt-1 font-medium">Possuem EPT SEDUC</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-100">
+                            <p class="text-3xl font-black text-red-500">29,4%</p>
+                            <p class="text-sm text-gray-600 mt-1 font-medium">Taxa de Cobertura</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela: Visão por Município -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Visão Geral por Município (Adesão às Metas EM e EJA)</h3>
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="w-full text-left text-sm min-w-[600px]">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="p-3 font-bold text-gray-700">Município</th>
+                                <th class="p-3 font-bold text-gray-700 text-center">Matrículas EM Geral</th>
+                                <th class="p-3 font-bold text-gray-700 text-center">Matrículas EPT</th>
+                                <th class="p-3 font-bold text-gray-700 text-center">Proporção (Meta 12a)</th>
+                                <th class="p-3 font-bold text-gray-700 text-center">Alunos EJA-EPT</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="p-3 font-medium">Palmas</td>
+                                <td class="p-3 text-center text-gray-600">15.420</td>
+                                <td class="p-3 text-center text-ietBlue font-bold">1.250</td>
+                                <td class="p-3 text-center"><span class="text-yellow-600 font-bold">8.1%</span></td>
+                                <td class="p-3 text-center text-gray-600">85</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="p-3 font-medium">Araguaína</td>
+                                <td class="p-3 text-center text-gray-600">11.300</td>
+                                <td class="p-3 text-center text-ietBlue font-bold">980</td>
+                                <td class="p-3 text-center"><span class="text-yellow-600 font-bold">8.6%</span></td>
+                                <td class="p-3 text-center text-gray-600">42</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="p-3 font-medium">Gurupi</td>
+                                <td class="p-3 text-center text-gray-600">6.100</td>
+                                <td class="p-3 text-center text-ietBlue font-bold">310</td>
+                                <td class="p-3 text-center"><span class="text-red-500 font-bold">5.0%</span></td>
+                                <td class="p-3 text-center text-gray-600">15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: SOCIOECONOMIA ================= -->
+        <div id="view-territorio" class="view-section">
+            
+            <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-sm flex flex-col md:flex-row items-start md:items-center">
+                <div class="bg-purple-100 p-4 rounded-full mr-6 mb-4 md:mb-0 shrink-0">
+                    <i data-lucide="info" class="w-8 h-8 text-purple-600"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Compreendendo o Marcador de Vulnerabilidade: Jovens "Nem-Nem"</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed text-justify">
+                        A taxa de <strong>24,5%</strong> refere-se à parcela da população tocantinense de 15 a 29 anos que <strong class="text-purple-600">não estuda e não trabalha</strong>. 
+                        Este dado é extraído do cruzamento contínuo da <em>PNAD Contínua (IBGE)</em> com os microdados da educação. Municípios com altas concentrações desse público ganham prioridade automática (peso no algoritmo) para a implementação de novas turmas, visando quebrar o ciclo de exclusão.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Header de KPI's de Equidade + Empregabilidade -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-purple-500">
+                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Jovens "Nem-Nem" (15-29a)</h3>
+                    <p class="text-3xl font-black text-gray-800 mt-2">24,5%</p>
+                    <p class="text-xs text-gray-500 font-medium mt-1">População fora da escola e trabalho.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-red-500">
+                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Empregabilidade Egressos EPT</h3>
+                    <p class="text-3xl font-black text-red-500 mt-2">-21,7%</p>
+                    <p class="text-xs text-gray-500 font-medium mt-1">Abaixo da média do Brasil (Diagnóstico IET).</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-ietBlue">
+                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Setor de Maior Absorção</h3>
+                    <p class="text-3xl font-black text-ietBlue mt-2">Saúde/TI</p>
+                    <p class="text-xs text-gray-500 font-medium mt-1">Crescimento real de vínculos CNAE.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-ietDark">Marcadores Sociais e Equidade</h2>
+                    <p class="text-gray-500 text-sm">Direcionamento da EPT como política de reparação para perfis críticos.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Condição "Nem-Nem" por Raça/Cor (Tocantins)</h3>
+                        <div class="h-64 relative">
+                            <canvas id="chartNemNemRaca"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Matriz: Renda Média x Vulnerabilidade</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Municípios no quadrante superior direito exigem intervenção da SEDUC.</p>
+                        <div class="h-64 relative">
+                            <canvas id="chartMatrizPrioridade"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análise do Mundo do Trabalho (Com Descompasso CBO) -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-ietDark flex items-center">
+                        <i data-lucide="briefcase" class="w-5 h-5 mr-2 text-ietLightBlue"></i>
+                        Análise do Mundo do Trabalho (Base RAIS/CAGED/CBO)
+                    </h2>
+                    <p class="text-gray-500 text-sm">Identificação do descompasso entre as matrículas atuais e a geração real de emprego formal.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- MATRIZ DE DESCOMPASSO -->
+                    <div class="border border-gray-100 rounded-xl p-5 bg-blue-50/30">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-gray-800">Descompasso: Empregos CBO x Matrículas Seduc</h3>
+                            <i data-lucide="alert-octagon" class="w-5 h-5 text-red-500"></i>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                            O diagnóstico revelou que a <strong>Agropecuária concentra as matrículas (1.704)</strong>, mas a <strong>Saúde (Enfermagem) e TI são os maiores geradores de vínculos</strong>, com baixíssima oferta de formação no estado.
+                        </p>
+                        <div class="h-64 relative">
+                            <canvas id="chartDescompasso"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- EVOLUÇÃO MASSA SALARIAL -->
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                        <h3 class="font-bold text-gray-700 mb-4 text-center">Evolução da Massa Salarial por Setor</h3>
+                        <div class="h-64 relative">
+                            <canvas id="chartMassaSalarial"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: RAIO-X INFRAESTRUTURA ================= -->
+        <div id="view-infra" class="view-section">
+            
+            <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm flex flex-col md:flex-row items-start md:items-center">
+                <div class="bg-blue-50 p-3 rounded-full mr-5 mb-4 md:mb-0 shrink-0">
+                    <i data-lucide="school" class="w-8 h-8 text-ietBlue"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Diagnóstico de Infraestrutura e Conectividade Escolar</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed text-justify">
+                        Esta aba integra os levantamentos primários com as métricas do <strong>Anuário Brasileiro da Educação Básica 2025 (Todos Pela Educação)</strong>. O sistema de decisão penaliza escolas baseando-se em gargalos estruturais identificados na rede de Ensino Médio pública:<br>
+                        <span class="inline-block mt-2"><i data-lucide="wifi" class="w-3 h-3 inline mr-1 text-ietBlue"></i> <b>Conectividade Significativa:</b> Apenas a conectividade de <strong>Nível 5</strong> indica que a internet possui parâmetros adequados para uso pedagógico massivo dos alunos nas oficinas.</span><br>
+                        <span class="inline-block mt-1"><i data-lucide="flask-conical" class="w-3 h-3 inline mr-1 text-ietBlue"></i> <b>Equipamentos de Aprendizagem:</b> A falta de Laboratórios de Ciências (presente em apenas 46,9% da rede) impede o pleno funcionamento de eixos industriais e da saúde.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- KPIs de Infraestrutura -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Conectividade Nível 5</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">44,5%</h3>
+                            <p class="text-[10px] text-gray-500 font-medium mt-1">Adequada p/ uso pedagógico</p>
+                        </div>
+                        <div class="p-2 bg-green-50 rounded-lg"><i data-lucide="wifi" class="w-5 h-5 text-green-600"></i></div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietLightBlue">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Biblioteca / Leitura</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">86,5%</h3>
+                            <p class="text-[10px] text-gray-500 font-medium mt-1">No Ensino Médio Público</p>
+                        </div>
+                        <div class="p-2 bg-blue-50 rounded-lg"><i data-lucide="book" class="w-5 h-5 text-ietLightBlue"></i></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietYellow">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Lab. Informática</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">73,0%</h3>
+                            <p class="text-[10px] text-gray-500 font-medium mt-1">No Ensino Médio Público</p>
+                        </div>
+                        <div class="p-2 bg-yellow-50 rounded-lg"><i data-lucide="monitor" class="w-5 h-5 text-yellow-600"></i></div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-red-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Lab. Ciências</p>
+                            <h3 class="text-2xl font-black text-gray-800 mt-1">46,9%</h3>
+                            <p class="text-[10px] text-red-500 font-medium mt-1">Gargalo estrutural (Exatas)</p>
+                        </div>
+                        <div class="p-2 bg-red-50 rounded-lg"><i data-lucide="flask-conical" class="w-5 h-5 text-red-500"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos de Diagnóstico de Infraestrutura -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Gráfico de Barras: Disponibilidade por Item -->
+                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-center mb-1">Equipamentos para Aprendizagem (Ensino Médio)</h3>
+                    <p class="text-[11px] text-gray-500 text-center mb-4 font-medium uppercase">Porcentagem das escolas públicas brasileiras.</p>
+                    <div class="h-64 relative">
+                        <canvas id="chartInfraItens"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Rosca: Níveis de Prontidão -->
+                <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="font-bold text-gray-800 text-center mb-1">Níveis de Conectividade na Rede Pública</h3>
+                    <p class="text-[11px] text-gray-500 text-center mb-4 font-medium uppercase">Classificação baseada em velocidade/uso pedagógico.</p>
+                    <div class="h-64 relative flex justify-center items-center">
+                        <canvas id="chartInfraNiveis"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Checklist -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+                    <div class="mb-3 sm:mb-0">
+                        <h2 class="text-xl font-bold text-ietDark">Checklist de Viabilizadores por Unidade (Escolas Alvo)</h2>
+                        <p class="text-gray-500 text-sm">Auditoria cruzada entre dados de Inep e coleta regional em loco.</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded text-sm hover:bg-gray-200 flex items-center font-medium">
+                            <i data-lucide="filter" class="w-4 h-4 mr-1"></i> Filtrar SRE
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="w-full text-left text-sm min-w-[800px]">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="p-4 font-bold text-gray-700">Município / SRE</th>
+                                <th class="p-4 font-bold text-gray-700">Unidade Escolar</th>
+                                <th class="p-4 font-bold text-gray-700 text-center">Conectividade Nível 5</th>
+                                <th class="p-4 font-bold text-gray-700 text-center">Lab. Informática</th>
+                                <th class="p-4 font-bold text-gray-700 text-center">Lab. Ciências</th>
+                                <th class="p-4 font-bold text-gray-700 text-center">Acessibilidade</th>
+                                <th class="p-4 font-bold text-gray-700">Parecer de Infraestrutura</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <tr class="hover:bg-blue-50/30 transition-colors">
+                                <td class="p-4 text-gray-600">Palmas</td>
+                                <td class="p-4 font-bold text-gray-800">CEM Santa Rita de Cássia</td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-gray-300 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4"><span class="px-2.5 py-1 bg-yellow-50 text-yellow-700 border border-yellow-200 rounded text-xs font-bold uppercase">Parcial (Equipamentos)</span></td>
+                            </tr>
+                            <tr class="hover:bg-blue-50/30 transition-colors">
+                                <td class="p-4 text-gray-600">Araguaína</td>
+                                <td class="p-4 font-bold text-gray-800">Escola Estadual Modelo</td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4"><span class="px-2.5 py-1 bg-green-50 text-green-700 border border-green-200 rounded text-xs font-bold uppercase">Plenamente Apta</span></td>
+                            </tr>
+                            <tr class="hover:bg-blue-50/30 transition-colors">
+                                <td class="p-4 text-gray-600">Gurupi</td>
+                                <td class="p-4 font-bold text-gray-800">CEM Presidente Costa e Silva</td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-red-400 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-gray-300 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-gray-300 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4"><span class="px-2.5 py-1 bg-red-50 text-red-700 border border-red-200 rounded text-xs font-bold uppercase">Inadequada para EPT</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: ESCUTAS E ENGAJAMENTO (COPARTICIPAÇÃO) ================= -->
+        <div id="view-escutas" class="view-section">
+            
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4 border-ietBlue">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 border-b border-gray-100 pb-3">
+                    <h2 class="text-xl font-bold text-ietDark flex items-center">
+                        <i data-lucide="users" class="w-6 h-6 mr-2 text-ietBlue"></i>
+                        Plano de Escuta e Coparticipação
+                    </h2>
+                    <span class="bg-ietYellow/20 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full mt-2 md:mt-0 shadow-sm border border-yellow-300">Amostra Mapeada: 63 Escolas (com EPT)</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-6">Desenho estruturado da oferta para compreender necessidades, expectativas e demandas de todos os atores do ecossistema educacional e produtivo, prevendo canais de devolutiva transparentes.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Atores Internos -->
+                    <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
+                        <h3 class="font-bold text-ietBlue mb-4 flex items-center"><i data-lucide="clipboard-list" class="w-5 h-5 mr-2"></i> Necessidades e Expectativas (Rede)</h3>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800 mb-1">Hierarquia SEDUC</h4>
+                                <p class="text-[11px] text-gray-500 mb-2 font-medium">Envolvidos: Secretário, Subsecretários, Gestores Técnicos, Regionais, Técnicos EPT, Gestores Escolares e Professores.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-[10px] bg-white text-ietBlue px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Entrevistas / Focus Group</span>
+                                    <span class="text-[10px] bg-white text-green-600 px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Devolutiva Sistêmica</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4">
+                                <h4 class="text-sm font-bold text-gray-800 mb-1">Comunidade Escolar</h4>
+                                <p class="text-[11px] text-gray-500 mb-2 font-medium">Envolvidos: Estudantes, Famílias e Demais funcionários das escolas.</p>
+                                <div class="flex gap-2">
+                                    <span class="text-[10px] bg-white text-ietBlue px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Formulários em Larga Escala</span>
+                                    <span class="text-[10px] bg-white text-green-600 px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Devolutiva in loco</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Setor Produtivo -->
+                    <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
+                        <h3 class="font-bold text-ietOrange mb-4 flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-2"></i> Demanda do Setor Produtivo</h3>
+                        <p class="text-xs text-gray-600 mb-4 leading-relaxed">Mapeamento direto com as forças de empregabilidade locais para balizar a oferta com as vocações reais do território.</p>
+                        
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Comércio Local e Regional</li>
+                            <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Indústria (Sistema S, Federações)</li>
+                            <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Outras Secretarias e Organizações</li>
+                        </ul>
+                        
+                        <div class="flex gap-2 mt-auto">
+                            <span class="text-[10px] bg-white text-ietOrange px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Painéis de Consulta Especializada</span>
+                            <span class="text-[10px] bg-white text-green-600 px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Relatório Executivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTADOS INICIAIS DA ESCUTA -->
+            <div class="mb-6 flex flex-col xl:flex-row gap-6">
+                <!-- Bloco: Voz dos Estudantes -->
+                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
+                    <div class="mb-6 border-b border-gray-100 pb-4">
+                        <h2 class="text-xl font-bold text-ietDark flex items-center">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-ietLightBlue"></i>
+                            Voz dos Estudantes: Interesse
+                        </h2>
+                        <p class="text-gray-500 text-sm">Resultados do mapeamento aplicado aos alunos, visando o engajamento e redução da evasão escolar.</p>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="font-bold text-gray-700 mb-2 text-center">Concentração Atual de Matrículas (Séries)</h3>
+                            <div class="flex justify-center h-48">
+                                <canvas id="chartSeries"></canvas>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <h3 class="font-bold text-gray-700 mb-2 text-center mt-2">Afinidade Projetada por Eixo (Pesquisa)</h3>
+                            <div class="flex justify-center h-48">
+                                <canvas id="chartInteresse"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloco: Voz dos Gestores / Diretores -->
+                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
+                    <div class="mb-6 border-b border-gray-100 pb-4">
+                        <h2 class="text-xl font-bold text-ietDark flex items-center">
+                            <i data-lucide="building" class="w-5 h-5 mr-2 text-ietYellow"></i>
+                            Voz dos Diretores: Viabilidade Local
+                        </h2>
+                        <p class="text-gray-500 text-sm">Percepção das equipes gestoras sobre a real capacidade e os desafios de implementação dos cursos EPT na unidade.</p>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="font-bold text-gray-700 mb-2 text-center">Articulação com Setor Produtivo Local</h3>
+                            <div class="flex justify-center h-48">
+                                <canvas id="chartArticulacaoDiretores"></canvas>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <h3 class="font-bold text-gray-700 mb-2 text-center mt-2">Principais Desafios Percebidos (Checklist)</h3>
+                            <div class="flex justify-center h-48">
+                                <canvas id="chartDesafiosDiretores"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Script de Funcionalidade e Interatividade -->
+    <script>
+        lucide.createIcons();
+
+        let map;
+
+        // Navegação Top Navbar com destaque corrigido
+        function navigate(viewId, element) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            // Atualiza o breadcrumb (Títulos reais)
+            let title = element.innerText.trim();
+            document.getElementById('breadcrumb-title').innerText = title;
+
+            // Reset menu styling
+            document.querySelectorAll('.nav-link').forEach(el => {
+                // Remove as classes ativas
+                el.classList.remove('border-ietYellow', 'text-ietBlue', 'font-bold', 'active-nav');
+                // Adiciona as classes inativas
+                el.classList.add('border-transparent', 'text-gray-500', 'font-medium');
+                
+                let icon = el.querySelector('.icon-element');
+                if(icon) {
+                    icon.classList.remove('text-ietYellow');
+                    icon.classList.add('text-gray-400');
+                }
+            });
+
+            // Ativa a aba atual corretamente
+            element.classList.remove('border-transparent', 'text-gray-500', 'font-medium');
+            element.classList.add('border-ietYellow', 'text-ietBlue', 'font-bold', 'active-nav');
+            
+            let clickedIcon = element.querySelector('.icon-element');
+            if(clickedIcon) {
+                clickedIcon.classList.remove('text-gray-400');
+                clickedIcon.classList.add('text-ietYellow');
+            }
+
+            if(viewId === 'view-match' && map) {
+                setTimeout(() => { map.invalidateSize(); }, 100);
+            }
+        }
+
+        window.onload = function() {
+            
+            // --- INICIALIZA O MAPA (View Match) ---
+            map = L.map('map').setView([-10.1844, -48.3336], 6);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap', subdomains: 'abcd', maxZoom: 20
+            }).addTo(map);
+
+            const markerIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: "<div style='background-color:#004990; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.5);'></div>",
+                iconSize: [14, 14], iconAnchor: [7, 7]
+            });
+
+            L.marker([-10.1844, -48.3336], {icon: markerIcon}).bindPopup("<b>Palmas - CEM Santa Rita</b><br>Infraestrutura: Parcial").addTo(map);
+            L.marker([-7.1911, -48.2078], {icon: markerIcon}).bindPopup("<b>Araguaína - Esc. Est. Modelo</b><br>Infraestrutura: Apta").addTo(map);
+            L.marker([-11.7292, -49.0686], {icon: markerIcon}).bindPopup("<b>Gurupi - CEM Costa e Silva</b><br>Infraestrutura: Inadequada").addTo(map);
+            L.marker([-10.7083, -48.4166], {icon: markerIcon}).bindPopup("<b>Porto Nacional - CEM Prof. Florêncio</b><br>Infraestrutura: Parcial").addTo(map);
+
+            L.circle([-10.3, -48.5], { color: '#FFB81C', fillColor: '#FFB81C', fillOpacity: 0.25, radius: 45000 })
+             .bindPopup("Região Palmas: Vulnerabilidade Nem-Nem (18%)").addTo(map);
+            L.circle([-11.5, -46.8], { color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.25, radius: 35000 })
+             .bindPopup("Região Sudeste (Dianópolis): Alta Vulnerabilidade Nem-Nem").addTo(map);
+
+            // Inicia o motor de decisão
+            updateSimulation();
+
+            // --- INICIALIZA GRÁFICOS (COM PROTEÇÃO CONTRA ERROS DE TELA) ---
+            
+            // 1. Meta 11 PNE
+            const ctx11 = document.getElementById('chartMeta11')?.getContext('2d');
+            if(ctx11) {
+                new Chart(ctx11, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2013 (Base)', '2023', '2024', 'Meta 2025'],
+                        datasets: [{
+                            label: 'Número de Matrículas EPT',
+                            data: [10989, 15000, 16822, 32967],
+                            backgroundColor: ['#60A2D7', '#004990', '#004990', '#FFB81C'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            // 2. Evolução PROPAG
+            const ctxPropag = document.getElementById('chartPropagEvolucao')?.getContext('2d');
+            if(ctxPropag) {
+                new Chart(ctxPropag, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2022 (Histórico)', '2023 (Histórico)', '2024 (Atual)', '2025 (Projeção)', '2026 (Meta Alvo)'],
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Meta PROPAG',
+                                data: [1500, 2000, 2585, 8000, 13481],
+                                borderColor: '#EC7000',
+                                borderWidth: 2,
+                                borderDash: [5, 5],
+                                fill: false,
+                                pointBackgroundColor: '#EC7000'
+                            },
+                            {
+                                type: 'bar',
+                                label: 'Matrículas Apoiadas',
+                                data: [1500, 2000, 2585, null, null],
+                                backgroundColor: '#60A2D7',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top' } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // 3. Meta 12a
+            const ctx12a = document.getElementById('chartMeta12')?.getContext('2d');
+            if(ctx12a) {
+                new Chart(ctx12a, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Alunos em EPT', 'Alunos apenas EM Regular'],
+                        datasets: [{
+                            data: [28.4, 71.6],
+                            backgroundColor: ['#004990', '#e5e7eb'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'bottom' } } }
+                });
+            }
+
+            // 4. Meta 10 (EJA)
+            const ctxEja = document.getElementById('chartEjaProgresso')?.getContext('2d');
+            if(ctxEja) {
+                new Chart(ctxEja, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['EJA Integrada (Atual)', 'Déficit (Meta 25%)'],
+                        datasets: [{
+                            data: [5.1, 19.9],
+                            backgroundColor: ['#004990', '#e5e7eb'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+                });
+            }
+
+            // 5. Séries Matrícula (Escutas)
+            const ctxSeries = document.getElementById('chartSeries')?.getContext('2d');
+            if(ctxSeries) {
+                new Chart(ctxSeries, {
+                    type: 'pie',
+                    data: {
+                        labels: ['1ª Série', '2ª Série', '3ª Série'],
+                        datasets: [{
+                            data: [58.5, 25.1, 16.4],
+                            backgroundColor: ['#004990', '#60A2D7', '#FFB81C'],
+                            borderWidth: 1, borderColor: '#fff'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            // 6. Afinidade (Escutas)
+            const ctxInteresse = document.getElementById('chartInteresse')?.getContext('2d');
+            if(ctxInteresse) {
+                new Chart(ctxInteresse, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Ambiente e Saúde', 'Info. e Comunicação', 'Gestão e Negócios', 'Recursos Naturais'],
+                        datasets: [{
+                            data: [35, 25, 20, 20],
+                            backgroundColor: ['rgba(0, 73, 144, 0.7)', 'rgba(96, 162, 215, 0.7)', 'rgba(255, 184, 28, 0.7)', 'rgba(107, 114, 128, 0.7)']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            // 7. Articulação (Escutas)
+            const ctxArticulacao = document.getElementById('chartArticulacaoDiretores')?.getContext('2d');
+            if(ctxArticulacao) {
+                new Chart(ctxArticulacao, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Sem Parcerias Mapeadas', 'Mapeamento Inicial', 'Parcerias Ativas (Indústria/S)'],
+                        datasets: [{
+                            data: [65, 20, 15],
+                            backgroundColor: ['#e5e7eb', '#60A2D7', '#004990'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            // 8. Desafios (Escutas)
+            const ctxDesafios = document.getElementById('chartDesafiosDiretores')?.getContext('2d');
+            if(ctxDesafios) {
+                new Chart(ctxDesafios, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Falta de Prof. Técnicos', 'Insuficiência de Labs', 'Evasão / Desinteresse', 'Transporte Escolar'],
+                        datasets: [{
+                            label: '% de Diretores que relataram o desafio',
+                            data: [88, 74, 45, 28],
+                            backgroundColor: '#FFB81C',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
+            // 9. Nem-Nem (Marcadores Sociais)
+            const ctxNemNemRaca = document.getElementById('chartNemNemRaca')?.getContext('2d');
+            if(ctxNemNemRaca) {
+                new Chart(ctxNemNemRaca, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Preta/Parda', 'Branca', 'Indígena', 'Outras'],
+                        datasets: [{
+                            label: 'Taxa de Jovens Nem-Nem (%)',
+                            data: [28.5, 15.2, 31.0, 18.4],
+                            backgroundColor: ['#FFB81C', '#60A2D7', '#004990', '#e5e7eb'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, max: 40, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
+            // 10. Matriz Prioridade (Marcadores Sociais)
+            const ctxMatriz = document.getElementById('chartMatrizPrioridade')?.getContext('2d');
+            if(ctxMatriz) {
+                new Chart(ctxMatriz, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Municípios (SREs)',
+                            data: [
+                                {x: 1800, y: 32, r: 10, label: 'Dianópolis'},
+                                {x: 2500, y: 15, r: 15, label: 'Palmas'},
+                                {x: 1900, y: 28, r: 12, label: 'Bico do Papagaio'},
+                                {x: 2200, y: 18, r: 14, label: 'Araguaína'},
+                                {x: 2100, y: 22, r: 11, label: 'Gurupi'}
+                            ],
+                            backgroundColor: function(context) {
+                                const yVal = context.raw?.y;
+                                if (yVal > 25) return 'rgba(255, 184, 28, 0.8)';
+                                return 'rgba(0, 73, 144, 0.6)';
+                            },
+                            pointRadius: 8,
+                            pointHoverRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: function(ctx) { return ctx.raw.label + ': R$' + ctx.raw.x + ' / Vuln: ' + ctx.raw.y + '%'; } } }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Renda Média (R$)' } },
+                            y: { title: { display: true, text: 'Taxa Nem-Nem (%)' }, beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            // 11. Evolução Massa Salarial (Marcadores Sociais)
+            const ctxMassaSalarial = document.getElementById('chartMassaSalarial')?.getContext('2d');
+            if(ctxMassaSalarial) {
+                new Chart(ctxMassaSalarial, {
+                    type: 'line',
+                    data: {
+                        labels: ['2020', '2021', '2022', '2023', '2024'],
+                        datasets: [
+                            { label: 'Serviços/Saúde', data: [100, 115, 125, 140, 165], borderColor: '#004990', backgroundColor: '#004990', tension: 0.3 },
+                            { label: 'Tecnologia (TI)', data: [50, 65, 85, 110, 135], borderColor: '#60A2D7', backgroundColor: '#60A2D7', tension: 0.3 },
+                            { label: 'Agronegócio', data: [80, 85, 95, 105, 115], borderColor: '#FFB81C', backgroundColor: '#FFB81C', tension: 0.3 }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { title: { display: true, text: 'Massa Salarial (Índice Base 100)' } } }
+                    }
+                });
+            }
+
+            // 12. Descompasso (Marcadores Sociais)
+            const ctxDescompasso = document.getElementById('chartDescompasso')?.getContext('2d');
+            if(ctxDescompasso) {
+                new Chart(ctxDescompasso, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Saúde (Enfermagem)', 'Tecnologia (TI)', 'Administração', 'Agropecuária'],
+                        datasets: [
+                            {
+                                label: 'Demanda de Vagas (CBO)',
+                                data: [12450, 7100, 9820, 5400],
+                                backgroundColor: '#004990',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Matrículas EPT (Seduc)',
+                                data: [124, 200, 450, 1704],
+                                backgroundColor: '#FFB81C',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top' } },
+                        scales: { y: { type: 'logarithmic', title: { display: true, text: 'Escala Logarítmica' } } }
+                    }
+                });
+            }
+
+            // 13. Infra Itens
+            const ctxInfraItens = document.getElementById('chartInfraItens')?.getContext('2d');
+            if(ctxInfraItens) {
+                new Chart(ctxInfraItens, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Biblioteca/Leitura', 'Quadra de Esportes', 'Lab. Informática', 'Lab. Ciências'],
+                        datasets: [{
+                            label: '% de Escolas no Ensino Médio Público',
+                            data: [86.5, 75.6, 73.0, 46.9],
+                            backgroundColor: ['#60A2D7', '#60A2D7', '#FFB81C', '#EF4444'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
+            // 14. Infra Níveis
+            const ctxInfraNiveis = document.getElementById('chartInfraNiveis')?.getContext('2d');
+            if(ctxInfraNiveis) {
+                new Chart(ctxInfraNiveis, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Nível 5 (Adequado)', 'Nível 4 (Ocasional)', 'Nível 2 (Professores)', 'Outros (Inadequada)'],
+                        datasets: [{
+                            data: [44.5, 15.1, 29.5, 10.9],
+                            backgroundColor: ['#10B981', '#60A2D7', '#F59E0B', '#EF4444'], 
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        cutout: '65%', 
+                        plugins: { legend: { position: 'right' } } 
+                    }
+                });
+            }
+
+            // 15. Alinhamento Mercado (Match)
+            const ctxAlinhamento = document.getElementById('chartMatchConvergencia')?.getContext('2d');
+            if(ctxAlinhamento) {
+                new Chart(ctxAlinhamento, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Saúde', 'Tecnologia (TI)', 'Gestão/Adm', 'Agropecuária'],
+                        datasets: [
+                            {
+                                label: 'Interesse Alunos (%)',
+                                data: [35, 25, 20, 20],
+                                backgroundColor: '#60A2D7',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Demanda Mercado - CBO (%)',
+                                data: [40, 30, 20, 10], 
+                                backgroundColor: '#004990',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Oferta Atual Seduc (%)',
+                                data: [5, 8, 17, 70], 
+                                backgroundColor: '#FFB81C',
+                                borderRadius: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true, max: 100 } }
+                    }
+                });
+            }
+
+            // 16. Projeções (Match)
+            const ctxMatchProj = document.getElementById('chartMatchProjecao')?.getContext('2d');
+            if(ctxMatchProj) {
+                new Chart(ctxMatchProj, {
+                    type: 'line',
+                    data: {
+                        labels: ['2026', '2027', '2028', '2029', '2030'],
+                        datasets: [
+                            {
+                                label: 'Projeção de Vagas (Setor Produtivo)',
+                                data: [12000, 13500, 15500, 18000, 21000],
+                                borderColor: '#004990',
+                                backgroundColor: 'rgba(0, 73, 144, 0.1)',
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Projeção Egressos EPT (Atual)',
+                                data: [2500, 4000, 6500, 7200, 8000],
+                                borderColor: '#EC7000',
+                                borderDash: [5, 5],
+                                borderWidth: 2,
+                                fill: false,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // 17. Escutas Top Ocupações (Coparticipação)
+            const ctxTopOcupacoesEscuta = document.getElementById('chartTopOcupacoesEscuta')?.getContext('2d');
+            if(ctxTopOcupacoesEscuta) {
+                new Chart(ctxTopOcupacoesEscuta, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Téc. Enfermagem', 'Assist. Administrativo', 'Desenv. Sistemas', 'Téc. Agrícola', 'Eletrotécnico'],
+                        datasets: [{
+                            label: 'Vínculos Ativos Mapeados (CBO)',
+                            data: [12450, 9820, 7100, 5400, 3200],
+                            backgroundColor: ['#004990', '#60A2D7', '#60A2D7', '#FFB81C', '#FFB81C'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
+                });
+            }
+
+        };
+
+        // ---------------------------------------------------------
+        // LÓGICA DO SIMULADOR (MESA DE DECISÃO: ESCOLA + CURSO) 
+        // ---------------------------------------------------------
+        const escolasPotenciais = [
+            { 
+                municipio: "Araguaína", escola: "Escola Estadual Modelo", 
+                vulnNivel: "Média (Nem-Nem)", vulnBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                infraNivel: "Apta", infraBadge: "bg-green-100 text-green-800 border-green-200",
+                eixo: "Informação e Comunicação", curso: "Téc. em Informática", 
+                baseEcon: 85, baseInfra: 95, baseEquid: 60, baseInter: 90,
+                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200"
+            },
+            { 
+                municipio: "Palmas", escola: "CEM Santa Rita de Cássia", 
+                vulnNivel: "Alta (Nem-Nem 18%)", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                infraNivel: "Parcial", infraBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                eixo: "Ambiente e Saúde", curso: "Téc. em Enfermagem", 
+                baseEcon: 95, baseInfra: 70, baseEquid: 90, baseInter: 85,
+                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200"
+            },
+            { 
+                municipio: "Dianópolis", escola: "Colégio João D'Abreu", 
+                vulnNivel: "Alta Prioridade", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                infraNivel: "Apta", infraBadge: "bg-green-100 text-green-800 border-green-200",
+                eixo: "Recursos Naturais", curso: "Téc. em Agronegócio", 
+                baseEcon: 75, baseInfra: 85, baseEquid: 95, baseInter: 70,
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+            },
+            { 
+                municipio: "Gurupi", escola: "CEM Presidente Costa e Silva", 
+                vulnNivel: "Alta (Nem-Nem 20%)", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                infraNivel: "Inadequada", infraBadge: "bg-red-100 text-red-800 border-red-200",
+                eixo: "Gestão e Negócios", curso: "Téc. em Administração", 
+                baseEcon: 60, baseInfra: 40, baseEquid: 85, baseInter: 65,
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+            },
+            { 
+                municipio: "Porto Nacional", escola: "CEM Prof. Florêncio", 
+                vulnNivel: "Baixa", vulnBadge: "bg-gray-100 text-gray-800 border-gray-200",
+                infraNivel: "Parcial", infraBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                eixo: "Infraestrutura", curso: "Téc. em Edificações", 
+                baseEcon: 70, baseInfra: 50, baseEquid: 40, baseInter: 50,
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+            }
+        ];
+
+        function updateSimulation() {
+            const wEcon = parseInt(document.getElementById('slider-econ').value);
+            const wInfra = parseInt(document.getElementById('slider-infra').value);
+            const wEquid = parseInt(document.getElementById('slider-equid').value);
+            const wInter = parseInt(document.getElementById('slider-inter').value);
+
+            document.getElementById('val-econ').innerText = wEcon + '%';
+            document.getElementById('val-infra').innerText = wInfra + '%';
+            document.getElementById('val-equid').innerText = wEquid + '%';
+            document.getElementById('val-inter').innerText = wInter + '%';
+
+            const total = wEcon + wInfra + wEquid + wInter;
+            const totalEl = document.getElementById('total-weight');
+            totalEl.innerText = total + '%';
+            
+            if (total === 100) {
+                totalEl.className = "text-2xl font-black text-green-600";
+            } else {
+                totalEl.className = "text-2xl font-black text-orange-500";
+            }
+
+            const divisor = total === 0 ? 1 : total;
+
+            const resultados = escolasPotenciais.map(c => {
+                const rawScore = ((c.baseEcon * wEcon) + (c.baseInfra * wInfra) + (c.baseEquid * wEquid) + (c.baseInter * wInter)) / divisor;
+                const score = parseFloat(rawScore.toFixed(1));
+                
+                let matchStatus = "";
+                let matchStyles = "";
+                let matchIcon = "";
+
+                if(score >= 80) {
+                    matchStatus = "Match Perfeito";
+                    matchStyles = "bg-green-100 text-green-800 border-green-200 font-bold";
+                    matchIcon = '<span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>';
+                } else if(score >= 50) {
+                    matchStatus = "Match Parcial";
+                    matchStyles = "bg-yellow-100 text-yellow-800 border-yellow-200 font-medium";
+                    matchIcon = '<span class="w-2 h-2 rounded-full bg-yellow-500 mr-2"></span>';
+                } else {
+                    matchStatus = "Sem Match";
+                    matchStyles = "bg-red-50 text-red-600 border-red-200 font-medium";
+                    matchIcon = '<span class="w-2 h-2 rounded-full bg-red-400 mr-2"></span>';
+                }
+
+                return { ...c, score, matchStatus, matchStyles, matchIcon };
+            });
+
+            resultados.sort((a, b) => b.score - a.score);
+
+            const tbody = document.getElementById('results-table');
+            if(!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            resultados.forEach((escola) => {
+                const rowOpacity = escola.score < 50 ? 'opacity-60 bg-gray-50' : 'hover:bg-blue-50/50';
+                
+                tbody.innerHTML += `
+                    <tr class="${rowOpacity} transition-colors group">
+                        <td class="p-4 align-top">
+                            <p class="font-bold text-gray-800 text-sm group-hover:text-ietBlue transition-colors">${escola.escola}</p>
+                            <p class="text-xs text-gray-500 mt-1 flex items-center">
+                                <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> ${escola.municipio}
+                            </p>
+                        </td>
+                        <td class="p-4 align-top">
+                            <div class="flex flex-col space-y-2">
+                                <div class="flex items-center text-xs">
+                                    <span class="text-gray-500 w-12">Infra:</span> 
+                                    <span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${escola.infraBadge}">${escola.infraNivel}</span>
+                                </div>
+                                <div class="flex items-center text-xs">
+                                    <span class="text-gray-500 w-12">Social:</span> 
+                                    <span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${escola.vulnBadge}">${escola.vulnNivel}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-4 align-top">
+                            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">${escola.eixo}</p>
+                            <p class="text-sm font-medium text-gray-800 mt-1 flex items-center">
+                                <i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-ietLightBlue"></i> ${escola.curso}
+                            </p>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <span class="px-2.5 py-1 rounded border text-[10px] font-bold uppercase ${escola.demandaBadge}">${escola.demandaNivel}</span>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <span class="text-lg font-bold text-gray-800">${escola.score}%</span>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <div class="inline-flex items-center justify-center px-2.5 py-1.5 rounded-lg border text-xs shadow-sm ${escola.matchStyles}">
+                                ${escola.matchIcon} ${escola.matchStatus}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        // Exportação de PDF
+        async function generatePDF() {
+            const btn = document.getElementById('btn-export');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Gerando...';
+            btn.disabled = true;
+            lucide.createIcons();
+
+            const element = document.querySelector('.view-section.active');
+            let viewTitle = document.getElementById('breadcrumb-title').innerText.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            if(!viewTitle) viewTitle = 'export';
+            
+            element.classList.add('pdf-export-mode');
+
+            const opt = {
+                margin:       0.3,
+                filename:     `Relatorio_Sincroniza_${viewTitle}_2026.pdf`,
+                image:        { type: 'jpeg', quality: 1.0 },
+                html2canvas:  { scale: 3, useCORS: true, windowWidth: 1400 },
+                jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
+            };
+
+            try {
+                await new Promise(r => setTimeout(r, 300));
+                await html2pdf().set(opt).from(element).save();
+            } catch (error) {
+                console.error("Erro ao gerar PDF:", error);
+                alert("Ocorreu um erro ao gerar o PDF da página.");
+            } finally {
+                element.classList.remove('pdf-export-mode');
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
