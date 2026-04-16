@@ -67,12 +67,10 @@
         <!-- Top Bar: Logo, Confiabilidade de Bases e Botões -->
         <div class="bg-ietBlue text-white px-6 py-3 flex flex-col md:flex-row items-center justify-between">
             <div class="flex flex-col md:flex-row items-center w-full md:w-auto mb-3 md:mb-0">
+                
+                <!-- LOGO SINCRONIZA AQUI -->
                 <div class="flex items-center mr-6">
-                    <i data-lucide="layers" class="w-7 h-7 text-ietYellow mr-3"></i>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-extrabold tracking-wide leading-none">Sincroniza <span class="text-ietLightYellow">EPT</span></span>
-                        <span class="text-[10px] text-white/70 uppercase tracking-widest font-semibold mt-0.5">Governança de Oferta</span>
-                    </div>
+                    <img src="https://raw.githubusercontent.com/robsonsincroniza/IET-TO/7fcc5fac142e5b48a4ef3b6f3de24911bcac441b/logo.png" alt="Sincroniza Logo" class="h-10 w-auto object-contain">
                 </div>
                 
                 <!-- Bloco de Confiabilidade das Bases de Dados -->
@@ -82,9 +80,9 @@
                     </span>
                     <div class="flex space-x-4 text-xs font-medium text-white/90">
                         <span title="INEP - Usado para metas do PNE e matrículas atuais">Censo Escolar: <b class="text-white">2024</b></span>
-                        <span title="Ministério do Trabalho - Usado para cálculo de demanda econômica e massa salarial">RAIS/Caged: <b class="text-white">2024</b></span>
+                        <span title="Ministério do Trabalho - Usado para cálculo de demanda econômica e massa salarial">RAIS/Novo Caged: <b class="text-white">2024</b></span>
                         <span title="IBGE - Usado para cálculo de vulnerabilidade e Jovens Nem-Nem">PNAD Contínua: <b class="text-white">2023</b></span>
-                        <span title="Anuário 2025 e SGE">Infraestrutura: <b class="text-white">2025/2026</b></span>
+                        <span title="Anuário 2025 e SGE">Infraestrutura e Anuário: <b class="text-white">2025/2026</b></span>
                     </div>
                 </div>
             </div>
@@ -92,7 +90,7 @@
             <div class="flex items-center space-x-4 w-full md:w-auto justify-between md:justify-end">
                 <div class="flex items-center bg-white/10 rounded px-3 py-1.5 border border-white/20">
                     <div class="w-6 h-6 rounded-full bg-ietYellow flex items-center justify-center text-xs font-bold text-ietDark mr-2">IET</div>
-                    <span class="text-sm font-semibold"></span>
+                    <span class="text-sm font-semibold">Gestor Estadual</span>
                 </div>
                 <button id="btn-export" class="bg-ietYellow hover:bg-yellow-500 text-ietDark px-4 py-2 rounded-md text-sm font-bold shadow transition-colors flex items-center" onclick="generatePDF()">
                     <i data-lucide="download" class="w-4 h-4 mr-2"></i> Exportar PDF
@@ -113,13 +111,13 @@
                     <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas
                 </a>
                 <a href="#" onclick="navigate('view-territorio', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores Sociais
+                    <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores sociais estudantes
                 </a>
                 <a href="#" onclick="navigate('view-infra', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Infraestrutura
                 </a>
                 <a href="#" onclick="navigate('view-escutas', this)" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Escutas e Coparticipação
+                    <i data-lucide="users" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Desenho da oferta Coparticipação
                 </a>
             </nav>
         </div>
@@ -408,7 +406,7 @@
                 </div>
 
                 <!-- Mapa de Calor Territorial Redimensionado (66% da tela) -->
-                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-auto xl:h-[600px] xl:col-span-8 border border-gray-100">
+                <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-auto xl:h-[640px] xl:col-span-8 border border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                         <h2 class="text-lg font-bold text-gray-800">Mapeamento Territorial Multi-camadas</h2>
                         <div class="flex space-x-3 text-sm bg-gray-50 p-1.5 rounded-lg border border-gray-200 shrink-0">
@@ -430,41 +428,46 @@
             <!-- PROJEÇÕES E ALINHAMENTO ESTRATÉGICO (Posicionado abaixo do Mapa e Motor) -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4 border-ietLightBlue">
                 <div class="mb-6 border-b border-gray-100 pb-4">
-                    <span class="bg-blue-50 text-ietBlue text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm border border-blue-200">INTELIGÊNCIA DE MERCADO</span>
+                    <span class="bg-blue-50 text-ietBlue text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm border border-blue-200">INTELIGÊNCIA DE MERCADO E ESCUTAS</span>
                     <h2 class="text-xl font-bold text-ietDark flex items-center">
                         <i data-lucide="git-merge" class="w-6 h-6 mr-2 text-ietLightBlue"></i>
                         Projeções Setoriais e Alinhamento de Expectativas
                     </h2>
-                    <p class="text-gray-500 text-sm mt-1">Cruzamento quantitativo entre o que as Escolas demandam e as tendências reais do Mundo do Trabalho (CBO/RAIS).</p>
+                    <p class="text-gray-500 text-sm mt-1">Cruzamento dos indicadores de expectativas (Estudantes e Escolas) com as tendências reais do Mundo do Trabalho (Demanda CBO/RAIS).</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Alinhamento Escuta x Mercado</h3>
                         <p class="text-2xl font-black text-ietBlue mt-1">78,5%</p>
-                        <p class="text-xs text-gray-500 font-medium mt-1">Convergência em Saúde e TI.</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Convergência de interesse em Saúde e TI.</p>
                     </div>
                     <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Gap de Egressos Projetado (2026)</h3>
                         <p class="text-2xl font-black text-red-500 mt-1">- 8.500</p>
-                        <p class="text-xs text-gray-500 font-medium mt-1">Vagas sem profissionais locais.</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Vagas de mercado sem profissionais locais.</p>
                     </div>
                     <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Potencial de Inclusão Produtiva</h3>
                         <p class="text-2xl font-black text-green-600 mt-1">Alta</p>
-                        <p class="text-xs text-gray-500 font-medium mt-1">Para cursos validados pelo Algoritmo.</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Para cursos ajustados pelo Algoritmo.</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Gráfico 1: Matriz de Convergência -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
-                        <h3 class="font-bold text-center text-gray-700 mb-2">Matriz de Convergência: Alunos x Mercado x Oferta</h3>
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Matriz de Convergência: Estudantes x Mercado x Oferta</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Evidencia o descompasso entre a alta oferta atual e o que o mercado/alunos realmente demandam.</p>
                         <div class="flex justify-center h-64">
                             <canvas id="chartMatchConvergencia"></canvas>
                         </div>
                     </div>
+
+                    <!-- Gráfico 2: Projeção de Demanda vs Egressos -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
-                        <h3 class="font-bold text-center text-gray-700 mb-2">Projeção: Vagas Formais vs. Capacidade EPT</h3>
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Projeção: Vagas Formais vs. Capacidade de Formação</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Projeção de vagas no setor produtivo (CBOs em alta) contra estimativa de concluintes da EPT.</p>
                         <div class="flex justify-center h-64">
                             <canvas id="chartMatchProjecao"></canvas>
                         </div>
@@ -473,33 +476,33 @@
             </div>
 
             <!-- Tabela de Recomendações (Mesa de Decisão) -->
-            <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                     <div>
                         <h2 class="text-lg font-bold text-gray-800">Mesa de Decisão: Match Escola x Curso</h2>
-                        <p class="text-sm text-gray-500">O Output do Algoritmo gerando o Ranking de Prioridades para o Tocantins.</p>
+                        <p class="text-sm text-gray-500">A tabela atua como uma bússola cruzando os cálculos do Motor de Decisão.</p>
                     </div>
                     <div class="flex space-x-2 mt-3 md:mt-0">
                         <div class="flex items-center text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span> Perfeito (≥80)
+                            <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5"></span> Perfeito (≥80%)
                         </div>
                         <div class="flex items-center text-xs bg-yellow-50 text-yellow-700 px-2 py-1 rounded border border-yellow-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span> Parcial (50-79)
+                            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span> Parcial (50-79%)
                         </div>
                         <div class="flex items-center text-xs bg-red-50 text-red-700 px-2 py-1 rounded border border-red-200 font-bold shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span> Sem Match (<50)
+                            <span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span> Sem Match (<50%)
                         </div>
                     </div>
                 </div>
                 
                 <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="w-full text-left border-collapse min-w-[900px]">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead>
                             <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
                                 <th class="p-4 font-bold">Município / Escola</th>
                                 <th class="p-4 font-bold">Contexto Escolar (Infra / Social)</th>
                                 <th class="p-4 font-bold">Eixo & Curso Sugerido</th>
-                                <th class="p-4 font-bold text-center">Demanda CBO</th>
+                                <th class="p-4 font-bold text-center">Demanda Produtiva (CBO)</th>
                                 <th class="p-4 font-bold text-center w-24">Score Final</th>
                                 <th class="p-4 font-bold text-center w-32">Status (Match)</th>
                             </tr>
@@ -896,6 +899,15 @@
                                 <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
                                 <td class="p-4"><span class="px-2.5 py-1 bg-red-50 text-red-700 border border-red-200 rounded text-xs font-bold uppercase">Inadequada para EPT</span></td>
                             </tr>
+                            <tr class="hover:bg-blue-50/30 transition-colors">
+                                <td class="p-4 text-gray-600">Dianópolis</td>
+                                <td class="p-4 font-bold text-gray-800">Colégio João D'Abreu</td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-gray-300 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="x" class="w-5 h-5 text-gray-300 mx-auto"></i></td>
+                                <td class="p-4 text-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mx-auto"></i></td>
+                                <td class="p-4"><span class="px-2.5 py-1 bg-yellow-50 text-yellow-700 border border-yellow-200 rounded text-xs font-bold uppercase">Parcial (Exige T.I.)</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1012,6 +1024,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -1023,12 +1036,12 @@
 
         let map;
 
-        // Navegação Top Navbar com destaque corrigido
+        // Navegação Top Navbar
         function navigate(viewId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // Atualiza o breadcrumb (Títulos reais)
+            // Atualiza o breadcrumb 
             let title = element.innerText.trim();
             document.getElementById('breadcrumb-title').innerText = title;
 
@@ -1080,9 +1093,9 @@
             L.marker([-11.7292, -49.0686], {icon: markerIcon}).bindPopup("<b>Gurupi - CEM Costa e Silva</b><br>Infraestrutura: Inadequada").addTo(map);
             L.marker([-10.7083, -48.4166], {icon: markerIcon}).bindPopup("<b>Porto Nacional - CEM Prof. Florêncio</b><br>Infraestrutura: Parcial").addTo(map);
 
-            L.circle([-10.3, -48.5], { color: '#FFB81C', fillColor: '#FFB81C', fillOpacity: 0.25, radius: 45000 })
+            L.circle([-10.3, -48.5], { color: '#FFB81C', fillOpacity: 0.25, radius: 45000 })
              .bindPopup("Região Palmas: Vulnerabilidade Nem-Nem (18%)").addTo(map);
-            L.circle([-11.5, -46.8], { color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.25, radius: 35000 })
+            L.circle([-11.5, -46.8], { color: '#EF4444', fillOpacity: 0.25, radius: 35000 })
              .bindPopup("Região Sudeste (Dianópolis): Alta Vulnerabilidade Nem-Nem").addTo(map);
 
             // Inicia o motor de decisão
