@@ -68,7 +68,7 @@
         <div class="bg-ietBlue text-white px-6 py-3 flex flex-col md:flex-row items-center justify-between">
             <div class="flex flex-col md:flex-row items-center w-full md:w-auto mb-3 md:mb-0">
                 
-                <!-- LOGO SINCRONIZA AQUI -->
+                <!-- LOGO SINCRONIZA -->
                 <div class="flex items-center mr-6">
                     <img src="https://raw.githubusercontent.com/robsonsincroniza/IET-TO/7fcc5fac142e5b48a4ef3b6f3de24911bcac441b/logo.png" alt="Sincroniza Logo" class="h-10 w-auto object-contain">
                 </div>
@@ -107,8 +107,8 @@
                 <a href="#" onclick="navigate('view-match', this, 'Simulador: Match Perfeito')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="target" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Simulador: Match
                 </a>
-                <a href="#" onclick="navigate('view-pne', this, 'Monitoramento PNE')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas
+                <a href="#" onclick="navigate('view-pne', this, 'Monitoramento')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas PNE / Propag
                 </a>
                 <a href="#" onclick="navigate('view-territorio', this, 'Socioeconomia e Equidade')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Marcadores Sociais
@@ -173,7 +173,7 @@
                     </div>
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="pie-chart" class="w-4 h-4 mr-2 text-gray-400"></i> Marcadores Sociais</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed">Analisa a vocação econômica regional e a cruza com a vulnerabilidade territorial (taxa de jovens "Nem-Nem"). O objetivo é garantir que a expansão atue ativamente como política de inclusão produtiva.</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">Analisa a vocação econômica regional e a cruza com a vulnerabilidade territorial e educacional. O objetivo é garantir que a expansão atue ativamente como política de inclusão produtiva.</p>
                     </div>
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="school" class="w-4 h-4 mr-2 text-gray-400"></i> Infraestrutura</h3>
@@ -187,7 +187,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                
                 <!-- Regras do Motor de Decisão -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                     <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
@@ -205,8 +204,8 @@
                             <span class="text-xs text-gray-500">Avalia o checklist in loco da escola. Escolas sem laboratórios e conectividade perdem pontos, evitando a abertura de turmas sem qualidade mínima.</span>
                         </li>
                         <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <span class="font-bold text-purple-500 block mb-1">3. Prioridade Social</span>
-                            <span class="text-xs text-gray-500">Garante a função social da EPT. Direciona expansões prioritárias para os territórios de maior vulnerabilidade (alta taxa de jovens Nem-Nem).</span>
+                            <span class="font-bold text-purple-500 block mb-1">3. Prioridade Social (I_ps)</span>
+                            <span class="text-xs text-gray-500">Garante a função social da EPT. Direciona expansões para territórios com alta vulnerabilidade (combinação de Evasão, Jovens Nem-Nem e Desocupação).</span>
                         </li>
                         <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                             <span class="font-bold text-green-600 block mb-1">4. Engajamento e Coparticipação</span>
@@ -244,8 +243,8 @@
                         </h2>
                         <dl class="space-y-4 text-sm">
                             <div>
-                                <dt class="font-bold text-gray-800">Geração Nem-Nem:</dt>
-                                <dd class="text-gray-500 leading-tight mt-1">Jovens de 15 a 29 anos que não estudam nem trabalham. Principal marcador de vulnerabilidade social do projeto.</dd>
+                                <dt class="font-bold text-gray-800">Prioridade Social (Índice I_ps):</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Índice multidimensional que combina a Evasão Escolar, Taxa de Jovens Nem-Nem e Desocupação para focar a política pública nas regiões vulneráveis.</dd>
                             </div>
                             <div>
                                 <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
@@ -275,11 +274,11 @@
                     </div>
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <p class="font-bold text-gray-700 mb-1">PNAD Contínua (IBGE)</p>
-                        <p class="text-xs text-gray-500">Base demográfica para o cálculo da taxa de evasão e "Nem-Nem".</p>
+                        <p class="text-xs text-gray-500">Base demográfica para o cálculo da taxa de evasão e "Nem-Nem" (2023).</p>
                     </div>
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <p class="font-bold text-gray-700 mb-1">Anuário da Ed. Básica</p>
-                        <p class="text-xs text-gray-500">Parâmetros do Todos Pela Educação para classificar níveis de infraestrutura.</p>
+                        <p class="text-xs text-gray-500">Parâmetros do Todos Pela Educação (2025) para benchmarking de infraestrutura.</p>
                     </div>
                 </div>
             </div>
@@ -333,10 +332,10 @@
                 </div>
             </div>
 
-            <!-- Seção Principal: Simulador + Mapa (LAYOUT AJUSTADO: 4 colunas Motor / 8 colunas Mapa) -->
+            <!-- Seção Principal: Simulador + Mapa -->
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
                 
-                <!-- O Motor do Match (Sliders com Otimização de Espaço - 33% da tela) -->
+                <!-- O Motor do Match -->
                 <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col xl:col-span-4 border border-gray-100">
                     <div class="mb-3 pb-3 border-b border-gray-100">
                         <h2 class="text-lg font-bold text-gray-800 flex items-center">
@@ -349,7 +348,6 @@
                     </div>
 
                     <div class="flex flex-col gap-3">
-                        <!-- Demanda Econômica -->
                         <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-sm font-bold text-gray-800 flex items-center">
@@ -361,7 +359,6 @@
                             <input type="range" id="slider-econ" min="0" max="100" value="30" class="w-full" oninput="updateSimulation()">
                         </div>
 
-                        <!-- Infraestrutura -->
                         <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-sm font-bold text-gray-800 flex items-center">
@@ -373,7 +370,6 @@
                             <input type="range" id="slider-infra" min="0" max="100" value="30" class="w-full" oninput="updateSimulation()">
                         </div>
 
-                        <!-- Prioridade Social -->
                         <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-sm font-bold text-gray-800 flex items-center">
@@ -385,7 +381,6 @@
                             <input type="range" id="slider-equid" min="0" max="100" value="20" class="w-full" oninput="updateSimulation()">
                         </div>
 
-                        <!-- Engajamento -->
                         <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="text-sm font-bold text-gray-800 flex items-center">
@@ -409,7 +404,7 @@
                     </div>
                 </div>
 
-                <!-- Mapa de Calor Territorial Redimensionado (66% da tela) -->
+                <!-- Mapa de Calor Territorial -->
                 <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-[550px] xl:h-auto xl:col-span-8 border border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                         <h2 class="text-lg font-bold text-gray-800">Mapeamento Territorial Multi-camadas</h2>
@@ -424,7 +419,6 @@
                             </label>
                         </div>
                     </div>
-                    <!-- O contêiner Leaflet DEVE ter flex-1 ou altura min para não colapsar -->
                     <div id="map" class="flex-1 rounded-lg border border-gray-200 z-0 min-h-[400px]"></div>
                 </div>
             </div>
@@ -459,7 +453,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Gráfico 1: Matriz de Convergência -->
+                    <!-- Gráfico 1: Matriz de Convergência (MATCH) -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
                         <h3 class="font-bold text-center text-gray-700 mb-2">Matriz de Convergência: Estudantes x Mercado x Oferta</h3>
                         <p class="text-xs text-center text-gray-500 mb-4">Evidencia o descompasso entre a alta oferta atual e o que o mercado/alunos realmente demandam.</p>
@@ -468,7 +462,7 @@
                         </div>
                     </div>
 
-                    <!-- Gráfico 2: Projeção de Demanda vs Egressos -->
+                    <!-- Gráfico 2: Projeção de Demanda vs Egressos (MATCH) -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-white shadow-sm">
                         <h3 class="font-bold text-center text-gray-700 mb-2">Projeção: Vagas Formais vs. Capacidade de Formação</h3>
                         <p class="text-xs text-center text-gray-500 mb-4">Projeção de vagas no setor produtivo (CBOs em alta) contra estimativa de concluintes da EPT.</p>
@@ -668,7 +662,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW: SOCIOECONOMIA ================= -->
+        <!-- ================= VIEW: SOCIOECONOMIA E EQUIDADE (COM BENCHMARK NACIONAL) ================= -->
         <div id="view-territorio" class="view-section">
             
             <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-sm flex flex-col md:flex-row items-start md:items-center">
@@ -676,48 +670,77 @@
                     <i data-lucide="info" class="w-8 h-8 text-purple-600"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-1">Compreendendo o Marcador de Vulnerabilidade: Jovens "Nem-Nem"</h3>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Compreendendo os Marcadores de Vulnerabilidade Social</h3>
                     <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                        A taxa de <strong>24,5%</strong> refere-se à parcela da população tocantinense de 15 a 29 anos que <strong class="text-purple-600">não estuda e não trabalha</strong>. 
-                        Este dado é extraído do cruzamento contínuo da <em>PNAD Contínua (IBGE)</em> com os microdados da educação. Municípios com altas concentrações desse público ganham prioridade automática (peso no algoritmo) para a implementação de novas turmas, visando quebrar o ciclo de exclusão.
+                        Para uma abordagem mais justa e focada na inclusão produtiva, o Motor de Decisão não avalia apenas uma variável, mas um <strong>Índice Multidimensional</strong>. Além da taxa de <strong>24,5% de Jovens "Nem-Nem"</strong>, o algoritmo também processa a <strong>Evasão Escolar no Ensino Médio</strong> e a <strong>Desocupação Jovem</strong>. Dados extraídos da <em>PNAD Contínua (IBGE)</em>. Municípios com altas concentrações desses públicos ganham prioridade automática para a implementação de turmas.
                     </p>
                 </div>
             </div>
 
             <!-- Header de KPI's de Equidade + Empregabilidade -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <!-- Card 1: Nem-Nem -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-purple-500">
                     <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Jovens "Nem-Nem" (15-29a)</h3>
                     <p class="text-3xl font-black text-gray-800 mt-2">24,5%</p>
-                    <p class="text-xs text-gray-500 font-medium mt-1">População fora da escola e trabalho.</p>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase benchmark-socio transition-opacity">Brasil: 19,8% | Norte: 25,2%</p>
+                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 flex">
+                        <div class="bg-purple-500 h-1.5 rounded-l-full" style="width: 24.5%"></div>
+                    </div>
                 </div>
+                <!-- Card 2: Evasão -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-red-500">
-                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Empregabilidade Egressos EPT</h3>
-                    <p class="text-3xl font-black text-red-500 mt-2">-21,7%</p>
-                    <p class="text-xs text-gray-500 font-medium mt-1">Abaixo da média do Brasil (Diagnóstico IET).</p>
+                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Evasão no Ensino Médio</h3>
+                    <p class="text-3xl font-black text-gray-800 mt-2">6,8%</p>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase benchmark-socio transition-opacity">Brasil: 5,9% | Norte: 8,5%</p>
+                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 flex">
+                        <div class="bg-red-500 h-1.5 rounded-l-full" style="width: 6.8%"></div>
+                    </div>
                 </div>
+                <!-- Card 3: Renda EPT -->
+                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-green-500">
+                    <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Impacto na Renda (Egressos EPT)</h3>
+                    <p class="text-3xl font-black text-green-600 mt-2">+ 9,7%</p>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase benchmark-socio transition-opacity">Salário maior vs. EM comum</p>
+                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 flex">
+                        <div class="bg-green-500 h-1.5 rounded-l-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                <!-- Card 4: Absorção -->
                 <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-ietBlue">
                     <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Setor de Maior Absorção</h3>
                     <p class="text-3xl font-black text-ietBlue mt-2">Saúde/TI</p>
-                    <p class="text-xs text-gray-500 font-medium mt-1">Crescimento real de vínculos CNAE.</p>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase">Maior crescimento (CNAE)</p>
+                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 flex">
+                        <div class="bg-ietBlue h-1.5 rounded-l-full" style="width: 100%"></div>
+                    </div>
                 </div>
             </div>
 
+            <!-- Seção 1: Marcadores Sociais (COM BENCHMARK E TOGGLE) -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                <div class="mb-6">
-                    <h2 class="text-xl font-bold text-ietDark">Marcadores Sociais e Equidade</h2>
-                    <p class="text-gray-500 text-sm">Direcionamento da EPT como política de reparação para perfis críticos.</p>
+                <div class="mb-6 flex flex-col sm:flex-row justify-between sm:items-end">
+                    <div>
+                        <h2 class="text-xl font-bold text-ietDark">Marcadores Sociais e Equidade</h2>
+                        <p class="text-gray-500 text-sm">Justificativa técnica para expansão da EPT: o Tocantins em relação ao Brasil e à Região Norte.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex bg-gray-200 rounded p-1 shrink-0">
+                        <button id="btn-local-socio" onclick="toggleContext('socio', 'local')" class="px-3 py-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-all">Visão Local (TO)</button>
+                        <button id="btn-nacional-socio" onclick="toggleContext('socio', 'nacional')" class="px-3 py-1.5 text-xs font-bold rounded bg-white text-ietBlue shadow-sm transition-all">Comparativo Nacional</button>
+                    </div>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
-                        <h3 class="font-bold text-center text-gray-700 mb-2">Condição "Nem-Nem" por Raça/Cor (Tocantins)</h3>
+                    <!-- GRÁFICO: TERMÔMETRO DE VULNERABILIDADE -->
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50 shadow-sm">
+                        <h3 class="font-bold text-center text-gray-700 mb-2">Termômetro de Vulnerabilidade Social</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Comparativo direto de fatores de risco social juvenil.</p>
                         <div class="h-64 relative">
-                            <canvas id="chartNemNemRaca"></canvas>
+                            <canvas id="chartComparativoSocial"></canvas>
                         </div>
                     </div>
 
-                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
+                    <div class="border border-gray-100 rounded-xl p-5 bg-gray-50 shadow-sm">
                         <h3 class="font-bold text-center text-gray-700 mb-2">Matriz: Renda Média x Vulnerabilidade</h3>
                         <p class="text-xs text-center text-gray-500 mb-4">Municípios no quadrante superior direito exigem intervenção da SEDUC.</p>
                         <div class="h-64 relative">
@@ -727,7 +750,7 @@
                 </div>
             </div>
 
-            <!-- Análise do Mundo do Trabalho (Com Descompasso CBO) -->
+            <!-- Análise do Mundo do Trabalho -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
                 <div class="mb-6">
                     <h2 class="text-xl font-bold text-ietDark flex items-center">
@@ -738,7 +761,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- MATRIZ DE DESCOMPASSO -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-blue-50/30">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-bold text-gray-800">Descompasso: Empregos CBO x Matrículas Seduc</h3>
@@ -752,7 +774,6 @@
                         </div>
                     </div>
 
-                    <!-- EVOLUÇÃO MASSA SALARIAL -->
                     <div class="border border-gray-100 rounded-xl p-5 bg-gray-50">
                         <h3 class="font-bold text-gray-700 mb-4 text-center">Evolução da Massa Salarial por Setor</h3>
                         <div class="h-64 relative">
@@ -763,7 +784,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW: RAIO-X INFRAESTRUTURA ================= -->
+        <!-- ================= VIEW: RAIO-X INFRAESTRUTURA (COM BENCHMARK E TOGGLE) ================= -->
         <div id="view-infra" class="view-section">
             
             <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm flex flex-col md:flex-row items-start md:items-center">
@@ -773,9 +794,7 @@
                 <div>
                     <h3 class="text-lg font-bold text-gray-800 mb-1">Diagnóstico de Infraestrutura e Conectividade Escolar</h3>
                     <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                        Esta aba integra os levantamentos primários com as métricas do <strong>Anuário Brasileiro da Educação Básica 2025 (Todos Pela Educação)</strong>. O sistema de decisão penaliza escolas baseando-se em gargalos estruturais identificados na rede de Ensino Médio pública:<br>
-                        <span class="inline-block mt-2"><i data-lucide="wifi" class="w-3 h-3 inline mr-1 text-ietBlue"></i> <b>Conectividade Significativa:</b> Apenas a conectividade de <strong>Nível 5</strong> indica que a internet possui parâmetros adequados para uso pedagógico massivo dos alunos nas oficinas.</span><br>
-                        <span class="inline-block mt-1"><i data-lucide="flask-conical" class="w-3 h-3 inline mr-1 text-ietBlue"></i> <b>Equipamentos de Aprendizagem:</b> A falta de Laboratórios de Ciências (presente em apenas 46,9% da rede) impede o pleno funcionamento de eixos industriais e da saúde.</span>
+                        Integração dos dados estaduais com as métricas oficiais do <strong>Anuário Brasileiro da Educação Básica 2025 (Todos Pela Educação)</strong>. Evidencia os gargalos físicos e tecnológicos que impactam diretamente a implementação de EPT de qualidade e permite comparar a prontidão do Tocantins com o restante do país.
                     </p>
                 </div>
             </div>
@@ -787,10 +806,11 @@
                         <div>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Conectividade Nível 5</p>
                             <h3 class="text-2xl font-black text-gray-800 mt-1">44,5%</h3>
-                            <p class="text-[10px] text-gray-500 font-medium mt-1">Adequada p/ uso pedagógico</p>
+                            <p class="text-[9px] text-gray-500 font-bold mt-1 uppercase benchmark-infra transition-opacity">Brasil: 44,5% | Norte: 15,1%</p>
                         </div>
                         <div class="p-2 bg-green-50 rounded-lg"><i data-lucide="wifi" class="w-5 h-5 text-green-600"></i></div>
                     </div>
+                    <div class="mt-2 text-[9px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded inline-block benchmark-infra transition-opacity">Destaque Positivo (Região)</div>
                 </div>
                 
                 <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietLightBlue">
@@ -798,10 +818,11 @@
                         <div>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Biblioteca / Leitura</p>
                             <h3 class="text-2xl font-black text-gray-800 mt-1">86,5%</h3>
-                            <p class="text-[10px] text-gray-500 font-medium mt-1">No Ensino Médio Público</p>
+                            <p class="text-[9px] text-gray-500 font-bold mt-1 uppercase benchmark-infra transition-opacity">Média Brasil: 88,2%</p>
                         </div>
                         <div class="p-2 bg-blue-50 rounded-lg"><i data-lucide="book" class="w-5 h-5 text-ietLightBlue"></i></div>
                     </div>
+                    <div class="w-full bg-gray-200 rounded-full h-1 mt-3"><div class="bg-ietLightBlue h-1 rounded-full" style="width: 86.5%"></div></div>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-ietYellow">
@@ -809,10 +830,11 @@
                         <div>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Lab. Informática</p>
                             <h3 class="text-2xl font-black text-gray-800 mt-1">73,0%</h3>
-                            <p class="text-[10px] text-gray-500 font-medium mt-1">No Ensino Médio Público</p>
+                            <p class="text-[9px] text-gray-500 font-bold mt-1 uppercase benchmark-infra transition-opacity">Média Brasil: 75,1%</p>
                         </div>
                         <div class="p-2 bg-yellow-50 rounded-lg"><i data-lucide="monitor" class="w-5 h-5 text-yellow-600"></i></div>
                     </div>
+                    <div class="w-full bg-gray-200 rounded-full h-1 mt-3"><div class="bg-ietYellow h-1 rounded-full" style="width: 73%"></div></div>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-red-500">
@@ -820,27 +842,35 @@
                         <div>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Lab. Ciências</p>
                             <h3 class="text-2xl font-black text-gray-800 mt-1">46,9%</h3>
-                            <p class="text-[10px] text-red-500 font-medium mt-1">Gargalo estrutural (Exatas)</p>
+                            <p class="text-[9px] text-gray-500 font-bold mt-1 uppercase benchmark-infra transition-opacity">Brasil: 46,9% | Norte: 32,1%</p>
                         </div>
                         <div class="p-2 bg-red-50 rounded-lg"><i data-lucide="flask-conical" class="w-5 h-5 text-red-500"></i></div>
                     </div>
+                    <div class="mt-2 text-[9px] font-bold text-red-600 bg-red-50 px-2 py-1 rounded inline-block benchmark-infra transition-opacity">Gargalo Estrutural Crítico</div>
                 </div>
             </div>
 
-            <!-- Gráficos de Diagnóstico de Infraestrutura -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <!-- Gráfico de Barras: Disponibilidade por Item -->
+                <!-- Gráfico de Barras Duplo -->
                 <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-center mb-1">Equipamentos para Aprendizagem (Ensino Médio)</h3>
-                    <p class="text-[11px] text-gray-500 text-center mb-4 font-medium uppercase">Porcentagem das escolas públicas brasileiras.</p>
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-1">Equipamentos Básicos</h3>
+                            <p class="text-[10px] text-gray-500 font-medium uppercase">Presença nas Escolas (Ensino Médio)</p>
+                        </div>
+                        <div class="flex bg-gray-200 rounded p-1 shrink-0">
+                            <button id="btn-local-infra" onclick="toggleContext('infra', 'local')" class="px-2 py-1 text-[10px] font-medium text-gray-500 hover:text-gray-700 transition-all">Visão Local</button>
+                            <button id="btn-nacional-infra" onclick="toggleContext('infra', 'nacional')" class="px-2 py-1 text-[10px] font-bold rounded bg-white text-ietBlue shadow-sm transition-all">Comparativo BR</button>
+                        </div>
+                    </div>
                     <div class="h-64 relative">
                         <canvas id="chartInfraItens"></canvas>
                     </div>
                 </div>
 
-                <!-- Gráfico de Rosca: Níveis de Prontidão -->
+                <!-- Gráfico de Rosca -->
                 <div class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                    <h3 class="font-bold text-gray-800 text-center mb-1">Níveis de Conectividade na Rede Pública</h3>
+                    <h3 class="font-bold text-gray-800 text-center mb-1">Níveis de Conectividade (Rede Pública TO)</h3>
                     <p class="text-[11px] text-gray-500 text-center mb-4 font-medium uppercase">Classificação baseada em velocidade/uso pedagógico.</p>
                     <div class="h-64 relative flex justify-center items-center">
                         <canvas id="chartInfraNiveis"></canvas>
@@ -918,7 +948,7 @@
             </div>
         </div>
 
-        <!-- ================= VIEW: ESCUTAS E ENGAJAMENTO (COPARTICIPAÇÃO) ================= -->
+        <!-- ================= VIEW: ESCUTAS E ENGAJAMENTO ================= -->
         <div id="view-escutas" class="view-section">
             
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4 border-ietBlue">
@@ -932,10 +962,8 @@
                 <p class="text-sm text-gray-600 mb-6">Desenho estruturado da oferta para compreender necessidades, expectativas e demandas de todos os atores do ecossistema educacional e produtivo, prevendo canais de devolutiva transparentes.</p>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Atores Internos -->
                     <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
                         <h3 class="font-bold text-ietBlue mb-4 flex items-center"><i data-lucide="clipboard-list" class="w-5 h-5 mr-2"></i> Necessidades e Expectativas (Rede)</h3>
-                        
                         <div class="space-y-5">
                             <div>
                                 <h4 class="text-sm font-bold text-gray-800 mb-1">Hierarquia SEDUC</h4>
@@ -956,17 +984,14 @@
                         </div>
                     </div>
 
-                    <!-- Setor Produtivo -->
                     <div class="border border-gray-200 rounded-lg p-5 bg-gray-50">
                         <h3 class="font-bold text-ietOrange mb-4 flex items-center"><i data-lucide="briefcase" class="w-5 h-5 mr-2"></i> Demanda do Setor Produtivo</h3>
                         <p class="text-xs text-gray-600 mb-4 leading-relaxed">Mapeamento direto com as forças de empregabilidade locais para balizar a oferta com as vocações reais do território.</p>
-                        
                         <ul class="space-y-3 mb-6">
                             <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Comércio Local e Regional</li>
                             <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Indústria (Sistema S, Federações)</li>
                             <li class="flex items-center text-sm font-medium text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 text-green-500 mr-2"></i> Outras Secretarias e Organizações</li>
                         </ul>
-                        
                         <div class="flex gap-2 mt-auto">
                             <span class="text-[10px] bg-white text-ietOrange px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Painéis de Consulta Especializada</span>
                             <span class="text-[10px] bg-white text-green-600 px-2 py-1 rounded border border-gray-200 font-bold shadow-sm">Relatório Executivo</span>
@@ -975,9 +1000,8 @@
                 </div>
             </div>
 
-            <!-- RESULTADOS INICIAIS DA ESCUTA -->
             <div class="mb-6 flex flex-col xl:flex-row gap-6">
-                <!-- Bloco: Voz dos Estudantes -->
+                <!-- Voz dos Estudantes -->
                 <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
                     <div class="mb-6 border-b border-gray-100 pb-4">
                         <h2 class="text-xl font-bold text-ietDark flex items-center">
@@ -986,24 +1010,23 @@
                         </h2>
                         <p class="text-gray-500 text-sm">Resultados do mapeamento aplicado aos alunos, visando o engajamento e redução da evasão escolar.</p>
                     </div>
-                    
                     <div class="space-y-8">
                         <div>
                             <h3 class="font-bold text-gray-700 mb-2 text-center">Concentração Atual de Matrículas (Séries)</h3>
                             <div class="flex justify-center h-48">
-                                <canvas id="chartSeries"></canvas>
+                                <canvas id="chartEscutasSeries"></canvas>
                             </div>
                         </div>
                         <div class="pt-4 border-t border-gray-100">
                             <h3 class="font-bold text-gray-700 mb-2 text-center mt-2">Afinidade Projetada por Eixo (Pesquisa)</h3>
                             <div class="flex justify-center h-48">
-                                <canvas id="chartInteresse"></canvas>
+                                <canvas id="chartEscutasInteresse"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bloco: Voz dos Gestores / Diretores -->
+                <!-- Voz dos Gestores -->
                 <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
                     <div class="mb-6 border-b border-gray-100 pb-4">
                         <h2 class="text-xl font-bold text-ietDark flex items-center">
@@ -1012,23 +1035,50 @@
                         </h2>
                         <p class="text-gray-500 text-sm">Percepção das equipes gestoras sobre a real capacidade e os desafios de implementação dos cursos EPT na unidade.</p>
                     </div>
-                    
                     <div class="space-y-8">
                         <div>
                             <h3 class="font-bold text-gray-700 mb-2 text-center">Articulação com Setor Produtivo Local</h3>
                             <div class="flex justify-center h-48">
-                                <canvas id="chartArticulacaoDiretores"></canvas>
+                                <canvas id="chartEscutasArticulacao"></canvas>
                             </div>
                         </div>
                         <div class="pt-4 border-t border-gray-100">
                             <h3 class="font-bold text-gray-700 mb-2 text-center mt-2">Principais Desafios Percebidos (Checklist)</h3>
                             <div class="flex justify-center h-48">
-                                <canvas id="chartDesafiosDiretores"></canvas>
+                                <canvas id="chartEscutasDesafios"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-6 mt-6 border-t-4 border-ietOrange">
+                <div class="mb-6 border-b border-gray-100 pb-4">
+                    <span class="bg-ietLightYellow text-ietDark text-xs font-bold px-2 py-1 rounded mb-2 inline-block shadow-sm border border-yellow-300">CRUZAMENTO FASE 1</span>
+                    <h2 class="text-xl font-bold text-ietDark flex items-center">
+                        <i data-lucide="git-merge" class="w-5 h-5 mr-2 text-ietOrange"></i>
+                        Alinhamento: Escutas vs. Diagnóstico do Mundo do Trabalho (CBO/CNAE)
+                    </h2>
+                    <p class="text-gray-500 text-sm mt-2 leading-relaxed">Cruzamento dos indicadores de expectativas (estudantes e comunidade) coletados na Fase 1 com o levantamento quantitativo dos setores produtivos (Painel de Diagnóstico EPT - Vínculos e Massa Salarial).</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-gray-700 mb-2 text-center">Matriz de Convergência: Interesse x Mercado x Oferta</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Compara o que o aluno quer, o que o mercado pede (CBO/RAIS) e o que a rede oferece.</p>
+                        <div class="flex justify-center h-64">
+                            <canvas id="chartEscutasConvergencia"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-gray-700 mb-2 text-center">Top Demandas para Direcionar Parcerias (Comércio/Indústria)</h3>
+                        <p class="text-xs text-center text-gray-500 mb-4">Ocupações mais frequentes (CBO) mapeadas na Fase 1 para pautar as escutas com o Setor Produtivo.</p>
+                        <div class="flex justify-center h-64">
+                            <canvas id="chartEscutasTopOcupacoes"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
     </main>
@@ -1047,20 +1097,57 @@
         lucide.createIcons();
 
         let map;
+        let chartCompSocialObj;
+        let chartInfraItensObj;
+
+        // Toggle Interativo (Comparativo Nacional x Local)
+        function toggleContext(view, mode) {
+            const btnLocal = document.getElementById(`btn-local-${view}`);
+            const btnNacional = document.getElementById(`btn-nacional-${view}`);
+            
+            if(mode === 'local') {
+                btnLocal.className = "px-3 py-1.5 text-xs font-bold rounded bg-white text-ietBlue shadow-sm transition-all";
+                btnNacional.className = "px-3 py-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-all";
+            } else {
+                btnNacional.className = "px-3 py-1.5 text-xs font-bold rounded bg-white text-ietBlue shadow-sm transition-all";
+                btnLocal.className = "px-3 py-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-all";
+            }
+
+            if (view === 'socio' && chartCompSocialObj) {
+                const showNacional = mode === 'nacional';
+                chartCompSocialObj.data.datasets[1].hidden = !showNacional; // Norte
+                chartCompSocialObj.data.datasets[2].hidden = !showNacional; // Brasil
+                chartCompSocialObj.update();
+                
+                document.querySelectorAll('.benchmark-socio').forEach(el => {
+                    el.style.opacity = showNacional ? '1' : '0.3';
+                });
+            }
+            
+            if (view === 'infra' && chartInfraItensObj) {
+                const showNacional = mode === 'nacional';
+                chartInfraItensObj.data.datasets[1].hidden = !showNacional; // Brasil
+                chartInfraItensObj.update();
+                
+                document.querySelectorAll('.benchmark-infra').forEach(el => {
+                    el.style.opacity = showNacional ? '1' : '0.3';
+                });
+            }
+        }
 
         // Navegação Top Navbar com destaque corrigido
         function navigate(viewId, element, title) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // Atualiza o breadcrumb (Títulos reais)
-            document.getElementById('breadcrumb-title').innerText = title || element.innerText.trim();
+            if (title) {
+                document.getElementById('breadcrumb-title').innerText = title;
+            } else {
+                document.getElementById('breadcrumb-title').innerText = element.innerText.trim();
+            }
 
-            // Reset menu styling
             document.querySelectorAll('.nav-link').forEach(el => {
-                // Remove as classes ativas
                 el.classList.remove('border-ietYellow', 'text-ietBlue', 'font-bold', 'active-nav');
-                // Adiciona as classes inativas
                 el.classList.add('border-transparent', 'text-gray-500', 'font-medium');
                 
                 let icon = el.querySelector('.icon-element');
@@ -1070,7 +1157,6 @@
                 }
             });
 
-            // Ativa a aba atual corretamente
             element.classList.remove('border-transparent', 'text-gray-500', 'font-medium');
             element.classList.add('border-ietYellow', 'text-ietBlue', 'font-bold', 'active-nav');
             
@@ -1111,7 +1197,7 @@
 
             updateSimulation();
 
-            // --- INICIALIZA GRÁFICOS ORIGINAIS (Chart.js) COM VALIDAÇÃO (if(ctx)) ---
+            // --- INICIALIZA GRÁFICOS ORIGINAIS E NOVOS (Chart.js) COM PROTEÇÃO if(ctx) ---
             
             const ctx11 = document.getElementById('chartMeta11')?.getContext('2d');
             if(ctx11) {
@@ -1193,96 +1279,6 @@
                         }]
                     },
                     options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
-                });
-            }
-
-            const ctxSeries = document.getElementById('chartSeries')?.getContext('2d');
-            if(ctxSeries) {
-                new Chart(ctxSeries, {
-                    type: 'pie',
-                    data: {
-                        labels: ['1ª Série', '2ª Série', '3ª Série'],
-                        datasets: [{
-                            data: [58.5, 25.1, 16.4],
-                            backgroundColor: ['#004990', '#60A2D7', '#FFB81C'],
-                            borderWidth: 1, borderColor: '#fff'
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
-                });
-            }
-
-            const ctxInteresse = document.getElementById('chartInteresse')?.getContext('2d');
-            if(ctxInteresse) {
-                new Chart(ctxInteresse, {
-                    type: 'polarArea',
-                    data: {
-                        labels: ['Ambiente e Saúde', 'Info. e Comunicação', 'Gestão e Negócios', 'Recursos Naturais'],
-                        datasets: [{
-                            data: [35, 25, 20, 20],
-                            backgroundColor: ['rgba(0, 73, 144, 0.7)', 'rgba(96, 162, 215, 0.7)', 'rgba(255, 184, 28, 0.7)', 'rgba(107, 114, 128, 0.7)']
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
-                });
-            }
-
-            const ctxArticulacao = document.getElementById('chartArticulacaoDiretores')?.getContext('2d');
-            if(ctxArticulacao) {
-                new Chart(ctxArticulacao, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Sem Parcerias Mapeadas', 'Mapeamento Inicial', 'Parcerias Ativas (Indústria/S)'],
-                        datasets: [{
-                            data: [65, 20, 15],
-                            backgroundColor: ['#e5e7eb', '#60A2D7', '#004990'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } }
-                });
-            }
-
-            const ctxDesafios = document.getElementById('chartDesafiosDiretores')?.getContext('2d');
-            if(ctxDesafios) {
-                new Chart(ctxDesafios, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Falta de Prof. Técnicos', 'Insuficiência de Labs', 'Evasão / Desinteresse', 'Transporte Escolar'],
-                        datasets: [{
-                            label: '% de Diretores que relataram o desafio',
-                            data: [88, 74, 45, 28],
-                            backgroundColor: '#FFB81C',
-                            borderRadius: 4
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: { x: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
-                    }
-                });
-            }
-
-            const ctxNemNemRaca = document.getElementById('chartNemNemRaca')?.getContext('2d');
-            if(ctxNemNemRaca) {
-                new Chart(ctxNemNemRaca, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Preta/Parda', 'Branca', 'Indígena', 'Outras'],
-                        datasets: [{
-                            label: 'Taxa de Jovens Nem-Nem (%)',
-                            data: [28.5, 15.2, 31.0, 18.4],
-                            backgroundColor: ['#FFB81C', '#60A2D7', '#004990', '#e5e7eb'],
-                            borderRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true, max: 40, ticks: { callback: function(value) { return value + "%" } } } }
-                    }
                 });
             }
 
@@ -1372,27 +1368,6 @@
                 });
             }
 
-            const ctxInfraItens = document.getElementById('chartInfraItens')?.getContext('2d');
-            if(ctxInfraItens) {
-                new Chart(ctxInfraItens, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Biblioteca/Leitura', 'Quadra de Esportes', 'Lab. Informática', 'Lab. Ciências'],
-                        datasets: [{
-                            label: '% de Escolas no Ensino Médio Público',
-                            data: [86.5, 75.6, 73.0, 46.9],
-                            backgroundColor: ['#60A2D7', '#60A2D7', '#FFB81C', '#EF4444'],
-                            borderRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true, maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
-                    }
-                });
-            }
-
             const ctxInfraNiveis = document.getElementById('chartInfraNiveis')?.getContext('2d');
             if(ctxInfraNiveis) {
                 new Chart(ctxInfraNiveis, {
@@ -1414,9 +1389,79 @@
                 });
             }
 
-            const ctxAlinhamento = document.getElementById('chartMatchConvergencia')?.getContext('2d');
-            if(ctxAlinhamento) {
-                new Chart(ctxAlinhamento, {
+            const ctxEscutasSeries = document.getElementById('chartEscutasSeries')?.getContext('2d');
+            if(ctxEscutasSeries) {
+                new Chart(ctxEscutasSeries, {
+                    type: 'pie',
+                    data: {
+                        labels: ['1ª Série', '2ª Série', '3ª Série'],
+                        datasets: [{
+                            data: [58.5, 25.1, 16.4],
+                            backgroundColor: ['#004990', '#60A2D7', '#FFB81C'],
+                            borderWidth: 1, borderColor: '#fff'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            const ctxEscutasInteresse = document.getElementById('chartEscutasInteresse')?.getContext('2d');
+            if(ctxEscutasInteresse) {
+                new Chart(ctxEscutasInteresse, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Ambiente e Saúde', 'Info. e Comunicação', 'Gestão e Negócios', 'Recursos Naturais'],
+                        datasets: [{
+                            data: [35, 25, 20, 20],
+                            backgroundColor: ['rgba(0, 73, 144, 0.7)', 'rgba(96, 162, 215, 0.7)', 'rgba(255, 184, 28, 0.7)', 'rgba(107, 114, 128, 0.7)']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            const ctxEscutasArticulacao = document.getElementById('chartEscutasArticulacao')?.getContext('2d');
+            if(ctxEscutasArticulacao) {
+                new Chart(ctxEscutasArticulacao, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Sem Parcerias Mapeadas', 'Mapeamento Inicial', 'Parcerias Ativas (Indústria/S)'],
+                        datasets: [{
+                            data: [65, 20, 15],
+                            backgroundColor: ['#e5e7eb', '#60A2D7', '#004990'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            const ctxEscutasDesafios = document.getElementById('chartEscutasDesafios')?.getContext('2d');
+            if(ctxEscutasDesafios) {
+                new Chart(ctxEscutasDesafios, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Falta de Prof. Técnicos', 'Insuficiência de Labs', 'Evasão / Desinteresse', 'Transporte Escolar'],
+                        datasets: [{
+                            label: '% de Diretores que relataram o desafio',
+                            data: [88, 74, 45, 28],
+                            backgroundColor: '#FFB81C',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
+            // Gráficos Match Perfeito (Projeções e Alinhamento)
+            const ctxMatchConv = document.getElementById('chartMatchConvergencia')?.getContext('2d');
+            if(ctxMatchConv) {
+                new Chart(ctxMatchConv, {
                     type: 'bar',
                     data: {
                         labels: ['Saúde', 'Tecnologia (TI)', 'Gestão/Adm', 'Agropecuária'],
@@ -1483,6 +1528,133 @@
                     }
                 });
             }
+            
+            // Gráficos Replicados na Tela de Escutas
+            const ctxEscutasConv = document.getElementById('chartEscutasConvergencia')?.getContext('2d');
+            if(ctxEscutasConv) {
+                new Chart(ctxEscutasConv, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Saúde', 'Tecnologia (TI)', 'Gestão/Adm', 'Agropecuária'],
+                        datasets: [
+                            {
+                                label: 'Interesse Alunos (%)',
+                                data: [35, 25, 20, 20],
+                                backgroundColor: '#60A2D7',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Demanda Mercado - CBO (%)',
+                                data: [40, 30, 20, 10], 
+                                backgroundColor: '#004990',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Oferta Atual Seduc (%)',
+                                data: [5, 8, 17, 70], 
+                                backgroundColor: '#FFB81C',
+                                borderRadius: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true, max: 100 } }
+                    }
+                });
+            }
+
+            const ctxEscutasTopOcupacoes = document.getElementById('chartEscutasTopOcupacoes')?.getContext('2d');
+            if(ctxEscutasTopOcupacoes) {
+                new Chart(ctxEscutasTopOcupacoes, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Téc. Enfermagem', 'Assist. Administrativo', 'Desenv. Sistemas', 'Téc. Agrícola', 'Eletrotécnico'],
+                        datasets: [{
+                            label: 'Vínculos Ativos Mapeados (CBO)',
+                            data: [12450, 9820, 7100, 5400, 3200],
+                            backgroundColor: ['#004990', '#60A2D7', '#60A2D7', '#FFB81C', '#FFB81C'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            // ATUALIZADOS: GRÁFICOS COM BENCHMARK E TOGGLE
+            const ctxCompSocial = document.getElementById('chartComparativoSocial')?.getContext('2d');
+            if(ctxCompSocial) {
+                chartCompSocialObj = new Chart(ctxCompSocial, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jovens Nem-Nem', 'Evasão Escolar (EM)', 'Desocupação (18-24a)'],
+                        datasets: [
+                            {
+                                label: 'Tocantins',
+                                data: [24.5, 6.8, 14.2],
+                                backgroundColor: '#FFB81C',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Média Região Norte',
+                                data: [25.2, 8.5, 15.1],
+                                backgroundColor: '#60A2D7',
+                                borderRadius: 2,
+                                hidden: false
+                            },
+                            {
+                                label: 'Média Brasil',
+                                data: [19.8, 5.9, 12.8],
+                                backgroundColor: '#004990',
+                                borderRadius: 2,
+                                hidden: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true, max: 35, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
+            const ctxInfraItens = document.getElementById('chartInfraItens')?.getContext('2d');
+            if(ctxInfraItens) {
+                chartInfraItensObj = new Chart(ctxInfraItens, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Biblioteca/Leitura', 'Quadra de Esportes', 'Lab. Informática', 'Lab. Ciências'],
+                        datasets: [
+                            {
+                                label: 'Tocantins (%)',
+                                data: [86.5, 75.6, 73.0, 46.9],
+                                backgroundColor: '#004990',
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'Média Brasil (%)',
+                                data: [88.2, 65.4, 75.1, 46.9],
+                                backgroundColor: '#e5e7eb',
+                                borderRadius: 4,
+                                hidden: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'top' } },
+                        scales: { y: { beginAtZero: true, max: 100, ticks: { callback: function(value) { return value + "%" } } } }
+                    }
+                });
+            }
+
         };
 
         // ---------------------------------------------------------
@@ -1636,6 +1808,7 @@
         async function generatePDF() {
             const btn = document.getElementById('btn-export');
             const originalContent = btn.innerHTML;
+            
             btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Gerando...';
             btn.disabled = true;
             lucide.createIcons();
