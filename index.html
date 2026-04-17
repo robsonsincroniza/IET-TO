@@ -107,7 +107,7 @@
                 <a href="#" onclick="navigate('view-match', this, 'Simulador: Match Perfeito')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="target" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Simulador: Match
                 </a>
-                <a href="#" onclick="navigate('view-pne', this, 'Monitoramento')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                <a href="#" onclick="navigate('view-pne', this, 'Monitoramento PVE / PNE')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Metas PNE / Propag
                 </a>
                 <a href="#" onclick="navigate('view-territorio', this, 'Socioeconomia e Equidade')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
@@ -165,10 +165,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
                         <h3 class="font-bold text-ietBlue flex items-center mb-2"><i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow"></i> Simulador: Match</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed">O motor de decisão estratégico. Utiliza um modelo de cálculo ajustável para cruzar indicadores (demanda, infraestrutura, vulnerabilidade e engajamento) gerando um ranking automatizado com a recomendação ideal de alocação de cursos.</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">O motor de decisão estratégico. Utiliza um modelo de cálculo ajustável para cruzar indicadores (demanda, infraestrutura, vulnerabilidade e engajamento), gerando um ranking transparente com a recomendação ideal de alocação de cursos.</p>
                     </div>
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
-                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400"></i> Metas</h3>
+                        <h3 class="font-bold text-gray-800 flex items-center mb-2"><i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-gray-400"></i> Metas PNE/Propag</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">Módulo de acompanhamento contínuo das exigências legais (PNE 11, 12a, 10 e PROPAG). Evidencia o déficit atual do estado, foca em gargalos como a EJA e traça as projeções de crescimento necessárias.</p>
                     </div>
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
@@ -192,7 +192,7 @@
                     <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
                         <i data-lucide="cpu" class="w-6 h-6 mr-2 text-ietYellow"></i> A Lógica do Motor de Decisão
                     </h2>
-                    <p class="text-sm text-gray-600 mb-4">A atribuição de cursos no "Match Perfeito" funciona através de um cruzamento de dados que calcula um <strong>Score Final (0 a 100%)</strong> para cada escola, a partir de 4 variáveis ajustáveis:</p>
+                    <p class="text-sm text-gray-600 mb-4">A atribuição de cursos no "Match Perfeito" utiliza uma <strong>fórmula estruturada</strong> que calcula um Score Final (0 a 100%) para cada escola, combinando 4 variáveis ajustáveis:</p>
                     
                     <ul class="space-y-4">
                         <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
@@ -247,12 +247,12 @@
                                 <dd class="text-gray-500 leading-tight mt-1">Índice multidimensional que combina a Evasão Escolar, Taxa de Jovens Nem-Nem e Desocupação para focar a política pública nas regiões vulneráveis.</dd>
                             </div>
                             <div>
-                                <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
-                                <dd class="text-gray-500 leading-tight mt-1">Classificação Brasileira de Ocupações e Atividades Econômicas. Bases usadas para entender onde os empregos reais estão surgindo.</dd>
+                                <dt class="font-bold text-gray-800">Viabilidade Operacional (Fator Humano):</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Garante que a escola possui <i>Disponibilidade Docente</i> e capacidade de absorção local para <i>Estágios</i> antes de aprovar um eixo.</dd>
                             </div>
                             <div>
-                                <dt class="font-bold text-gray-800">PROPAG:</dt>
-                                <dd class="text-gray-500 leading-tight mt-1">Programa federal de fomento à EPT. Suas metas (como a de 2026) condicionam o repasse de recursos financeiros aos estados.</dd>
+                                <dt class="font-bold text-gray-800">CBO e CNAE:</dt>
+                                <dd class="text-gray-500 leading-tight mt-1">Classificação Brasileira de Ocupações e Atividades Econômicas. Bases usadas para entender onde os empregos reais estão surgindo.</dd>
                             </div>
                         </dl>
                     </div>
@@ -343,7 +343,7 @@
                             Motor de Decisão
                         </h2>
                         <p class="text-xs text-gray-500 mt-1 leading-relaxed">
-                            Cruze as quatro dimensões da EPT ajustando os pesos abaixo para gerar o <i>Score Final</i> e o ranking estratégico de prioridades.
+                            Ele processa e cruza os indicadores (demanda, infraestrutura, vulnerabilidade e engajamento) conforme os pesos definidos por você, resultando em um ranking claro para a alocação de cursos.
                         </p>
                     </div>
 
@@ -399,19 +399,19 @@
                             <span class="text-2xl font-black text-green-600" id="total-weight">100%</span>
                         </div>
                         <p class="text-[10px] text-gray-500 leading-tight">
-                            <strong class="text-gray-700">Regra de Normalização:</strong> O ideal é cravar a soma em 100%. Se o valor for maior ou menor, o sistema redistribui os pesos proporcionalmente de forma automática para manter a precisão do Ranking.
+                            <strong class="text-gray-700">Regra de Normalização:</strong> O ideal é que a soma seja exatos 100%. Se o valor for maior ou menor, o sistema redistribui os pesos proporcionalmente de forma automática para manter a precisão do Ranking.
                         </p>
                     </div>
                 </div>
 
-                <!-- Mapa de Calor Territorial -->
+                <!-- Mapa de Calor Territorial Redimensionado (66% da tela) -->
                 <div class="bg-white rounded-xl shadow-sm p-5 flex flex-col h-[550px] xl:h-auto xl:col-span-8 border border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
-                        <h2 class="text-lg font-bold text-gray-800">Mapeamento Territorial Multi-camadas</h2>
+                        <h2 class="text-lg font-bold text-gray-800">Mapeamento e Raio de Atendimento</h2>
                         <div class="flex space-x-3 text-sm bg-gray-50 p-1.5 rounded-lg border border-gray-200 shrink-0">
                             <label class="flex items-center space-x-1.5 cursor-pointer px-2">
                                 <input type="checkbox" checked class="rounded text-ietBlue focus:ring-ietBlue">
-                                <span class="text-gray-700 font-bold text-[11px] uppercase">Escolas SEDUC</span>
+                                <span class="text-gray-700 font-bold text-[11px] uppercase">Escolas (Raio 15km)</span>
                             </label>
                             <label class="flex items-center space-x-1.5 cursor-pointer border-l border-gray-300 pl-3">
                                 <input type="checkbox" checked class="rounded text-ietYellow focus:ring-ietYellow">
@@ -448,7 +448,7 @@
                     <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wide">Potencial de Inclusão Produtiva</h3>
                         <p class="text-2xl font-black text-green-600 mt-1">Alta</p>
-                        <p class="text-xs text-gray-500 font-medium mt-1">Para cursos selecionados a partir do cruzamento de dados.</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Para cursos recomendados pelo Motor de Decisão.</p>
                     </div>
                 </div>
 
@@ -473,12 +473,12 @@
                 </div>
             </div>
 
-            <!-- Tabela de Recomendações (Mesa de Decisão) -->
+            <!-- Tabela de Recomendações (Mesa de Decisão) COM SCORE DETALHADO E CUSTO -->
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                     <div>
                         <h2 class="text-lg font-bold text-gray-800">Mesa de Decisão: Match Escola x Curso</h2>
-                        <p class="text-sm text-gray-500">O painel final de cruzamento de dados, que estrutura o Ranking de Prioridades para o Tocantins.</p>
+                        <p class="text-sm text-gray-500">O resultado do Motor de Decisão, apresentando o Ranking de Prioridades com validação humana e orçamentária.</p>
                     </div>
                     <div class="flex space-x-2 mt-3 md:mt-0">
                         <div class="flex items-center text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-200 font-bold shadow-sm">
@@ -494,15 +494,14 @@
                 </div>
                 
                 <div class="overflow-x-auto rounded-lg border border-gray-200">
-                    <table class="w-full text-left border-collapse min-w-[900px]">
+                    <table class="w-full text-left border-collapse min-w-[1000px]">
                         <thead>
-                            <tr class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider border-b border-gray-200">
-                                <th class="p-4 font-bold">Município / Escola</th>
-                                <th class="p-4 font-bold">Contexto Escolar (Infra/Social)</th>
-                                <th class="p-4 font-bold">Eixo & Curso Sugerido</th>
-                                <th class="p-4 font-bold text-center">Demanda CBO</th>
-                                <th class="p-4 font-bold text-center w-24">Score Final</th>
-                                <th class="p-4 font-bold text-center w-32">Status (Match)</th>
+                            <tr class="bg-gray-50 text-gray-600 text-[11px] uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-3 font-bold">Município / Escola</th>
+                                <th class="p-3 font-bold">Contexto (Infra/Social/Custo)</th>
+                                <th class="p-3 font-bold">Curso & Viabilidade</th>
+                                <th class="p-3 font-bold w-40">Raio-X do Score</th>
+                                <th class="p-3 font-bold text-center w-32">Status Final</th>
                             </tr>
                         </thead>
                         <tbody id="results-table" class="divide-y divide-gray-100">
@@ -672,7 +671,7 @@
                 <div>
                     <h3 class="text-lg font-bold text-gray-800 mb-1">Compreendendo os Marcadores de Vulnerabilidade Social</h3>
                     <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                        Para uma abordagem mais justa e focada na inclusão produtiva, o Motor de Decisão não avalia apenas uma variável, mas um <strong>Índice Multidimensional</strong>. Além da taxa de <strong>24,5% de Jovens "Nem-Nem"</strong>, a ferramenta integra à análise os dados de <strong>Evasão Escolar no Ensino Médio</strong> e a <strong>Desocupação Jovem</strong>. Dados extraídos da <em>PNAD Contínua (IBGE)</em>. Municípios com altas concentrações desses públicos ganham prioridade automática para a implementação de turmas.
+                        Para uma abordagem mais justa e focada na inclusão produtiva, o modelo de cálculo não avalia apenas uma variável, mas um <strong>Índice Multidimensional</strong>. Além da taxa de <strong>24,5% de Jovens "Nem-Nem"</strong>, a ferramenta integra à análise os dados de <strong>Evasão Escolar no Ensino Médio</strong> e a <strong>Desocupação Jovem</strong>. Dados extraídos da <em>PNAD Contínua (IBGE)</em>. Municípios com altas concentrações desses públicos ganham prioridade automática para a implementação de turmas.
                     </p>
                 </div>
             </div>
@@ -757,7 +756,7 @@
                         <i data-lucide="briefcase" class="w-5 h-5 mr-2 text-ietLightBlue"></i>
                         Análise do Mundo do Trabalho (Base RAIS/CAGED/CBO)
                     </h2>
-                    <p class="text-gray-500 text-sm">Identificação do descompasso entre as matrículas atuais e a geração real de emprego formal.</p>
+                    <p class="text-gray-500 text-sm">Identificação do descompasso entre as matrículas atuais e a geração real de emprego formal. <br><span class="text-xs italic text-ietBlue font-medium">*Filtro aplicado: Exclusivo para ocupações que exigem Nível Médio/Técnico (eliminando distorções de vagas de nível superior).</span></p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -1002,7 +1001,7 @@
 
             <div class="mb-6 flex flex-col xl:flex-row gap-6">
                 <!-- Voz dos Estudantes -->
-                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
+                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100 flex flex-col">
                     <div class="mb-6 border-b border-gray-100 pb-4">
                         <h2 class="text-xl font-bold text-ietDark flex items-center">
                             <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-ietLightBlue"></i>
@@ -1010,7 +1009,7 @@
                         </h2>
                         <p class="text-gray-500 text-sm">Resultados do mapeamento aplicado aos alunos, visando o engajamento e redução da evasão escolar.</p>
                     </div>
-                    <div class="space-y-8">
+                    <div class="space-y-8 flex-1">
                         <div>
                             <h3 class="font-bold text-gray-700 mb-2 text-center">Concentração Atual de Matrículas (Séries)</h3>
                             <div class="flex justify-center h-48">
@@ -1023,11 +1022,18 @@
                                 <canvas id="chartEscutasInteresse"></canvas>
                             </div>
                         </div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <h3 class="font-bold text-gray-700 mb-2 text-center mt-2 text-ietBlue">Viés de Gênero nas Escolhas Profissionais</h3>
+                            <p class="text-[10px] text-center text-gray-500 mb-4">Evidencia a necessidade de políticas afirmativas para mulheres em STEM.</p>
+                            <div class="flex justify-center h-48">
+                                <canvas id="chartEscutasGenero"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Voz dos Gestores -->
-                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100">
+                <div class="bg-white rounded-xl shadow-sm p-6 w-full xl:w-1/2 border border-gray-100 flex flex-col">
                     <div class="mb-6 border-b border-gray-100 pb-4">
                         <h2 class="text-xl font-bold text-ietDark flex items-center">
                             <i data-lucide="building" class="w-5 h-5 mr-2 text-ietYellow"></i>
@@ -1035,7 +1041,7 @@
                         </h2>
                         <p class="text-gray-500 text-sm">Percepção das equipes gestoras sobre a real capacidade e os desafios de implementação dos cursos EPT na unidade.</p>
                     </div>
-                    <div class="space-y-8">
+                    <div class="space-y-8 flex-1">
                         <div>
                             <h3 class="font-bold text-gray-700 mb-2 text-center">Articulação com Setor Produtivo Local</h3>
                             <div class="flex justify-center h-48">
@@ -1194,6 +1200,11 @@
              .bindPopup("Região Palmas: Vulnerabilidade Nem-Nem (18%)").addTo(map);
             L.circle([-11.5, -46.8], { color: '#EF4444', fillOpacity: 0.25, radius: 35000 })
              .bindPopup("Região Sudeste (Dianópolis): Alta Vulnerabilidade Nem-Nem").addTo(map);
+             
+            // Novo: Raio de Atratividade das Escolas (15km)
+            L.circle([-10.1844, -48.3336], { color: '#60A2D7', fillColor: '#60A2D7', fillOpacity: 0.1, radius: 15000, weight: 1 }).bindPopup("Raio de Atendimento EPT (15km) - Palmas").addTo(map);
+            L.circle([-7.1911, -48.2078], { color: '#60A2D7', fillColor: '#60A2D7', fillOpacity: 0.1, radius: 15000, weight: 1 }).bindPopup("Raio de Atendimento EPT (15km) - Araguaína").addTo(map);
+            L.circle([-11.7292, -49.0686], { color: '#60A2D7', fillColor: '#60A2D7', fillOpacity: 0.1, radius: 15000, weight: 1 }).bindPopup("Raio de Atendimento EPT (15km) - Gurupi").addTo(map);
 
             updateSimulation();
 
@@ -1417,6 +1428,36 @@
                         }]
                     },
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+            }
+
+            // Novo Gráfico de Gênero
+            const ctxEscutasGenero = document.getElementById('chartEscutasGenero')?.getContext('2d');
+            if(ctxEscutasGenero) {
+                new Chart(ctxEscutasGenero, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Saúde e Cuidado', 'Tecnologia (TI)', 'Gestão e Negócios', 'Agropecuária'],
+                        datasets: [
+                            {
+                                label: 'Feminino (%)',
+                                data: [82, 18, 55, 30],
+                                backgroundColor: '#60A2D7',
+                                borderRadius: 2
+                            },
+                            {
+                                label: 'Masculino (%)',
+                                data: [18, 82, 45, 70],
+                                backgroundColor: '#002D4B',
+                                borderRadius: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true, max: 100 } }
+                    }
                 });
             }
 
@@ -1663,35 +1704,39 @@
         const escolasPotenciais = [
             { 
                 municipio: "Araguaína", escola: "Escola Estadual Modelo", 
-                vulnNivel: "Média (Nem-Nem)", vulnBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                vulnNivel: "Média", vulnBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
                 infraNivel: "Apta", infraBadge: "bg-green-100 text-green-800 border-green-200",
                 eixo: "Informação e Comunicação", curso: "Téc. em Informática", 
                 baseEcon: 85, baseInfra: 95, baseEquid: 60, baseInter: 90,
-                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200"
+                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200",
+                docentes: "Adequado", estagio: "Alta", custo: "$ (Baixo)"
             },
             { 
                 municipio: "Palmas", escola: "CEM Santa Rita de Cássia", 
-                vulnNivel: "Alta (Nem-Nem 18%)", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                vulnNivel: "Alta", vulnBadge: "bg-red-100 text-red-800 border-red-200",
                 infraNivel: "Parcial", infraBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
                 eixo: "Ambiente e Saúde", curso: "Téc. em Enfermagem", 
                 baseEcon: 95, baseInfra: 70, baseEquid: 90, baseInter: 85,
-                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200"
+                demandaNivel: "Alta", demandaBadge: "bg-blue-100 text-blue-800 border-blue-200",
+                docentes: "Crítico", estagio: "Média", custo: "$$$ (Alto)"
             },
             { 
                 municipio: "Dianópolis", escola: "Colégio João D'Abreu", 
-                vulnNivel: "Alta Prioridade", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                vulnNivel: "Alta", vulnBadge: "bg-red-100 text-red-800 border-red-200",
                 infraNivel: "Apta", infraBadge: "bg-green-100 text-green-800 border-green-200",
                 eixo: "Recursos Naturais", curso: "Téc. em Agronegócio", 
                 baseEcon: 75, baseInfra: 85, baseEquid: 95, baseInter: 70,
-                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                docentes: "Adequado", estagio: "Baixa", custo: "$$ (Médio)"
             },
             { 
                 municipio: "Gurupi", escola: "CEM Presidente Costa e Silva", 
-                vulnNivel: "Alta (Nem-Nem 20%)", vulnBadge: "bg-red-100 text-red-800 border-red-200",
+                vulnNivel: "Alta", vulnBadge: "bg-red-100 text-red-800 border-red-200",
                 infraNivel: "Inadequada", infraBadge: "bg-red-100 text-red-800 border-red-200",
                 eixo: "Gestão e Negócios", curso: "Téc. em Administração", 
                 baseEcon: 60, baseInfra: 40, baseEquid: 85, baseInter: 65,
-                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                docentes: "Adequado", estagio: "Alta", custo: "$ (Baixo)"
             },
             { 
                 municipio: "Porto Nacional", escola: "CEM Prof. Florêncio", 
@@ -1699,7 +1744,8 @@
                 infraNivel: "Parcial", infraBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
                 eixo: "Infraestrutura", curso: "Téc. em Edificações", 
                 baseEcon: 70, baseInfra: 50, baseEquid: 40, baseInter: 50,
-                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200"
+                demandaNivel: "Média", demandaBadge: "bg-yellow-100 text-yellow-800 border-yellow-200",
+                docentes: "Crítico", estagio: "Média", custo: "$$$ (Alto)"
             }
         ];
 
@@ -1760,41 +1806,64 @@
 
             resultados.forEach((escola) => {
                 const rowOpacity = escola.score < 50 ? 'opacity-60 bg-gray-50' : 'hover:bg-blue-50/50';
+                const docBadge = escola.docentes === 'Crítico' ? 'text-red-500 font-bold' : 'text-green-600 font-bold';
+                const estBadge = escola.estagio === 'Baixa' ? 'text-red-500 font-bold' : 'text-blue-600 font-bold';
                 
                 tbody.innerHTML += `
                     <tr class="${rowOpacity} transition-colors group">
-                        <td class="p-4 align-top">
+                        <td class="p-3 align-top min-w-[150px]">
                             <p class="font-bold text-gray-800 text-sm group-hover:text-ietBlue transition-colors">${escola.escola}</p>
                             <p class="text-xs text-gray-500 mt-1 flex items-center">
                                 <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> ${escola.municipio}
                             </p>
                         </td>
-                        <td class="p-4 align-top">
-                            <div class="flex flex-col space-y-2">
-                                <div class="flex items-center text-xs">
-                                    <span class="text-gray-500 w-12">Infra:</span> 
-                                    <span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${escola.infraBadge}">${escola.infraNivel}</span>
+                        <td class="p-3 align-top">
+                            <div class="flex flex-col space-y-1.5">
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-gray-500">Infra:</span> 
+                                    <span class="px-1.5 py-0.5 rounded border font-semibold ${escola.infraBadge}">${escola.infraNivel}</span>
                                 </div>
-                                <div class="flex items-center text-xs">
-                                    <span class="text-gray-500 w-12">Social:</span> 
-                                    <span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${escola.vulnBadge}">${escola.vulnNivel}</span>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-gray-500">Social:</span> 
+                                    <span class="px-1.5 py-0.5 rounded border font-semibold ${escola.vulnBadge}">${escola.vulnNivel}</span>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px]">
+                                    <span class="text-gray-500">Custo:</span> 
+                                    <span class="font-bold ${escola.custo.includes('Alto') ? 'text-red-500' : 'text-green-600'}">${escola.custo}</span>
                                 </div>
                             </div>
                         </td>
-                        <td class="p-4 align-top">
-                            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">${escola.eixo}</p>
-                            <p class="text-sm font-medium text-gray-800 mt-1 flex items-center">
-                                <i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-ietLightBlue"></i> ${escola.curso}
-                            </p>
+                        <td class="p-3 align-top min-w-[180px]">
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wide font-bold">${escola.eixo}</p>
+                            <p class="text-sm font-bold text-ietLightBlue mt-0.5 mb-2">${escola.curso}</p>
+                            <div class="text-[10px] space-y-0.5">
+                                <div class="flex justify-between"><span class="text-gray-500">Professores:</span> <span class="${docBadge}">${escola.docentes}</span></div>
+                                <div class="flex justify-between"><span class="text-gray-500">Capac. Estágio:</span> <span class="${estBadge}">${escola.estagio}</span></div>
+                            </div>
                         </td>
-                        <td class="p-4 align-middle text-center">
-                            <span class="px-2.5 py-1 rounded border text-[10px] font-bold uppercase ${escola.demandaBadge}">${escola.demandaNivel}</span>
+                        <td class="p-3 align-top w-40">
+                            <div class="w-full space-y-1.5 mt-1">
+                                <div>
+                                    <div class="flex justify-between text-[9px] mb-0.5"><span class="text-gray-500">Demanda</span><span class="font-bold text-ietBlue">${escola.baseEcon}%</span></div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-ietBlue h-1.5 rounded-full" style="width: ${escola.baseEcon}%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[9px] mb-0.5"><span class="text-gray-500">Infra</span><span class="font-bold text-yellow-500">${escola.baseInfra}%</span></div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-yellow-500 h-1.5 rounded-full" style="width: ${escola.baseInfra}%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[9px] mb-0.5"><span class="text-gray-500">Social</span><span class="font-bold text-purple-500">${escola.baseEquid}%</span></div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: ${escola.baseEquid}%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[9px] mb-0.5"><span class="text-gray-500">Engaj.</span><span class="font-bold text-green-500">${escola.baseInter}%</span></div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5"><div class="bg-green-500 h-1.5 rounded-full" style="width: ${escola.baseInter}%"></div></div>
+                                </div>
+                            </div>
                         </td>
-                        <td class="p-4 align-middle text-center">
-                            <span class="text-lg font-bold text-gray-800">${escola.score}%</span>
-                        </td>
-                        <td class="p-4 align-middle text-center">
-                            <div class="inline-flex items-center justify-center px-2.5 py-1.5 rounded-lg border text-xs shadow-sm ${escola.matchStyles}">
+                        <td class="p-3 align-middle text-center w-32 border-l border-gray-100">
+                            <span class="text-2xl font-black text-gray-800 block leading-none mb-1">${escola.score}%</span>
+                            <div class="inline-flex items-center justify-center px-2 py-1 rounded-md border text-[10px] shadow-sm w-full ${escola.matchStyles}">
                                 ${escola.matchIcon} ${escola.matchStatus}
                             </div>
                         </td>
