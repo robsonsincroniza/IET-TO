@@ -100,8 +100,8 @@
                 <a href="#" onclick="navigate('view-guia', this, 'Guia e Orientações')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
                     <i data-lucide="book-open" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Guia e Orientações
                 </a>
-                <a href="#" onclick="navigate('view-match', this, 'Simulador: Match Perfeito')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
-                    <i data-lucide="target" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Simulador: Match
+                <a href="#" onclick="navigate('view-match', this, 'Simulador: Aderência Perfeito')" class="nav-link flex items-center px-4 border-b-4 border-transparent text-gray-500 hover:text-ietBlue font-medium transition-colors">
+                    <i data-lucide="target" class="w-4 h-4 mr-2 text-gray-400 icon-element"></i> Simulador: Aderência
                 </a>
                 <a href="#" onclick="navigate('view-pne', this, 'Monitoramento Novo PNE (2026-2036)')" class="nav-link flex items-center px-4 border-b-4 border-ietYellow text-ietBlue font-bold active-nav transition-colors">
                     <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-ietYellow icon-element"></i> Metas PNE
@@ -157,7 +157,7 @@
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
-                        <h3 class="font-bold text-ietBlue flex items-center mb-2"><i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow"></i> Simulador: Match</h3>
+                        <h3 class="font-bold text-ietBlue flex items-center mb-2"><i data-lucide="target" class="w-4 h-4 mr-2 text-ietYellow"></i> Simulador: Aderência</h3>
                         <p class="text-xs text-gray-600 leading-relaxed">O motor de decisão estratégico. Utiliza um modelo de cálculo ajustável para cruzar indicadores (demanda, infraestrutura, vulnerabilidade e engajamento), gerando um ranking transparente com a recomendação ideal de alocação de cursos.</p>
                     </div>
                     <div class="p-5 bg-gray-50 rounded-lg border border-gray-100">
@@ -184,7 +184,7 @@
                     <h2 class="text-xl font-bold text-ietDark mb-4 flex items-center border-b border-gray-100 pb-3">
                         <i data-lucide="cpu" class="w-6 h-6 mr-2 text-ietYellow"></i> A Lógica do Motor de Decisão
                     </h2>
-                    <p class="text-sm text-gray-600 mb-4">A atribuição de cursos no "Match Perfeito" utiliza uma <strong>fórmula estruturada</strong> que calcula um Score Final (0 a 100%) para cada escola, a partir de 4 variáveis ajustáveis:</p>
+                    <p class="text-sm text-gray-600 mb-4">A atribuição de cursos no "Aderência" utiliza uma <strong>fórmula estruturada</strong> que calcula um Score Final (0 a 100%) para cada escola, a partir de 4 variáveis ajustáveis:</p>
                     
                     <ul class="space-y-4">
                         <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
@@ -200,7 +200,7 @@
                             <span class="text-xs text-gray-500">Garante a função social da EPT. Direciona expansões para territórios com alta vulnerabilidade (combinação de Evasão, Exclusão Juvenil e Desocupação).</span>
                         </li>
                         <li class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <span class="font-bold text-green-600 block mb-1">4. Engajamento e Coparticipação</span>
+                            <span class="font-bold text-green-600 block mb-1">4. Engajamento e Participação</span>
                             <span class="text-xs text-gray-500">Traduz as pesquisas qualitativas em dados. Cursos com alta recusa por estudantes ou inviabilidade reportada por gestores perdem pontuação.</span>
                         </li>
                     </ul>
@@ -221,7 +221,7 @@
                                 <p class="text-sm text-gray-600 leading-tight">A oferta é viável, porém exige intervenção prévia (ex: reforma de laboratório ou campanha de engajamento para alunos).</p>
                             </div>
                             <div class="flex items-start">
-                                <span class="bg-red-50 text-red-600 text-xs px-2 py-1 rounded font-bold mr-3 mt-0.5 whitespace-nowrap border border-red-200">< 50% SEM MATCH</span>
+                                <span class="bg-red-50 text-red-600 text-xs px-2 py-1 rounded font-bold mr-3 mt-0.5 whitespace-nowrap border border-red-200">< 50% SEM ADERÊNCIA</span>
                                 <p class="text-sm text-gray-600 leading-tight">Oferta contraindicada no momento. Infraestrutura crítica ou total desalinhamento com a realidade econômica do território.</p>
                             </div>
                         </div>
@@ -439,7 +439,7 @@
             <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100 overflow-x-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-xl font-black text-ietDark uppercase">Mesa de Decisão: Match Escola x Curso</h2>
+                        <h2 class="text-xl font-black text-ietDark uppercase">Mesa de Decisão: Aderência Escola x Curso</h2>
                         <p class="text-xs text-gray-500">O resultado do Motor de Decisão, apresentando o Ranking de Prioridades.</p>
                     </div>
                     <div class="flex space-x-2 mt-4 md:mt-0 text-[9px] font-bold uppercase">
@@ -455,7 +455,7 @@
                             <th class="p-3 border-l w-64">Contexto (Abandono/Clima/Labs)</th>
                             <th class="p-3 border-l">Oferta Atual</th>
                             <th class="p-3 border-l bg-blue-50/50">Recomendação Sugerida</th>
-                            <th class="p-3 border-l w-48">Score do Match</th>
+                            <th class="p-3 border-l w-48">Score da aderência</th>
                             <th class="p-3 text-center w-32 border-l">Status Final</th>
                         </tr>
                     </thead>
@@ -1400,15 +1400,15 @@
                 let matchStatus = ""; let matchStyles = ""; let matchIcon = "";
 
                 if(isBlocked || scoreFinal < 50) {
-                    matchStatus = "Sem Match / Inviável";
+                    matchStatus = "Sem Aderência / Inviável";
                     matchStyles = "bg-red-50 text-red-600 border-red-200 font-medium";
                     matchIcon = '<span class="w-2 h-2 rounded-full bg-red-400 mr-2"></span>';
                 } else if(scoreFinal >= 80) {
-                    matchStatus = "Match Perfeito";
+                    matchStatus = "Aderência Perfeito";
                     matchStyles = "bg-green-100 text-green-800 border-green-200 font-bold";
                     matchIcon = '<span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>';
                 } else {
-                    matchStatus = "Match Parcial";
+                    matchStatus = "Aderência Parcial";
                     matchStyles = "bg-yellow-100 text-yellow-800 border-yellow-200 font-medium";
                     matchIcon = '<span class="w-2 h-2 rounded-full bg-yellow-500 mr-2"></span>';
                 }
