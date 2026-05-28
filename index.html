@@ -1574,19 +1574,32 @@
             }
 
             const cPir = document.getElementById('chartPiramide')?.getContext('2d');
-            if(cPir) {
-                new Chart(cPir, {
-                    type: 'bar',
-                    data: {
-                        labels: ['15-19 anos', '20-24 anos', '25-29 anos'],
-                        datasets: [
-                            { label: '2024 (Atual)', data: [110, 105, 95], backgroundColor: '#60A2D7', borderRadius: 4 },
-                            { label: '2039 (Projeção IBGE)', data: [85, 80, 85], backgroundColor: '#002D4B', borderRadius: 4 }
-                        ]
-                    },
-                    options: { ...commonOptions, indexAxis: 'y', plugins: { legend: { position: 'bottom'} } }
-                });
-            }
+if(cPir) {
+    new Chart(cPir, {
+        type: 'bar',
+        data: {
+            // Adicionado '10-14 anos' no início do array
+            labels: ['10-14 anos', '15-19 anos', '20-24 anos', '25-29 anos'],
+            datasets: [
+                { 
+                    label: '2024 (Atual)', 
+                    // Adicionado o valor referente a 10-14 anos (ex: 120)
+                    data: [120, 110, 105, 95], 
+                    backgroundColor: '#60A2D7', 
+                    borderRadius: 4 
+                },
+                { 
+                    label: '2039 (Projeção IBGE)', 
+                    // Adicionado o valor referente a 10-14 anos (ex: 90)
+                    data: [90, 85, 80, 85], 
+                    backgroundColor: '#002D4B', 
+                    borderRadius: 4 
+                }
+            ]
+        },
+        options: { ...commonOptions, indexAxis: 'y', plugins: { legend: { position: 'bottom'} } }
+    });
+}
 
             const cRanking = document.getElementById('chartRankingEja')?.getContext('2d');
             if(cRanking) {
