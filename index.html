@@ -157,6 +157,154 @@
     .dev-banner { background: linear-gradient(90deg, #4c1d95 0%, #be123c 48%, #c2410c 100%); color: #fff; border-top: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(15,23,42,.16); }
     .dev-banner .dev-pill { display:inline-flex; align-items:center; gap:6px; border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.12); color:#fff; border-radius:999px; padding:6px 10px; font-size:11px; font-weight:900; letter-spacing:.04em; text-transform:uppercase; }
     .quantity-legend-dot { width:10px; height:10px; display:inline-block; border-radius:999px; margin-right:6px; border:1px solid rgba(15,23,42,.12); }
+
+    /* ===== Ajustes v8: responsividade, navegação, cards e tabelas ===== */
+    #nav-menu { justify-content: center; width: 100%; }
+    .nav-link { white-space: nowrap; }
+    .kpi-card { min-height: 112px; padding: 13px; gap: 6px; }
+    .kpi-grid > .kpi-card:nth-child(-n+2) { min-height: 124px; padding: 15px; }
+    .kpi-value { font-size: 1.32rem; }
+    .kpi-grid > .kpi-card:nth-child(-n+2) .kpi-value { font-size: 1.72rem; }
+    .kpi-icon-box { width: 30px; height: 30px; }
+    .kpi-desc { font-size: 10px; -webkit-line-clamp: 1; }
+    .chart-card { overflow: hidden; }
+    .table-wrap table.data-table { width: max-content; min-width: 720px; border-collapse: separate; border-spacing: 0; }
+    .table-wrap table.data-table th, .table-wrap table.data-table td { max-width: 280px; white-space: normal; }
+    .table-wrap table.data-table .col-center { text-align: center; }
+    .table-wrap table.data-table .col-small { max-width: 95px; width: 95px; }
+    .table-wrap table.data-table .col-medium { max-width: 170px; width: 170px; }
+    .table-wrap table.data-table .col-large { max-width: 260px; width: 260px; }
+    .mapbox { min-height: 300px; }
+    @media (max-width: 1280px) {
+      body { height: auto !important; min-height: 100vh; overflow: auto !important; }
+      #main-content { overflow-y: visible !important; padding: 14px !important; }
+      #nav-menu { justify-content: flex-start; }
+      .nav-group-label, .nav-divider { display: none; }
+      .nav-group { gap: 6px; }
+      .input-filter { min-width: 145px; }
+    }
+    @media (max-width: 768px) {
+      header .px-5 { padding-left: 12px !important; padding-right: 12px !important; }
+      .kpi-card, .kpi-grid > .kpi-card:nth-child(-n+2) { min-height: auto !important; padding: 12px !important; }
+      .kpi-value, .kpi-grid > .kpi-card:nth-child(-n+2) .kpi-value { font-size: 1.35rem !important; }
+      .kpi-desc { display: none; }
+      .chart-card { padding: 14px !important; }
+      .section-title { font-size: 1rem !important; }
+      .mapbox { min-height: 260px; }
+      .input-filter { min-width: 100%; width: 100%; }
+      #active-filters-badge { width: 100%; justify-content: center; }
+      #guide-top-btn { width: 100%; justify-content: center; }
+      .table-wrap table.data-table { min-width: 640px; }
+    }
+
+
+    /* ===== Ajustes v9: cards padronizados, legenda dos mapas e layouts em meia tela ===== */
+    .kpi-value,
+    .kpi-grid > .kpi-card:nth-child(-n+2) .kpi-value { font-size: 1.34rem !important; line-height: 1.08 !important; }
+    .kpi-grid > .kpi-card:nth-child(-n+2) { min-height: 112px !important; padding: 13px !important; }
+    .map-legend { top: 96px !important; bottom: auto !important; right: 14px !important; max-width: 190px; }
+    .map-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:12px; }
+    .map-toolbar .territory-btn { margin-left:auto; white-space:nowrap; }
+    .mini-mapbox { min-height: 245px !important; }
+    .compact-chart-h { height: 245px; }
+    .compact-side-table .table-wrap { max-width: 100%; }
+    .compact-side-table table.data-table { min-width: 620px !important; width: 100% !important; }
+    .compact-side-table table.data-table th,
+    .compact-side-table table.data-table td { padding: 8px 9px !important; font-size: 11px !important; }
+    .market-side-table table.data-table { min-width: 760px !important; width: 100% !important; }
+    .market-side-table table.data-table th,
+    .market-side-table table.data-table td { padding: 8px 9px !important; font-size: 11px !important; }
+    @media (max-width: 1024px) {
+      .map-toolbar .territory-btn { margin-left:0; }
+      .mini-mapbox { min-height: 280px !important; }
+    }
+    @media (max-width: 768px) {
+      .kpi-value,
+      .kpi-grid > .kpi-card:nth-child(-n+2) .kpi-value { font-size: 1.24rem !important; }
+      .map-legend { top: 120px !important; right: 10px !important; font-size: 10px !important; padding: 9px !important; max-width: 160px; }
+      .compact-chart-h { height: 260px; }
+    }
+
+
+    /* ===== Ajustes v10: filtros compactos + legendas no canto inferior esquerdo ===== */
+    .filters-shell { padding: 8px 14px !important; }
+    #global-filter-row.global-filter-row {
+      display: grid !important;
+      grid-template-columns: 28px repeat(5, minmax(118px, 1fr)) auto;
+      gap: 8px !important;
+      align-items: center !important;
+      max-width: 1120px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    #global-filter-row > i { justify-self: center; }
+    #global-filter-row .input-filter {
+      width: 100% !important;
+      min-width: 0 !important;
+      height: 34px !important;
+      padding: 6px 9px !important;
+      font-size: 12px !important;
+      border-radius: 9px !important;
+      text-overflow: ellipsis;
+    }
+    #global-filter-row #active-filters-badge {
+      height: 32px;
+      padding: 4px 9px !important;
+      white-space: nowrap;
+      justify-content: center;
+      font-size: 10.5px !important;
+    }
+    .map-toolbar {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      align-items: center !important;
+      gap: 6px !important;
+      margin-bottom: 10px !important;
+    }
+    .map-toolbar .input-filter {
+      min-width: 132px !important;
+      width: auto !important;
+      max-width: 180px;
+      height: 32px !important;
+      padding: 5px 8px !important;
+      font-size: 11px !important;
+      border-radius: 9px !important;
+    }
+    .map-toolbar .territory-btn {
+      margin-left: 0 !important;
+      height: 32px;
+      padding: 6px 9px !important;
+      font-size: 11px !important;
+      white-space: nowrap;
+    }
+    .map-legend {
+      left: 14px !important;
+      right: auto !important;
+      bottom: 14px !important;
+      top: auto !important;
+      max-width: 190px;
+    }
+    @media (max-width: 1100px) {
+      #global-filter-row.global-filter-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 100%; }
+      #global-filter-row > i { display: none; }
+      #global-filter-row #active-filters-badge { width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .filters-shell { padding: 7px 10px !important; }
+      #global-filter-row.global-filter-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px !important; }
+      #global-filter-row .input-filter { min-width: 0 !important; width: 100% !important; height: 32px !important; font-size: 11px !important; padding: 5px 8px !important; }
+      #global-filter-row #active-filters-badge { height: 30px; font-size: 10px !important; }
+      .map-toolbar { gap: 5px !important; }
+      .map-toolbar .input-filter { min-width: 116px !important; max-width: 150px; width: auto !important; font-size: 10.5px !important; }
+      .map-toolbar .territory-btn { font-size: 10.5px !important; padding: 6px 8px !important; }
+      .map-legend { left: 10px !important; right: auto !important; bottom: 10px !important; top: auto !important; font-size: 10px !important; padding: 9px !important; max-width: 160px; }
+    }
+    @media (max-width: 420px) {
+      #global-filter-row.global-filter-row { grid-template-columns: 1fr; }
+      .map-toolbar .input-filter { flex: 1 1 100%; max-width: none; width: 100% !important; }
+      .map-toolbar .territory-btn { flex: 1 1 100%; justify-content: center; }
+    }
+
   </style>
 </head>
 <body class="bg-ietGray text-slate-800 h-screen flex flex-col overflow-hidden">
@@ -183,21 +331,9 @@
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-2 justify-end">
-        <span class="inline-flex items-center gap-1 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
-          <i data-lucide="database" class="w-4 h-4 text-ietBlue"></i>
-          <span id="last-update">Carregando dados...</span>
-        </span>
-        <button id="export-pdf-btn" onclick="exportPDF()" class="inline-flex items-center gap-2 bg-ietYellow hover:bg-yellow-400 text-ietDark font-black text-xs rounded-lg px-4 py-2 transition">
-          <i data-lucide="download" class="w-4 h-4"></i> Exportar PDF
+        <button id="guide-top-btn" onclick="openGuideView()" class="inline-flex items-center gap-2 bg-ietBlue hover:bg-ietDark text-white font-black text-xs rounded-lg px-4 py-2.5 transition shadow-sm">
+          <i data-lucide="book-open" class="w-4 h-4 text-ietYellow"></i> Guia / Metodologia
         </button>
-      </div>
-    </div>
-
-    <div class="dev-banner px-5 py-2.5">
-      <div class="flex flex-wrap items-center justify-center gap-2 text-center">
-        <span class="dev-pill"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i> Modelo de Simulação - V2</span>
-        <span class="dev-pill"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Não Validado</span>
-        <span class="dev-pill"><i data-lucide="construction" class="w-3.5 h-3.5"></i> Ambiente em Construção</span>
       </div>
     </div>
 
@@ -205,7 +341,6 @@
       <nav id="nav-menu" class="flex items-center py-3 min-w-max">
         <div class="nav-group">
           <span class="nav-group-label">Visão geral</span>
-          <button class="nav-link px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs flex items-center gap-2" data-view="guia" data-title="Guia / Metodologia" data-subtitle="Como ler o painel, interpretar os indicadores e usar a Mesa de Decisão."><i data-lucide="book-open" class="w-4 h-4"></i> Guia / Metodologia</button>
           <button class="nav-link active px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs flex items-center gap-2" data-view="executiva" data-title="Visão Executiva" data-subtitle="Cenário geral da EPT e principais leituras para decisão."><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Visão Executiva</button>
         </div>
         <div class="nav-divider"></div>
@@ -230,8 +365,8 @@
       </nav>
     </div>
 
-    <div class="bg-slate-50 border-b border-slate-200 px-5 py-3">
-      <div class="flex flex-wrap items-center gap-3">
+    <div class="filters-shell bg-slate-50 border-b border-slate-200 px-5 py-3">
+      <div id="global-filter-row" class="global-filter-row">
         <i data-lucide="sliders-horizontal" class="w-4 h-4 text-slate-400"></i>
         <select id="filter-sre" class="input-filter"><option value="Todos">Todas as SREs</option></select>
         <select id="filter-municipio" class="input-filter"><option value="Todos">Todos os municípios</option></select>
@@ -239,7 +374,6 @@
         <select id="filter-eixo" class="input-filter"><option value="Todos">Todos os eixos</option></select>
         <select id="filter-prioridade" class="input-filter"><option value="Todos">Todas as prioridades</option></select>
         <span id="active-filters-badge"><i data-lucide="filter" class="w-3.5 h-3.5"></i><span id="active-filters-count">0</span> filtro(s) ativo(s)</span>
-        <button onclick="resetFilters()" class="ml-auto inline-flex items-center gap-2 border border-ietBlue text-ietBlue hover:bg-blue-50 font-black text-xs rounded-lg px-4 py-2.5 transition"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Redefinir</button>
       </div>
     </div>
   </header>
@@ -255,6 +389,14 @@
     <section id="view-escutas" class="view-section"></section>
     <section id="view-decisao" class="view-section"></section>
   </main>
+
+  <footer class="dev-banner shrink-0 px-5 py-2.5">
+    <div class="flex flex-wrap items-center justify-center gap-2 text-center">
+      <span class="dev-pill"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i> Modelo de Simulação - V2</span>
+      <span class="dev-pill"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Não Validado</span>
+      <span class="dev-pill"><i data-lucide="construction" class="w-3.5 h-3.5"></i> Ambiente em Construção</span>
+    </div>
+  </footer>
 
 <script>
 const SUPABASE_URL = 'https://vdbhxixdyprijkzcynqw.supabase.co';
@@ -375,6 +517,12 @@ function wireEvents() {
     const el = document.getElementById(`filter-${k}`); if (el) el.addEventListener('change', () => { state.filters[k] = el.value; renderAll(); });
   });
 }
+function openGuideView() {
+  const btn = document.querySelector('[data-view="guia"]');
+  if (btn) btn.click();
+  else navigate('guia', 'Guia / Metodologia', 'Como ler o painel, interpretar os indicadores e usar a Mesa de Decisão.', null);
+}
+
 function navigate(view, title, subtitle, btn) {
   state.activeView = view;
   document.querySelectorAll('.nav-link').forEach(x => x.classList.remove('active'));
@@ -590,13 +738,21 @@ function tableShell(id) {
       </div>
       <p id="${id}-info" class="text-[11px] text-slate-500 font-semibold"></p>
     </div>
-    <div class="table-wrap bg-white"${style}><table class="w-full text-left table-fixed-head min-w-[900px]"><thead id="${id}-thead"></thead><tbody id="${id}-tbody"></tbody></table></div>
+    <div class="table-wrap bg-white"${style}><table class="data-table text-left table-fixed-head"><thead id="${id}-thead"></thead><tbody id="${id}-tbody"></tbody></table></div>
     <div id="${id}-pager" class="flex items-center justify-center gap-2 mt-3"></div>
   </div>`;
 }
+function tableColClass(headers, i) {
+  const h = String(headers[i] || '').toLowerCase();
+  const center = ['escolas','turmas','matrícula','matriculas','média','media','vínculo','vinculo','nº','n°','total','%','score','prioridade','leitura','tipo','sinal','infraestrutura'].some(k => h.includes(k));
+  const small = ['escolas','turmas','matrículas','matriculas','média','media','vínculos','vinculos','nº','n°','score','%'].some(k => h.includes(k));
+  const large = ['curso','escola','município','municipio','condição','condicao','comentário','comentario','gargalo'].some(k => h.includes(k));
+  return `${center ? ' col-center' : ''}${small ? ' col-small' : ''}${large ? ' col-large' : ''}`;
+}
+
 function tableTheadHtml(id) {
   const t = state.tables[id]; if (!t) return '';
-  return `<tr class="bg-slate-50 text-[10px] uppercase text-slate-500 font-black">${t.headers.map((h, i) => `<th class="p-3 border-b border-slate-200 cursor-pointer select-none hover:text-ietBlue" onclick="sortTable('${id}',${i})">${esc(h)}${t.sortCol === i ? ` <span class="text-ietBlue">${t.sortDir === 1 ? '▲' : '▼'}</span>` : ''}</th>`).join('')}</tr>`;
+  return `<tr class="bg-slate-50 text-[10px] uppercase text-slate-500 font-black">${t.headers.map((h, i) => `<th class="p-3 border-b border-slate-200 cursor-pointer select-none hover:text-ietBlue${tableColClass(t.headers, i)}" onclick="sortTable('${id}',${i})">${esc(h)}${t.sortCol === i ? ` <span class="text-ietBlue">${t.sortDir === 1 ? '▲' : '▼'}</span>` : ''}</th>`).join('')}</tr>`;
 }
 function tablePagerHtml(id, page, totalPages) {
   if (totalPages <= 1) return '';
@@ -613,7 +769,7 @@ function refreshTable(id) {
   const start = (t.page - 1) * t.pageSize;
   const pageRows = rows.slice(start, start + t.pageSize);
   const tbody = document.getElementById(`${id}-tbody`);
-  if (tbody) tbody.innerHTML = pageRows.map(row => `<tr class="hover:bg-blue-50/40">${row.map(c => `<td class="p-3 border-b border-slate-100 text-xs text-slate-700 align-top">${c}</td>`).join('')}</tr>`).join('') || `<tr><td colspan="${t.headers.length}" class="p-8 text-center text-slate-500">${t.query ? 'Nenhum resultado para a busca.' : 'Sem dados para os filtros selecionados.'}</td></tr>`;
+  if (tbody) tbody.innerHTML = pageRows.map(row => `<tr class="hover:bg-blue-50/40">${row.map((c, i) => `<td class="p-3 border-b border-slate-100 text-xs text-slate-700 align-top${tableColClass(t.headers, i)}">${c}</td>`).join('')}</tr>`).join('') || `<tr><td colspan="${t.headers.length}" class="p-8 text-center text-slate-500">${t.query ? 'Nenhum resultado para a busca.' : 'Sem dados para os filtros selecionados.'}</td></tr>`;
   const thead = document.getElementById(`${id}-thead`); if (thead) thead.innerHTML = tableTheadHtml(id);
   const info = document.getElementById(`${id}-info`); if (info) info.textContent = totalRows ? `Exibindo ${start + 1}–${Math.min(start + t.pageSize, totalRows)} de ${totalRows}` : 'Nenhum resultado';
   const pager = document.getElementById(`${id}-pager`); if (pager) pager.innerHTML = tablePagerHtml(id, t.page, totalPages);
@@ -825,7 +981,7 @@ function renderExecutiva() {
       ${kpiCard('Déficit PNE', `+${fmt(deficit)}`, 'target', 'yellow', 'Meta referencial: 35.000 matrículas')}
     </div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Cobertura territorial da EPT', 'Total de matrículas EPT por território. O tamanho, a cor e o rótulo da bolha representam o volume de matrículas.', 'As bolhas consideram o total de matrículas EPT registrado no território selecionado.')}${mapToolbarHtml('map-executiva')}<div id="map-executiva" class="mapbox"></div></div>
+      <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Cobertura territorial da EPT', 'Total de matrículas EPT por território. O tamanho, a cor e o rótulo da bolha representam o volume de matrículas.', 'As bolhas consideram o total de matrículas EPT registrado no território selecionado.')}${mapToolbarHtml('map-executiva')}<div id="map-executiva" class="mapbox"></div>${mapQuantityLegend('matriculas')}</div>
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Meta PNE 12.a', 'Oferecer, no mínimo, 50% das matrículas de educação básica em EPT até 2036.')}${metaGauge(pctEmEpt, 50, t.matriculas, deficit, 'Expansão anual acima do crescimento orgânico é necessária para atingir a meta.')}</div>
       <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Matrículas por SRE')}<div class="h-[280px]"><canvas id="chart-exec-sre"></canvas></div></div>
       <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Regime de funcionamento', 'Distribuição das matrículas EPT por regime: integral, parcial, alternância ou internato.')}<div class="h-[280px]"><canvas id="chart-exec-forma"></canvas></div></div>
@@ -873,13 +1029,15 @@ function renderOferta() {
       ${kpiCard('% EM com EPT', pct(sum(t.escolas,'matriculas_em_total') ? t.matriculas/sum(t.escolas,'matriculas_em_total')*100 : 0), 'graduation-cap', 'blue')}
       ${kpiCard('Meta PNE 2036', '50%', 'target', 'yellow', 'Referência de planejamento')}
     </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Distribuição territorial', 'Total de matrículas EPT por território. As bolhas variam por cor e tamanho conforme o volume de matrículas.')}${mapToolbarHtml('map-oferta')}<div id="map-oferta" class="mapbox"></div></div>
-      <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Matrículas por SRE')}<div class="h-[320px]"><canvas id="chart-oferta-sre"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Perfil da oferta por regime', 'Distribuição das matrículas conforme o regime de funcionamento informado na base.')}<div class="h-[320px]"><canvas id="chart-oferta-forma"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Top cursos da rede')}<div class="h-[320px]"><canvas id="chart-oferta-cursos"></canvas></div></div>
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5 items-start">
+      <div class="xl:col-span-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="chart-card p-4 relative">${sectionTitle('Distribuição territorial', 'Total de matrículas EPT por território. As bolhas variam por cor e tamanho conforme o volume de matrículas.')}${mapToolbarHtml('map-oferta')}<div id="map-oferta" class="mapbox mini-mapbox"></div>${mapQuantityLegend('matriculas')}</div>
+        <div class="chart-card p-4">${sectionTitle('Matrículas por SRE')}<div class="compact-chart-h"><canvas id="chart-oferta-sre"></canvas></div></div>
+        <div class="chart-card p-4">${sectionTitle('Perfil da oferta por regime', 'Distribuição das matrículas conforme o regime de funcionamento informado na base.')}<div class="compact-chart-h"><canvas id="chart-oferta-forma"></canvas></div></div>
+        <div class="chart-card p-4">${sectionTitle('Top cursos da rede')}<div class="compact-chart-h"><canvas id="chart-oferta-cursos"></canvas></div></div>
+      </div>
+      <div class="chart-card p-5 xl:col-span-6 compact-side-table">${sectionTitle('Oferta por escola/município e curso', 'Visão detalhada da rede conforme os filtros aplicados.')}${renderTable(['SRE','Município','Curso','Escolas','Turmas','Matrículas','Média por turma'], tableRows, 'all', '720px')}</div>
     </div>
-    <div class="chart-card p-5 mb-5">${sectionTitle('Oferta por escola/município e curso', 'Visão detalhada da rede conforme os filtros aplicados.')}${renderTable(['SRE','Município','Curso','Escolas','Turmas','Matrículas','Média por turma'], tableRows, 12)}</div>
     ${decisionReadings(['A oferta atual mostra o ponto de partida real antes de qualquer decisão de expansão.', 'Concentração territorial e por curso deve orientar a análise de lacunas.', 'Cursos com baixa escala podem exigir revisão, reposicionamento ou validação adicional.', 'Todos os cenários devem ser avaliados em diálogo com a meta PNE e a capacidade instalada.'])}
   `;
   renderMap('map-oferta', (filtered('escolas').length ? filtered('escolas') : filtered('escolasMapa')).filter(e => n(e.matriculas_ept_2026)>0 || yes(e.tem_ept_2026)), 'oferta');
@@ -939,7 +1097,7 @@ function renderLacunas() {
   const munSelecionado = state.filters.municipio !== 'Todos' ? state.filters.municipio : 'TODOS';
   const leituraBase = all.slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos));
   const leitura = leituraBase.slice(0,4);
-  const tableRows = leituraBase.map(x => [esc(x.sre), esc(x.municipio), esc(x.curso_cnct), badge(x.prioridade || x.classificacao_revisada || x.tipo_lacuna), fmt(x.vinculos), fmt(x.escolas_aptas_premissa || x.escolas_aptas), esc((x.escolas_aptas_lista || x.lista_escolas_aptas || x.escolas || '').slice(0,150)), esc(x.encaminhamento || x.condicao || 'Validar'), actionBadge(x.prioridade || x.classificacao_revisada)]);
+  const tableRows = leituraBase.map(x => [esc(x.sre), esc(x.municipio), esc(x.curso_cnct), badge(x.prioridade || x.classificacao_revisada || x.tipo_lacuna), fmt(x.vinculos), fmt(x.escolas_aptas_premissa || x.escolas_aptas), esc(x.encaminhamento || x.condicao || 'Validar')]);
   document.getElementById('view-lacunas').innerHTML = `
     <div class="kpi-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 mb-5">
       ${kpiCard('Municípios analisados', fmt(uniq(all.map(x=>x.municipio)).length), 'building-2', 'blue')}
@@ -972,7 +1130,7 @@ function renderLacunas() {
         ${leituraBase.length > leitura.length ? `<p class="text-[11px] text-slate-400 font-semibold mt-3">Mostrando ${leitura.length} de ${leituraBase.length} — veja a tabela decisória completa, com busca e paginação, logo abaixo.</p>` : ''}
       </div>
     </div>
-    <div class="chart-card p-5">${sectionTitle('Tabela decisória — lacunas, cursos e escolas candidatas')}${renderTable(['SRE','Município','Curso CNCT','Tipo','Vínculos','Nº escolas','Lista de escolas aptas','Condição','Decisão'], tableRows, 12, '520px')}</div>
+    <div class="chart-card p-5">${sectionTitle('Tabela decisória — lacunas, cursos e escolas candidatas')}${renderTable(['SRE','Município','Curso CNCT','Tipo','Vínculos','Nº escolas','Condição'], tableRows, 12, '520px')}</div>
     ${decisionReadings(['Priorizar implantação de cursos em lacunas com maior vínculo e massa salarial.', 'Validar lacunas condicionadas considerando demanda, parceiro, infraestrutura e escala mínima.', 'Decidir entre implantar, validar, ajustar oferta ou monitorar conforme a condição identificada.', 'A cor do mapa orienta o tipo de ação; o número indica a concentração de lacunas no território.'])}
   `;
   renderMap('map-lacunas', mapRows, 'lacunas');
@@ -1012,30 +1170,30 @@ function renderMercado() {
       ${kpiCard('Demandas condicionadas', fmt(m.filter(x=>/condicion|m.dia|media/i.test(String(x.prioridade))).length), 'hourglass', 'orange')}
       ${kpiCard('A revisar', fmt(m.filter(x=>/revis|monitor|baixa/i.test(String(x.prioridade || x.classificacao_revisada))).length), 'search', 'orange')}
     </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Sinais de mercado', 'Setores e ocupações com maior sinal na base.')}<div class="h-[330px]"><canvas id="chart-mercado-setores"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Vocação econômica territorial', 'Cursos CNCT indicados a partir de vínculos e remuneração.')}<div class="h-[330px]"><canvas id="chart-mercado-cursos"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Ponte mercado → curso CNCT', 'Leitura visual das evidências até a decisão.')}
-        <div class="space-y-3">
-          ${[
-            ['Setor em crescimento','CNAE, vínculos e massa salarial','trending-up','blue'],
-            ['Ocupação relacionada','CBO técnico e remuneração','briefcase','blue'],
-            ['Curso correspondente','CNCT e eixo tecnológico','graduation-cap','blue'],
-            ['Recorte territorial','SRE, município e escolas aptas','map-pin','blue'],
-            ['Decisão','Prioritária, condicionada ou revisar','check-circle-2','green']
-          ].map(x=>`<div class="bridge-item"><div class="bridge-icon ${x[3]==='green'?'bg-green-50 text-green-700':'bg-blue-50 text-ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500">${x[1]}</p></div></div>`).join('')}
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5 items-start">
+      <div class="xl:col-span-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="chart-card p-4">${sectionTitle('Sinais de mercado', 'Setores e ocupações com maior sinal na base.')}<div class="compact-chart-h"><canvas id="chart-mercado-setores"></canvas></div></div>
+        <div class="chart-card p-4">${sectionTitle('Vocação econômica territorial', 'Cursos CNCT indicados a partir de vínculos e remuneração.')}<div class="compact-chart-h"><canvas id="chart-mercado-cursos"></canvas></div></div>
+        <div class="chart-card p-4">${sectionTitle('Ponte mercado → curso CNCT', 'Leitura visual das evidências até a decisão.')}
+          <div class="space-y-2">
+            ${[
+              ['Setor em crescimento','CNAE, vínculos e massa salarial','trending-up','blue'],
+              ['Ocupação relacionada','CBO técnico e remuneração','briefcase','blue'],
+              ['Curso correspondente','CNCT e eixo tecnológico','graduation-cap','blue'],
+              ['Recorte territorial','SRE, município e escolas aptas','map-pin','blue'],
+              ['Decisão','Prioritária, condicionada ou revisar','check-circle-2','green']
+            ].map(x=>`<div class="bridge-item"><div class="bridge-icon ${x[3]==='green'?'bg-green-50 text-green-700':'bg-blue-50 text-ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500">${x[1]}</p></div></div>`).join('')}
+          </div>
+        </div>
+        <div class="chart-card p-4">${sectionTitle('Critérios para recomendação', 'Recomendação forte, condicionada e monitoramento.')}
+          <div class="space-y-2">
+            <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-green-50 text-green-700 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div><div><p class="font-black text-green-800">Alta aderência</p><p class="text-xs text-slate-500">Setor cresce, vínculos técnicos são relevantes e há curso CNCT correspondente.</p></div></div>
+            <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-yellow-50 text-yellow-700 flex items-center justify-center"><i data-lucide="triangle-alert" class="w-5 h-5"></i></div><div><p class="font-black text-yellow-800">Aderência condicionada</p><p class="text-xs text-slate-500">Mercado existe, mas a oferta depende de escala, parceiro, campo de prática ou docente.</p></div></div>
+            <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center"><i data-lucide="search" class="w-5 h-5"></i></div><div><p class="font-black text-orange-800">Revisar / monitorar</p><p class="text-xs text-slate-500">A hipótese precisa de novas evidências ou validação antes de entrar na Mesa de Decisão.</p></div></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-8">${sectionTitle('Evidência de mercado por curso indicado')}${renderTable(['SRE','Município','Curso CNCT','Setor/CBO evidência','Vínculos','Remun. média','Sinal','Impacto no mapa'], tableRows, 12)}</div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Critérios para recomendação', 'A proposta diferencia recomendação forte, condicionada e monitoramento.')}
-        <div class="space-y-3">
-          <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-green-50 text-green-700 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div><div><p class="font-black text-green-800">Alta aderência</p><p class="text-xs text-slate-500">Setor cresce, vínculos técnicos são relevantes e há curso CNCT correspondente.</p></div></div>
-          <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-yellow-50 text-yellow-700 flex items-center justify-center"><i data-lucide="triangle-alert" class="w-5 h-5"></i></div><div><p class="font-black text-yellow-800">Aderência condicionada</p><p class="text-xs text-slate-500">Mercado existe, mas a oferta depende de escala, parceiro, campo de prática ou docente.</p></div></div>
-          <div class="criteria-card"><div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center"><i data-lucide="search" class="w-5 h-5"></i></div><div><p class="font-black text-orange-800">Revisar / monitorar</p><p class="text-xs text-slate-500">A hipótese precisa de novas evidências ou validação antes de entrar na Mesa de Decisão.</p></div></div>
-        </div>
-      </div>
+      <div class="chart-card p-5 xl:col-span-6 market-side-table">${sectionTitle('Evidência de mercado por curso indicado')}${renderTable(['SRE','Município','Curso CNCT','Setor/CBO evidência','Vínculos','Remun. média','Sinal','Impacto no mapa'], tableRows, 'all', '760px')}</div>
     </div>
     ${decisionReadings(['Mercado passa a ser a evidência que sustenta a indicação do curso no mapa de lacunas.', 'A tela usa a mesma lógica: território, curso, vínculos, remuneração e decisão.', 'A aba Mercado fica ao lado das Lacunas para reforçar que as leituras são complementares.', 'Demanda econômica forte ainda precisa ser validada por infraestrutura, escutas e viabilidade.'])}
   `;
@@ -1170,7 +1328,7 @@ function renderSociais() {
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Top municípios — abandono EM', 'Municípios com maior taxa média de abandono do Ensino Médio.')}<div class="h-[340px]"><canvas id="chart-social-abandono-municipio"></canvas></div></div>
     </div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Perfil social da juventude', 'Indicadores complementares serão exibidos assim que estiverem disponíveis.')}
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Perfil social da juventude', 'Indicadores complementares serão exibidos assim que estiverem disponíveis.')}
         <div class="grid grid-cols-2 gap-3">
           ${genderSplitCard(homens, mulheres)}
           ${socialIndicatorPending('Por raça/cor', 'Distribuição por raça/cor declarada. Necessita base social ou educacional com esse recorte.', 'palette')}
@@ -1178,15 +1336,12 @@ function renderSociais() {
           ${socialIndicatorPending('Renda per capita', 'Renda média por pessoa no domicílio ou território. Não deve ser confundida com remuneração média do mercado formal.', 'banknote')}
         </div>
       </div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Como ler esta tela')}
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Como ler esta tela')}
         <div class="space-y-4">
           <div class="bridge-item"><div class="icon-bullet bg-red-50 text-red-700"><i data-lucide="triangle-alert" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">Abandono EM elevado indica maior risco educacional e necessidade de estratégia de permanência.</p></div>
           <div class="bridge-item"><div class="icon-bullet bg-blue-50 text-ietBlue"><i data-lucide="map-pin" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">Municípios com alta atenção e baixa oferta EPT devem ganhar prioridade na expansão.</p></div>
           <div class="bridge-item"><div class="icon-bullet bg-green-50 text-green-700"><i data-lucide="git-merge" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">A leitura social deve ser combinada com mercado, infraestrutura e escutas.</p></div>
         </div>
-      </div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Leituras para decisão')}
-        <div class="space-y-4">${['Abandono EM passa a ser indicador real da aba de Marcadores Sociais.', 'Territórios com abandono alto e lacuna de oferta exigem análise prioritária.', 'A cobertura EPT em áreas vulneráveis deve ser analisada junto da capacidade escolar.', 'Indicadores sociais complementares serão incluídos assim que estiverem consolidados, sem uso de dados simulados.'].map((t,i)=>`<div class="flex gap-3"><span class="w-7 h-7 rounded-full bg-ietBlue text-white flex items-center justify-center font-black text-xs">${i+1}</span><p class="text-sm text-slate-600 leading-relaxed">${t}</p></div>`).join('')}</div>
       </div>
     </div>
   `;
@@ -1322,8 +1477,8 @@ function renderDecisao() {
   const deficit = Math.max(0, 35000 - t.matriculas);
   const escolaCurso = filtered('escolaCurso');
   const municipioCurso = filtered('municipioCurso');
-  const rows1 = escolaCurso.slice().sort((a,b)=>n(b.score_final)-n(a.score_final)).map(x => [esc(x.sre), esc(x.municipio), esc(x.escola_candidata || x.nome_escola), esc(x.oferta_atual || x.cursos_ept_2026 || 'Sem oferta'), esc(getCurso(x)), fmt(x.matriculas_atuais || x.matriculas_ept_2026), badge(x.classificacao_revisada || x.prioridade || 'Analisar'), esc(x.acao_recomendada || x.possibilidade_oferta || x.fase_implantacao || 'Validar')]);
-  const rows2 = municipioCurso.slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos)).map(x => [esc(x.sre), esc(x.municipio), esc(x.curso_cnct), badge(x.prioridade || x.classificacao_revisada), fmt(x.escolas_aptas_premissa), badge(n(x.vinculos)>1000?'Forte':n(x.vinculos)>300?'Médio':'Baixo'), badge(x.prioridade_social || x.prioridade || 'Média'), badge(x.infraestrutura || 'Com ajuste'), esc(x.encaminhamento || 'Implantar/validar'), fmt(Math.max(0, Math.round(n(x.escolas_aptas_premissa || 1)*35)))]);
+  const rows1 = escolaCurso.slice().sort((a,b)=>n(b.score_final)-n(a.score_final)).map(x => [esc(x.sre), esc(x.municipio), esc(x.escola_candidata || x.nome_escola), esc(x.oferta_atual || x.cursos_ept_2026 || 'Sem oferta'), esc(getCurso(x)), fmt(x.matriculas_atuais || x.matriculas_ept_2026), badge(x.classificacao_revisada || x.prioridade || 'Analisar')]);
+  const rows2 = municipioCurso.slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos)).map(x => [esc(x.sre), esc(x.municipio), esc(x.curso_cnct), badge(x.prioridade || x.classificacao_revisada), fmt(x.escolas_aptas_premissa), badge(n(x.vinculos)>1000?'Forte':n(x.vinculos)>300?'Médio':'Baixo'), badge(x.prioridade_social || x.prioridade || 'Média'), badge(x.infraestrutura || 'Com ajuste'), fmt(Math.max(0, Math.round(n(x.escolas_aptas_premissa || 1)*35)))]);
   document.getElementById('view-decisao').innerHTML = `
     <div class="decision-panel mb-5">
       ${sectionTitle('1. Onde estamos hoje na meta PNE e qual o tamanho do desafio?', 'A Mesa de Decisão consolida cenário, meta e prioridades de implantação.')}
@@ -1338,18 +1493,15 @@ function renderDecisao() {
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('2. Decomposição da meta', 'Atual, crescimento orgânico, revisão da oferta, novas ofertas e EJA-EPT.')}
         <div class="h-[320px]"><canvas id="chart-decisao-meta"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('3. Gap de execução — ritmo histórico x necessário')}
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('3. Lacuna de execução — ritmo histórico x necessário')}
         <div class="h-[320px]"><canvas id="chart-decisao-gap"></canvas></div></div>
     </div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('4. Simulador PNE — Explore cenários')}${renderSimuladorPNE(t)}</div>
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('5. Motor de decisão — Variáveis e pesos', '', 'O índice de prioridade combina diferentes dimensões para indicar onde e como expandir a EPT.')}${renderMotorDecisao()}</div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
-      ${['Oferta atual e revisão','Lacunas territoriais','Mercado e prioridade social','Infraestrutura e escutas'].map((t,i)=>`<div class="decision-stage"><div class="flex items-center gap-3 mb-3"><span class="decision-stage-number">${i+1}</span><p class="font-black text-ietDark">${t}</p></div><p class="text-xs text-slate-500 leading-relaxed">${['Avaliar o que manter, ampliar, ajustar ou revisar na oferta existente.','Definir onde há espaço para novas ofertas e quais cursos priorizar.','Confirmar se a hipótese tem demanda econômica e relevância social.','Checar se a escola tem condições ou quais ajustes precisam ser feitos.'][i]}</p></div>`).join('')}
-    </div>
-    <div class="chart-card p-5 mb-5">${sectionTitle('6. Cenário 1 — Oferta atual e revisão da oferta', 'O que fazer com o que já existe: manter, ampliar, ajustar ou revisar.')}${renderTable(['SRE','Município','Escola','Curso atual','Curso sugerido','Matrículas atuais','Leitura','Ação recomendada'], rows1, 10, '460px')}</div>
-    <div class="chart-card p-5 mb-5">${sectionTitle('7. Cenário 2 — Lacunas territoriais e possibilidades de oferta', 'Onde implantar novas ofertas a partir de lacunas, mercado, prioridade social e infraestrutura.')}${renderTable(['SRE','Município','Curso sugerido','Tipo de lacuna','Escolas aptas','Sinal de mercado','Prioridade social','Infraestrutura','Decisão','Matrículas estimadas'], rows2, 10, '460px')}</div>
+    <div class="chart-card p-5 mb-5">${sectionTitle('6. Cenário 1 — Oferta atual e revisão da oferta', 'O que fazer com o que já existe: manter, ampliar, ajustar ou revisar.')}${renderTable(['SRE','Município','Escola','Curso atual','Curso sugerido','Matrículas atuais','Leitura'], rows1, 10, '460px')}</div>
+    <div class="chart-card p-5 mb-5">${sectionTitle('7. Cenário 2 — Lacunas territoriais e possibilidades de oferta', 'Onde implantar novas ofertas a partir de lacunas, mercado, prioridade social e infraestrutura.')}${renderTable(['SRE','Município','Curso sugerido','Tipo de lacuna','Escolas aptas','Sinal de mercado','Prioridade social','Infraestrutura','Matrículas estimadas'], rows2, 10, '460px')}</div>
     <div class="decision-panel">${sectionTitle('8. Leituras para decisão')}
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         ${['O desafio é grande: sem ações adicionais, a meta de 50% não será atingida.', 'Priorizar revisão da oferta atual em escolas com capacidade instalada e alta demanda.', 'Implantar novas ofertas em lacunas territoriais, articulando mercado, equidade e infraestrutura.', 'Combinar modalidades integrada, concomitante e EJA-EPT para ampliar acesso e reduzir desigualdades.'].map((t,i)=>`<div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-ietBlue text-white flex items-center justify-center font-black">${i+1}</span><p class="text-sm text-slate-600 leading-relaxed">${t}</p></div>`).join('')}
@@ -1432,15 +1584,22 @@ function wireMotorSliders() {
 }
 
 
+function mapQuantityLegend(type = 'matriculas') {
+  if (type === 'matriculas') {
+    return `<div class="map-legend"><p class="font-black text-slate-700 mb-2">Total de matrículas EPT</p><p><span class="quantity-legend-dot" style="background:#7C2D12"></span>500 ou mais</p><p><span class="quantity-legend-dot" style="background:#EA580C"></span>250 a 499</p><p><span class="quantity-legend-dot" style="background:#F59E0B"></span>100 a 249</p><p><span class="quantity-legend-dot" style="background:#14B8A6"></span>até 99</p></div>`;
+  }
+  return `<div class="map-legend"><p class="font-black text-slate-700 mb-2">Quantidade</p><p><span class="quantity-legend-dot" style="background:#7E22CE"></span>Muito alto</p><p><span class="quantity-legend-dot" style="background:#E11D48"></span>Alto</p><p><span class="quantity-legend-dot" style="background:#F97316"></span>Médio</p><p><span class="quantity-legend-dot" style="background:#10B981"></span>Baixo</p></div>`;
+}
+
 function mapToolbarHtml(id) {
-  return `<div class="flex flex-wrap items-center gap-2 mb-3">
-    <select id="${id}-sre-focus" class="input-filter text-xs" style="min-width:180px" onchange="focusMapSre('${id}', this.value)">
+  return `<div class="map-toolbar">
+    <select id="${id}-sre-focus" class="input-filter text-xs" style="min-width:170px" onchange="focusMapSre('${id}', this.value)">
       <option value="">Focar SRE...</option>
     </select>
-    <select id="${id}-focus" class="input-filter text-xs" style="min-width:190px" onchange="focusMapTerritory('${id}', this.value)">
+    <select id="${id}-focus" class="input-filter text-xs" style="min-width:180px" onchange="focusMapTerritory('${id}', this.value)">
       <option value="">Focar município...</option>
     </select>
-    <button type="button" onclick="resetMapView('${id}')" class="text-xs font-bold text-ietBlue border border-blue-100 bg-blue-50 hover:bg-blue-100 rounded-lg px-3 py-2 flex items-center gap-1.5"><i data-lucide="maximize" class="w-3.5 h-3.5"></i> Ver território completo</button>
+    <button type="button" onclick="resetMapView('${id}')" class="territory-btn text-xs font-bold text-ietBlue border border-blue-100 bg-blue-50 hover:bg-blue-100 rounded-lg px-3 py-2 inline-flex items-center gap-1.5"><i data-lucide="maximize" class="w-3.5 h-3.5"></i> Ver território completo</button>
   </div>`;
 }
 function focusMapTerritory(id, key) {
