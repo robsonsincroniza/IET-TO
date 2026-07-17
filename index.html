@@ -305,6 +305,40 @@
       .map-toolbar .territory-btn { flex: 1 1 100%; justify-content: center; }
     }
 
+  
+
+    /* ===== Marcadores Sociais v12 ===== */
+    .social-ranking-filters { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px; margin-bottom:12px; }
+    .social-ranking-filters .input-filter { width:100%; min-width:0 !important; }
+    .metric-badge { display:inline-flex; align-items:center; justify-content:center; gap:5px; min-width:72px; padding:6px 9px; border-radius:999px; font-weight:900; font-size:11px; border:1px solid; white-space:nowrap; }
+    .metric-badge.red { background:#fee2e2; color:#b91c1c; border-color:#fecaca; }
+    .metric-badge.orange { background:#ffedd5; color:#c2410c; border-color:#fed7aa; }
+    .metric-badge.yellow { background:#fef9c3; color:#a16207; border-color:#fde68a; }
+    .metric-badge.green { background:#dcfce7; color:#15803d; border-color:#bbf7d0; }
+    .metric-badge.blue { background:#dbeafe; color:#004990; border-color:#bfdbfe; }
+    .metric-badge.slate { background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
+    .social-territory-hero { background: radial-gradient(circle at top right, rgba(255,184,28,.22), transparent 30%), linear-gradient(135deg,#002D4B 0%,#004990 58%,#0E7490 100%); color:#fff; border-radius:22px; padding:18px; position:relative; overflow:hidden; box-shadow:0 14px 32px rgba(15,23,42,.14); }
+    .social-territory-hero::after { content:''; position:absolute; width:150px; height:150px; border-radius:999px; background:rgba(255,255,255,.08); right:-50px; bottom:-55px; }
+    .social-score-ring { width:78px; height:78px; border-radius:999px; background:rgba(255,255,255,.14); border:2px solid rgba(255,255,255,.30); display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+    .social-score-ring b { font-size:25px; line-height:1; }
+    .social-score-ring span { font-size:9px; text-transform:uppercase; letter-spacing:.08em; opacity:.84; font-weight:900; }
+    .social-mini-card { display:flex; gap:10px; align-items:center; padding:12px; border-radius:16px; background:linear-gradient(180deg,#fff,#f8fafc); border:1px solid #e2e8f0; min-height:76px; }
+    .social-mini-icon { width:36px; height:36px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .social-mini-card .label { font-size:9px; text-transform:uppercase; letter-spacing:.07em; color:#64748b; font-weight:900; }
+    .social-mini-card .value { font-size:16px; color:#0f172a; font-weight:900; line-height:1.15; margin-top:2px; }
+    .gender-visual { height:260px; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+    .gender-bar { height:18px; border-radius:999px; overflow:hidden; display:flex; background:#e2e8f0; box-shadow:inset 0 0 0 1px rgba(15,23,42,.04); }
+    .gender-segment { height:100%; display:flex; align-items:center; justify-content:center; color:white; font-size:10px; font-weight:900; min-width:28px; text-shadow:0 1px 2px rgba(0,0,0,.3); }
+    .gender-stat { border-radius:18px; border:1px solid #e2e8f0; background:linear-gradient(180deg,#fff,#f8fafc); padding:14px; display:flex; align-items:center; gap:12px; }
+    .gender-stat-icon { width:42px; height:42px; border-radius:15px; display:flex; align-items:center; justify-content:center; }
+    .quadrant-note { position:absolute; inset:auto 16px 12px auto; background:rgba(255,255,255,.92); border:1px solid #e2e8f0; border-radius:12px; padding:8px 10px; font-size:10px; font-weight:800; color:#64748b; pointer-events:none; box-shadow:0 8px 20px rgba(15,23,42,.10); }
+    .quadrant-legend { position:absolute; top:58px; right:16px; z-index:10; background:rgba(255,255,255,.96); border:1px solid #e2e8f0; border-radius:14px; padding:10px 12px; box-shadow:0 10px 24px rgba(15,23,42,.12); font-size:10px; line-height:1.35; max-width:190px; pointer-events:none; }
+    .quadrant-legend p { display:flex; align-items:center; gap:6px; margin:3px 0; color:#475569; font-weight:800; }
+    .quadrant-legend-title { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:900; color:#0f172a; margin-bottom:6px; }
+    .quadrant-color-dot { width:10px; height:10px; border-radius:999px; display:inline-block; border:1px solid rgba(15,23,42,.12); flex-shrink:0; }
+    @media (max-width: 768px) { .quadrant-legend { top:50px; right:10px; padding:8px 9px; max-width:160px; font-size:9px; } }
+    @media (max-width: 1024px) { .social-ranking-filters { grid-template-columns:1fr; } .social-score-ring { width:68px; height:68px; } }
+
   </style>
 </head>
 <body class="bg-ietGray text-slate-800 h-screen flex flex-col overflow-hidden">
@@ -411,7 +445,7 @@ const colors = {
 const state = {
   activeView: 'executiva',
   filters: { sre: 'Todos', municipio: 'Todos', curso: 'Todos', eixo: 'Todos', prioridade: 'Todos' },
-  data: { kpis: [], regionais: [], ofertaResumo: [], ofertaDetalhada: [], escolas: [], escolasMapa: [], municipioCurso: [], escolaCurso: [], mercado: [], territoriais: [], baixaDemanda: [], regras: [], dicionario: [] },
+  data: { kpis: [], regionais: [], ofertaResumo: [], ofertaDetalhada: [], escolas: [], escolasMapa: [], municipioCurso: [], escolaCurso: [], mercado: [], territoriais: [], baixaDemanda: [], regras: [], dicionario: [], abandonoMunicipio: [], abandonoSre: [], socialMunicipio: [], socialSre: [], socialComposicao: [], socialPerfil: [], socialRaca: [] },
   charts: {}, maps: {}, warnings: [], tables: {}, mapFocus: {}
 };
 
@@ -451,7 +485,7 @@ async function fetchView(name, limit = 5000) {
 
 async function loadAllData() {
   setLoadingStatus('Carregando dados do painel...');
-  const [kpis, regionais, municipioCurso, escolaCurso, ofertaResumo, escolasMapa, ofertaDetalhada, escolas, mercado, territoriais, baixaDemanda, regras, dicionario, abandonoMunicipio, abandonoSre] = await Promise.all([
+  const [kpis, regionais, municipioCurso, escolaCurso, ofertaResumo, escolasMapa, ofertaDetalhada, escolas, mercado, territoriais, baixaDemanda, regras, dicionario, abandonoMunicipio, abandonoSre, socialMunicipio, socialSre, socialComposicao, socialPerfil, socialRaca] = await Promise.all([
     fetchView('vw_kpis_executivos', 500),
     fetchView('vw_resumo_regional', 500),
     fetchView('vw_ranking_municipio_curso', 5000),
@@ -466,9 +500,14 @@ async function loadAllData() {
     fetchView('vw_regras_cnct', 2000),
     fetchView('vw_dicionario_campos', 2000),
     fetchView('vw_indicadores_abandono_municipio', 5000),
-    fetchView('vw_indicadores_abandono_sre', 500)
+    fetchView('vw_indicadores_abandono_sre', 500),
+    fetchView('vw_marcadores_sociais_municipio_v2', 5000),
+    fetchView('vw_marcadores_sociais_sre_v2', 500),
+    fetchView('vw_marcadores_sociais_composicao_indice', 5000),
+    fetchView('vw_marcadores_sociais_perfil_juventude', 5000),
+    fetchView('vw_marcadores_sociais_raca_cor', 5000)
   ]);
-  state.data = { kpis, regionais, municipioCurso, escolaCurso, ofertaResumo, escolasMapa, ofertaDetalhada, escolas, mercado, territoriais, baixaDemanda, regras, dicionario, abandonoMunicipio, abandonoSre };
+  state.data = { kpis, regionais, municipioCurso, escolaCurso, ofertaResumo, escolasMapa, ofertaDetalhada, escolas, mercado, territoriais, baixaDemanda, regras, dicionario, abandonoMunicipio, abandonoSre, socialMunicipio, socialSre, socialComposicao, socialPerfil, socialRaca };
   setLoadingStatus('Montando filtros e visualizações...');
   populateFilters();
   wireEvents();
@@ -490,12 +529,13 @@ function allFilterSources() {
     ...state.data.escolas, ...state.data.escolasMapa, ...state.data.ofertaResumo,
     ...state.data.ofertaDetalhada, ...state.data.municipioCurso, ...state.data.escolaCurso,
     ...state.data.territoriais, ...state.data.baixaDemanda, ...state.data.mercado,
-    ...state.data.abandonoMunicipio, ...state.data.abandonoSre
+    ...state.data.abandonoMunicipio, ...state.data.abandonoSre,
+    ...state.data.socialMunicipio, ...state.data.socialSre, ...state.data.socialComposicao, ...state.data.socialPerfil, ...state.data.socialRaca
   ];
 }
 function getCurso(it) { return it.curso_cnct || it.curso_tecnico || it.nome_curso || it.cursos_ept_2026 || it.curso || ''; }
 function getEixo(it) { return it.eixo_tecnologico || ''; }
-function getPrioridade(it) { return it.prioridade || it.classificacao_revisada || it.tipo_acao || ''; }
+function getPrioridade(it) { return it.prioridade || it.classificacao_prioridade_social || it.classificacao_revisada || it.tipo_acao || ''; }
 
 function populateSelect(id, values, label) {
   const el = document.getElementById(id); if (!el) return;
@@ -653,6 +693,7 @@ const chartValueLabelsPlugin = {
   afterDatasetsDraw(chart) {
     const { ctx } = chart;
     const type = chart.config.type;
+    if (chart.options?.plugins?.valueLabels?.display === false || ['scatter','bubble'].includes(type)) return;
     ctx.save();
     ctx.font = '800 10px Inter, sans-serif';
     ctx.fillStyle = '#0f172a';
@@ -853,9 +894,25 @@ function compactHeatTable(headers, rows) {
   return `<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden"><table class="compact-table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('') || `<tr><td colspan="${headers.length}" class="text-center text-slate-500 p-6">Sem dados para os filtros selecionados.</td></tr>`}</tbody></table></div>`;
 }
 function setSocialFilter(field, value) {
+  if (!Object.prototype.hasOwnProperty.call(state.filters, field)) return;
+  const base = state.data.socialMunicipio && state.data.socialMunicipio.length
+    ? state.data.socialMunicipio
+    : allFilterSources();
   state.filters[field] = value;
-  const top = document.getElementById(`filter-${field}`);
-  if (top) top.value = value;
+  if (field === 'sre') {
+    const allowedMunicipios = uniq(base.filter(x => value === 'Todos' || x.sre === value).map(x => x.municipio));
+    if (state.filters.municipio !== 'Todos' && !allowedMunicipios.includes(state.filters.municipio)) {
+      state.filters.municipio = 'Todos';
+    }
+  }
+  if (field === 'municipio' && value !== 'Todos' && state.filters.sre === 'Todos') {
+    const row = base.find(x => x.municipio === value);
+    if (row && row.sre) state.filters.sre = row.sre;
+  }
+  ['sre','municipio','curso','eixo','prioridade'].forEach(k => {
+    const top = document.getElementById(`filter-${k}`);
+    if (top) top.value = state.filters[k] || 'Todos';
+  });
   renderAll();
 }
 function optionList(values, selected, allLabel) {
@@ -1203,6 +1260,23 @@ function renderMercado() {
 
 
 
+function buildSocialMapRows(rows) {
+  const centroids = getMunicipioCentroids();
+  return rows.map(r => {
+    const key = `${r.sre || ''}|${r.municipio || ''}`;
+    const c = centroids[key] || {};
+    return {
+      ...r,
+      latitude: n(r.latitude) || c.latitude,
+      longitude: n(r.longitude) || c.longitude,
+      nome_escola: `${r.municipio || 'Município'} — índice ${fmt(r.indice_prioridade_social || 0, 1)}`,
+      total_lacunas: n(r.indice_prioridade_social || 0),
+      matriculas_ept_2026: n(r.matriculas_ept_2026 || 0),
+      escolas_com_indicador_abandono: n(r.escolas_com_indicador_abandono || 0),
+      escolas_abandono_alto: n(r.escolas_abandono_alto || 0)
+    };
+  }).filter(r => n(r.latitude) && n(r.longitude));
+}
 function buildAbandonoMapRows(indicadores) {
   const centroids = getMunicipioCentroids();
   return indicadores.map(r => {
@@ -1224,6 +1298,14 @@ function buildAbandonoMapRows(indicadores) {
     };
   }).filter(r => n(r.latitude) && n(r.longitude));
 }
+function socialPriorityTone(value) {
+  const v = n(value);
+  if (v >= 80) return { label:'Muito alta prioridade social', color:'red', cls:'bg-red-50 text-red-700 border-red-200', icon:'triangle-alert' };
+  if (v >= 60) return { label:'Alta prioridade social', color:'orange', cls:'bg-orange-50 text-orange-700 border-orange-200', icon:'circle-alert' };
+  if (v >= 40) return { label:'Média prioridade social', color:'yellow', cls:'bg-yellow-50 text-yellow-700 border-yellow-200', icon:'gauge' };
+  if (v >= 20) return { label:'Baixa prioridade relativa', color:'blue', cls:'bg-blue-50 text-ietBlue border-blue-200', icon:'info' };
+  return { label:'Acompanhamento regular', color:'green', cls:'bg-green-50 text-green-700 border-green-200', icon:'check-circle-2' };
+}
 function abandonmentSeverity(taxa) {
   const v = n(taxa);
   if (!v) return { label:'Sem indicador', color:'slate', cls:'bg-slate-100 text-slate-600 border-slate-200', icon:'circle-help' };
@@ -1236,121 +1318,282 @@ function weightedAbandono(rows) {
   const denom = sum(valid, r => r.escolas_com_indicador_abandono || r.escolas_total || 1);
   return denom ? sum(valid, r => n(r.taxa_abandono_em_media) * n(r.escolas_com_indicador_abandono || r.escolas_total || 1)) / denom : 0;
 }
+function weightedAvg(rows, valueField, weightField) {
+  const valid = rows.filter(r => n(r[valueField]) > 0);
+  const denom = sum(valid, r => Math.max(1, n(r[weightField])));
+  return denom ? sum(valid, r => n(r[valueField]) * Math.max(1, n(r[weightField]))) / denom : avg(valid, valueField);
+}
 function socialIndicatorCard(label, value, description, icon, tone='blue') {
   const toneMap = {
     blue: 'border-blue-100 bg-blue-50 text-ietBlue', red: 'border-red-100 bg-red-50 text-red-700',
     orange: 'border-orange-100 bg-orange-50 text-orange-700', green:'border-green-100 bg-green-50 text-green-700',
-    purple:'border-purple-100 bg-purple-50 text-purple-700', slate:'border-slate-100 bg-slate-50 text-slate-600'
+    purple:'border-purple-100 bg-purple-50 text-purple-700', slate:'border-slate-100 bg-slate-50 text-slate-600', yellow:'border-yellow-100 bg-yellow-50 text-yellow-700'
   };
   const cls = toneMap[tone] || toneMap.blue;
   return `<div class="soft-panel p-4" data-tooltip="${esc(description)}" tabindex="0"><div class="flex items-start justify-between gap-3"><div><p class="mini-title">${esc(label)}</p><p class="text-2xl font-black mt-2 ${cls.split(' ').slice(-1)[0]}">${value}</p></div><div class="w-10 h-10 rounded-2xl ${cls} flex items-center justify-center"><i data-lucide="${icon}" class="w-5 h-5"></i></div></div><p class="text-[11px] text-slate-500 leading-tight mt-3">${esc(description)}</p></div>`;
 }
 
+function socialPriorityHex(value) {
+  const v = n(value);
+  if (v >= 80) return '#DC2626';
+  if (v >= 60) return '#F97316';
+  if (v >= 40) return '#FBBF24';
+  if (v >= 20) return '#004990';
+  return '#10B981';
+}
+function priorityScoreBadge(value) {
+  const v = n(value);
+  const tone = v >= 80 ? 'red' : v >= 60 ? 'orange' : v >= 40 ? 'yellow' : v >= 20 ? 'blue' : 'green';
+  return `<span class="metric-badge ${tone}" data-tooltip="Índice de Prioridade Social em escala de 0 a 100. Quanto maior, maior a prioridade social do território.">${fmt(v,1)}</span>`;
+}
+function pctConditionalBadge(value, kind='default') {
+  const v = n(value);
+  let tone = 'slate';
+  if (kind === 'abandono') tone = v >= 8 ? 'red' : v >= 5 ? 'orange' : v > 0 ? 'green' : 'slate';
+  else if (kind === 'cobertura') tone = v < 10 ? 'red' : v < 25 ? 'orange' : v < 50 ? 'yellow' : 'green';
+  else tone = v >= 70 ? 'green' : v >= 40 ? 'yellow' : 'orange';
+  return `<span class="metric-badge ${tone}">${pct(v)}</span>`;
+}
+function valueConditionalBadge(value, kind='inse') {
+  const v = n(value);
+  let tone = 'slate';
+  if (kind === 'inse') tone = !v ? 'slate' : v < 4 ? 'red' : v < 5 ? 'orange' : v < 6 ? 'yellow' : 'green';
+  if (kind === 'money') tone = !v ? 'slate' : v < 1500 ? 'red' : v < 2500 ? 'orange' : v < 4000 ? 'yellow' : 'green';
+  return `<span class="metric-badge ${tone}">${kind === 'money' ? money(v) : fmt(v,2)}</span>`;
+}
+function socialClassBadge(label, value) {
+  const tone = socialPriorityTone(value);
+  return `<span class="tag border ${tone.cls}"><i data-lucide="${tone.icon}" class="w-3 h-3 inline-block mr-1"></i>${esc(label || tone.label)}</span>`;
+}
+function socialRankingControls(sres, muns, classes) {
+  return `<div class="social-ranking-filters">
+    <select class="input-filter" onchange="setSocialFilter('sre', this.value)">${optionList(sres, state.filters.sre, 'Todas as SREs')}</select>
+    <select class="input-filter" onchange="setSocialFilter('municipio', this.value)">${optionList(muns, state.filters.municipio, 'Todos os municípios')}</select>
+    <select class="input-filter" onchange="setSocialFilter('prioridade', this.value)">${optionList(classes, state.filters.prioridade, 'Todas as classificações')}</select>
+  </div>`;
+}
+function territoryLabel() {
+  if (state.filters.municipio !== 'Todos') return { title: state.filters.municipio, subtitle: `Município selecionado • SRE ${state.filters.sre === 'Todos' ? 'não filtrada' : state.filters.sre}` };
+  if (state.filters.sre !== 'Todos') return { title: `SRE ${state.filters.sre}`, subtitle: 'Consolidado dos municípios da regional selecionada' };
+  return { title: 'Tocantins', subtitle: 'Consolidado estadual dos municípios analisados' };
+}
+function genderProfileVisual(homens, mulheres) {
+  const total = homens + mulheres;
+  const hPct = total ? homens / total * 100 : 0;
+  const mPct = total ? mulheres / total * 100 : 0;
+  if (!total) return `<div class="gender-visual"><div class="text-center text-slate-400 font-bold"><i data-lucide="users" class="w-8 h-8 mx-auto mb-2"></i>Dados de sexo não disponíveis para o filtro.</div></div>`;
+  return `<div class="gender-visual">
+    <div class="grid grid-cols-2 gap-3">
+      <div class="gender-stat"><div class="gender-stat-icon bg-blue-50 text-ietBlue"><i data-lucide="mars" class="w-6 h-6"></i></div><div><p class="mini-title">Homens</p><p class="text-xl font-black text-ietBlue">${fmt(homens)}</p><p class="text-xs text-slate-500 font-bold">${pct(hPct)}</p></div></div>
+      <div class="gender-stat"><div class="gender-stat-icon bg-purple-50 text-purple-700"><i data-lucide="venus" class="w-6 h-6"></i></div><div><p class="mini-title">Mulheres</p><p class="text-xl font-black text-purple-700">${fmt(mulheres)}</p><p class="text-xs text-slate-500 font-bold">${pct(mPct)}</p></div></div>
+    </div>
+    <div>
+      <div class="flex items-center justify-between mb-2 text-[10px] uppercase tracking-widest font-black text-slate-400"><span>Composição</span><span>Total: ${fmt(total)}</span></div>
+      <div class="gender-bar"><div class="gender-segment" style="width:${hPct}%; background:#004990;">${hPct >= 12 ? pct(hPct,0) : ''}</div><div class="gender-segment" style="width:${mPct}%; background:#7C3AED;">${mPct >= 12 ? pct(mPct,0) : ''}</div></div>
+      <div class="flex justify-between text-[10px] text-slate-500 font-bold mt-2"><span>Masculino</span><span>Feminino</span></div>
+    </div>
+  </div>`;
+}
+function socialMiniMetric(label, value, icon, tone='blue', hint='') {
+  const toneCls = tone === 'red' ? 'bg-red-50 text-red-700' : tone === 'orange' ? 'bg-orange-50 text-orange-700' : tone === 'green' ? 'bg-green-50 text-green-700' : tone === 'purple' ? 'bg-purple-50 text-purple-700' : tone === 'yellow' ? 'bg-yellow-50 text-yellow-700' : 'bg-blue-50 text-ietBlue';
+  return `<div class="social-mini-card" ${hint ? `data-tooltip="${esc(hint)}" tabindex="0"` : ''}><div class="social-mini-icon ${toneCls}"><i data-lucide="${icon}" class="w-5 h-5"></i></div><div><p class="label">${esc(label)}</p><p class="value">${value}</p></div></div>`;
+}
+function pctOf(part, total) { return n(total) ? n(part) / n(total) * 100 : 0; }
 
 function renderSociais() {
-  const m = filtered('municipioCurso');
-  const terr = filtered('territoriais');
+  const sociaisDisponiveis = state.data.socialMunicipio && state.data.socialMunicipio.length;
+  const sociais = sociaisDisponiveis ? filtered('socialMunicipio') : [];
+  const composicao = sociaisDisponiveis ? filtered('socialComposicao') : [];
   const abandonoMun = filtered('abandonoMunicipio');
-  const abandonoSre = filtered('abandonoSre');
-  const source = terr.length ? terr : m;
-  const allSocial = [...state.data.territoriais, ...state.data.municipioCurso, ...state.data.abandonoMunicipio];
+  const source = sociais.length ? sociais : abandonoMun;
+  const allSocial = sociaisDisponiveis ? state.data.socialMunicipio : [...state.data.territoriais, ...state.data.municipioCurso, ...state.data.abandonoMunicipio];
   const sres = uniq(allSocial.map(x=>x.sre)).sort();
   const muns = uniq(allSocial.filter(x => state.filters.sre === 'Todos' || x.sre === state.filters.sre).map(x=>x.municipio)).sort();
-  const selectedAbandono = abandonoMun.filter(x => (state.filters.municipio === 'Todos' || x.municipio === state.filters.municipio) && (state.filters.sre === 'Todos' || x.sre === state.filters.sre));
+  const classes = uniq(allSocial.map(x => x.classificacao_prioridade_social).filter(Boolean)).sort();
   const selectedRows = source.filter(x => (state.filters.municipio === 'Todos' || x.municipio === state.filters.municipio) && (state.filters.sre === 'Todos' || x.sre === state.filters.sre));
-  const selected = selectedAbandono[0] || selectedRows[0] || {};
-  const abandonoMedia = weightedAbandono(selectedAbandono.length ? selectedAbandono : abandonoMun);
-  const abandonoMaxMun = abandonoMun.slice().sort((a,b)=>n(b.taxa_abandono_em_media)-n(a.taxa_abandono_em_media))[0] || {};
-  const abandonoMaxSre = abandonoSre.slice().sort((a,b)=>n(b.taxa_abandono_em_media)-n(a.taxa_abandono_em_media))[0] || {};
-  const escolasComIndicador = sum(abandonoMun, 'escolas_com_indicador_abandono');
-  const escolasAbandonoAlto = sum(abandonoMun, 'escolas_abandono_alto');
-  const matriculasEm = sum(selectedAbandono.length ? selectedAbandono : abandonoMun, 'matriculas_em_total');
-  const matriculasEpt = sum(selectedAbandono.length ? selectedAbandono : abandonoMun, 'matriculas_ept_2026');
-  const pctEptVulnerabilidade = matriculasEm ? matriculasEpt / matriculasEm * 100 : 0;
-  const mapRows = abandonoMun.length ? buildAbandonoMapRows(abandonoMun) : buildLacunaMapRows(source);
-  const rankingRows = abandonoMun.slice().sort((a,b)=>n(b.taxa_abandono_em_media)-n(a.taxa_abandono_em_media)).map((x,i) => {
-    const sev = abandonmentSeverity(x.taxa_abandono_em_media);
-    return [fmt(i+1), esc(x.municipio), esc(x.sre), `<span class="heat-cell ${heatClass(n(x.indice_prioridade_social_proxy) || n(x.taxa_abandono_em_media)*10)}">${fmt(x.indice_prioridade_social_proxy || 0,1)}</span>`, `<b class="${sev.color==='red'?'text-red-700':sev.color==='orange'?'text-orange-700':'text-green-700'}">${pct(x.taxa_abandono_em_media || 0)}</b>`, fmt(x.escolas_abandono_alto || 0), fmt(x.matriculas_em_total || 0), fmt(x.matriculas_ept_2026 || 0), `<span class="tag border ${sev.cls}">${sev.label}</span>`];
+  const selected = state.filters.municipio !== 'Todos' ? (selectedRows[0] || {}) : {};
+  const baseCalc = selectedRows.length ? selectedRows : source;
+  const indiceMedio = sociaisDisponiveis ? avg(baseCalc, 'indice_prioridade_social') : 0;
+  const municipiosAlta = sociais.filter(x => n(x.indice_prioridade_social) >= 60).length;
+  const popJovem = sum(baseCalc, 'pop_15_24_total');
+  const abandonoMedia = sociaisDisponiveis ? weightedAvg(baseCalc, 'taxa_abandono_em_media', 'matriculas_em_referencia') : weightedAbandono(abandonoMun);
+  const inseMedio = sociaisDisponiveis ? weightedAvg(baseCalc, 'inse_estadual_media', 'inse_estadual_qtd_alunos') : 0;
+  const coberturaEpt = sociaisDisponiveis ? pctOf(sum(baseCalc, 'matriculas_ept_2026'), sum(baseCalc, 'matriculas_em_referencia')) : 0;
+  const rendimentoMedio = sociaisDisponiveis ? weightedAvg(baseCalc, 'rendimento_medio_trabalho_total', 'pop_15_24_total') : 0;
+  const emTotal = sum(baseCalc, 'matriculas_em_referencia') || sum(baseCalc, 'em_2025_total');
+  const eptTotal = sum(baseCalc, 'matriculas_ept_2026');
+  const indexTone = socialPriorityTone(indiceMedio);
+  const mapRows = sociais.length ? buildSocialMapRows(sociais) : buildAbandonoMapRows(abandonoMun);
+  const rankingRows = (sociais.length ? sociais : abandonoMun).slice().sort((a,b)=>n(b.indice_prioridade_social || b.taxa_abandono_em_media)-n(a.indice_prioridade_social || a.taxa_abandono_em_media)).map((x,i) => {
+    const indice = n(x.indice_prioridade_social || 0);
+    return [
+      fmt(i+1),
+      esc(x.municipio),
+      esc(x.sre),
+      priorityScoreBadge(indice),
+      socialClassBadge(x.classificacao_prioridade_social, indice),
+      `<span class="font-bold text-slate-700">${esc(x.principal_fator_atencao || 'Risco educacional')}</span>`,
+      pctConditionalBadge(x.taxa_abandono_em_media || 0, 'abandono'),
+      valueConditionalBadge(x.inse_estadual_media || 0, 'inse'),
+      pctConditionalBadge(x.cobertura_ept_em_pct || 0, 'cobertura'),
+      `<span class="font-black text-slate-700">${fmt(x.pop_15_24_total || 0)}</span>`,
+      valueConditionalBadge(x.rendimento_medio_trabalho_total || 0, 'money')
+    ];
   });
-  const abandonoSreTop = abandonoSre.slice().sort((a,b)=>n(b.taxa_abandono_em_media)-n(a.taxa_abandono_em_media)).slice(0,10);
-  const abandonoMunTop = abandonoMun.slice().sort((a,b)=>n(b.taxa_abandono_em_media)-n(a.taxa_abandono_em_media)).slice(0,10);
-  const resumoVinculos = sum(selectedRows.length ? selectedRows : source, x=>x.vinculos_aderentes || x.vinculos || 0);
-  const cursoDestaque = (selectedRows.length ? selectedRows : source).slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos))[0]?.curso_cnct || 'A definir';
-  const selectedTaxa = state.filters.municipio === 'Todos' ? abandonoMedia : n(selected.taxa_abandono_em_media);
-  const selectedSev = abandonmentSeverity(selectedTaxa);
-  const sexoData = filtered('ofertaDetalhada');
-  const homens = sum(sexoData, 'estudantes_homens');
-  const mulheres = sum(sexoData, 'estudantes_mulheres');
-  const totalSexo = homens + mulheres;
+  const topSociais = (sociais.length ? sociais : []).slice().sort((a,b)=>n(b.indice_prioridade_social)-n(a.indice_prioridade_social)).slice(0,8);
+  const compTop = topSociais.length ? topSociais : composicao.slice(0,8);
+  const selectedSocial = state.filters.municipio !== 'Todos' ? (sociais.find(x=>x.municipio === state.filters.municipio) || {}) : {};
+  const profileBase = selectedRows.length ? selectedRows : baseCalc;
+  const homensJovens = sum(profileBase, 'pop_15_24_homens');
+  const mulheresJovens = sum(profileBase, 'pop_15_24_mulheres');
+  const racaPop = [
+    ['Branca', sum(profileBase, 'pop_15_19_branca')],
+    ['Preta', sum(profileBase, 'pop_15_19_preta')],
+    ['Parda', sum(profileBase, 'pop_15_19_parda')],
+    ['Amarela', sum(profileBase, 'pop_15_19_amarela')],
+    ['Indígena', sum(profileBase, 'pop_15_19_indigena')]
+  ];
+  const faixaPop = [
+    { faixa:'15 a 19', valor: sum(profileBase, 'pop_15_19_total') },
+    { faixa:'20 a 24', valor: sum(profileBase, 'pop_20_24_total') }
+  ];
+  const selectedIndice = state.filters.municipio !== 'Todos' ? n(selectedSocial.indice_prioridade_social) : indiceMedio;
+  const selectedTone = socialPriorityTone(selectedIndice);
+  const terr = territoryLabel();
+  const fatorAtencao = selectedSocial.principal_fator_atencao || (state.filters.municipio === 'Todos' ? 'Composição consolidada dos municípios filtrados' : 'Ver composição do índice');
+  const quadranteRows = sociais.slice().filter(x => n(x.indice_prioridade_social) || n(x.cobertura_ept_em_pct)).map(x => ({
+    x: n(x.indice_prioridade_social),
+    y: n(x.cobertura_ept_em_pct),
+    municipio: x.municipio,
+    sre: x.sre,
+    popJovem: n(x.pop_15_24_total),
+    classificacao: x.classificacao_prioridade_social,
+    fator: x.principal_fator_atencao,
+    r: Math.max(7, Math.min(30, 6 + Math.sqrt(n(x.pop_15_24_total))/22))
+  }));
+
   document.getElementById('view-sociais').innerHTML = `
-    <div class="rounded-2xl bg-blue-50 border border-blue-200 text-blue-900 p-4 mb-5 flex gap-3 items-start">
-      <i data-lucide="database" class="w-5 h-5 mt-0.5 shrink-0"></i>
-      <div><p class="font-black">Cobertura atual dos marcadores sociais</p><p class="text-xs mt-1 leading-relaxed">A taxa de evasão/abandono no Ensino Médio já está disponível e alimenta os cards, o ranking, os mapas e a leitura territorial desta aba. Indicadores complementares — jovens sem-sem, 18 a 24 sem EB, desocupação jovem, NSE e renda per capita — serão incorporados assim que estiverem consolidados.</p></div>
-    </div>
     <div class="kpi-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4 mb-5">
-      ${kpiCard('Evasão/abandono EM', pct(abandonoMedia), 'log-out', abandonoMedia>=8?'red':abandonoMedia>=5?'orange':'green', 'Taxa média de abandono do Ensino Médio calculada a partir das escolas com indicador disponível.')}
-      ${kpiCard('Maior taxa por SRE', `${esc(abandonoMaxSre.sre || '—')} ${abandonoMaxSre.sre ? pct(abandonoMaxSre.taxa_abandono_em_media) : ''}`, 'triangle-alert', n(abandonoMaxSre.taxa_abandono_em_media)>=8?'red':'orange', 'SRE com maior taxa média de abandono EM na base atualizada.')}
-      ${kpiCard('Maior taxa por município', `${esc(abandonoMaxMun.municipio || '—')} ${abandonoMaxMun.municipio ? pct(abandonoMaxMun.taxa_abandono_em_media) : ''}`, 'map-pin', n(abandonoMaxMun.taxa_abandono_em_media)>=8?'red':'orange', 'Município com maior taxa média de abandono EM na base atualizada.')}
-      ${kpiCard('Escolas com indicador', fmt(escolasComIndicador), 'school', 'blue', 'Quantidade de escolas com taxa de abandono EM preenchida.')}
-      ${kpiCard('Escolas abandono alto', fmt(escolasAbandonoAlto), 'alert-octagon', escolasAbandonoAlto>0?'red':'green', 'Escolas com taxa de abandono EM igual ou superior a 8%.')}
-      ${kpiCard('EPT + vulnerabilidade', pct(pctEptVulnerabilidade), 'users-round', 'purple', 'Proporção entre matrículas EPT e matrículas EM nos territórios filtrados; usada como leitura de cobertura EPT em contexto de atenção social.')}
-      ${kpiCard('Jovens impactados', fmt(matriculasEpt), 'users', 'blue', 'Neste momento usa matrículas EPT atuais como alcance já atendido; impacto futuro depende do simulador de expansão.')}
-      ${kpiCard('Indicadores sociais pendentes', '5', 'clipboard-list', 'slate', 'Jovens sem-sem, 18 a 24 sem EB, desocupação jovem, NSE médio e renda per capita exigem base social específica.')}
+      ${kpiCard('Índice Prioridade Social', fmt(indiceMedio,1), 'gauge', indexTone.color === 'red' ? 'red' : indexTone.color === 'orange' ? 'orange' : indexTone.color === 'yellow' ? 'yellow' : indexTone.color === 'green' ? 'green' : 'blue', 'Índice de 0 a 100 composto por risco educacional, vulnerabilidade socioeconômica, baixa cobertura EPT e potencial de impacto jovem.')}
+      ${kpiCard('Municípios alta prioridade', fmt(municipiosAlta), 'triangle-alert', municipiosAlta ? 'red' : 'green', 'Municípios com índice de prioridade social igual ou superior a 60 pontos.')}
+      ${kpiCard('Pop. jovem 15 a 24', fmt(popJovem), 'users', 'blue', 'Total de pessoas de 15 a 24 anos no território filtrado.')}
+      ${kpiCard('Abandono EM', pct(abandonoMedia), 'log-out', abandonoMedia>=8?'red':abandonoMedia>=5?'orange':'green', 'Taxa média de abandono/evasão no Ensino Médio, usada como componente de risco educacional.')}
+      ${kpiCard('INSE/NSE médio', fmt(inseMedio,2), 'bar-chart-3', 'purple', 'Indicador de nível socioeconômico. Valores menores indicam maior vulnerabilidade socioeconômica.')}
+      ${kpiCard('Cobertura EPT no EM', pct(coberturaEpt), 'graduation-cap', coberturaEpt < 10 ? 'orange' : 'green', 'Relação entre matrículas EPT e matrículas do Ensino Médio no território.')}
+      ${kpiCard('Rendimento trabalho', money(rendimentoMedio), 'banknote', 'slate', 'Rendimento médio do trabalho das pessoas ocupadas. Não representa renda domiciliar per capita.')}
+      ${kpiCard('Matrículas EPT', fmt(eptTotal), 'school', 'blue', 'Matrículas atuais em EPT no território filtrado.')}
     </div>
+
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-4 relative">${sectionTitle('Mapa de vulnerabilidade educacional', 'Cores por intensidade de abandono EM. O número indica escolas com abandono alto ou escolas com indicador.')}${mapToolbarHtml('map-sociais')}
+      <div class="chart-card p-5 xl:col-span-4 relative">${sectionTitle('Mapa de Prioridade Social', 'Cor e número indicam o Índice de Prioridade Social. O tamanho da bolha cresce conforme o índice e a leitura territorial.')}${mapToolbarHtml('map-sociais')}
         <div id="map-sociais" class="mapbox min-h-[440px]"></div>
-        <div class="map-legend"><p class="font-black text-slate-700 mb-2">Quantidade no território</p><p><span class="quantity-legend-dot" style="background:#7E22CE"></span>Muito alta</p><p><span class="quantity-legend-dot" style="background:#E11D48"></span>Alta</p><p><span class="quantity-legend-dot" style="background:#F97316"></span>Média</p><p><span class="quantity-legend-dot" style="background:#10B981"></span>Baixa</p></div>
+        <div class="map-legend"><p class="font-black text-slate-700 mb-2">Índice social</p><p><span class="status-dot bg-red-600"></span>80 a 100: muito alta</p><p><span class="status-dot bg-orange-500"></span>60 a 79: alta</p><p><span class="status-dot bg-yellow-400"></span>40 a 59: média</p><p><span class="status-dot bg-ietBlue"></span>20 a 39: baixa relativa</p><p><span class="status-dot bg-green-600"></span>0 a 19: acompanhamento</p></div>
       </div>
-      <div class="chart-card p-5 xl:col-span-5">${sectionTitle('Ranking de municípios por prioridade social', 'Tabela completa com todos os municípios e rolagem vertical. O abandono EM entra como indicador real de vulnerabilidade educacional.', 'O índice combina evasão/abandono no EM, matrículas EPT e escolas com alto abandono para estimar a prioridade social de cada município (escala 0 a 100).')}${renderTable(['#','Município','SRE','Índice de Prioridade Social','Abandono EM','Escolas alto abandono','Matrículas EM','Matrículas EPT','Leitura'], rankingRows, 'all', '560px')}</div>
+      <div class="chart-card p-5 xl:col-span-5">${sectionTitle('Ranking de municípios por prioridade social', 'Tabela completa com filtros próprios, busca e formatação condicional dos principais indicadores.')}${socialRankingControls(sres, muns, classes)}${renderTable(['#','Município','SRE','Índice Social (0-100)','Classificação','Fator principal','Abandono EM','INSE/NSE','Cobertura EPT','Pop. jovem','Rendimento'], rankingRows, 'all', '560px')}</div>
       <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Leitura do território selecionado')}
         <div class="grid grid-cols-1 gap-3 mb-4">
           <select class="input-filter w-full" id="social-filter-sre" onchange="setSocialFilter('sre', this.value)">${optionList(sres, state.filters.sre, 'Todas as SREs')}</select>
           <select class="input-filter w-full" id="social-filter-municipio" onchange="setSocialFilter('municipio', this.value)">${optionList(muns, state.filters.municipio, 'Todos os municípios')}</select>
         </div>
-        <div class="selection-card mb-4">
-          <div class="flex items-start justify-between gap-3"><div><p class="mini-title">Território</p><p class="text-2xl font-black text-ietBlue">${esc(state.filters.municipio === 'Todos' ? 'TODOS' : state.filters.municipio)}</p><p class="text-xs text-slate-500 mt-1">SRE ${esc(state.filters.sre === 'Todos' ? 'TODAS' : state.filters.sre)}</p></div><div class="w-12 h-12 rounded-2xl ${selectedSev.cls} flex items-center justify-center"><i data-lucide="${selectedSev.icon}" class="w-6 h-6"></i></div></div>
+        <div class="social-territory-hero mb-4">
+          <div class="relative z-10 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[10px] uppercase tracking-[.12em] font-black text-white/70">Território selecionado</p>
+              <p class="text-2xl font-black leading-tight mt-1">${esc(terr.title)}</p>
+              <p class="text-xs text-white/75 mt-1">${esc(terr.subtitle)}</p>
+            </div>
+            <div class="social-score-ring"><b>${fmt(selectedIndice,1)}</b><span>índice</span></div>
+          </div>
+          <div class="relative z-10 mt-4 inline-flex items-center gap-2 rounded-full bg-white/12 border border-white/20 px-3 py-1.5 text-xs font-black"><i data-lucide="${selectedTone.icon}" class="w-4 h-4"></i>${esc(selectedSocial.classificacao_prioridade_social || selectedTone.label)}</div>
         </div>
-        <div class="soft-panel p-4 mb-4">
-          <p class="font-black text-slate-700 mb-2">Síntese dos indicadores</p>
-          <div class="metric-line"><span>Abandono EM médio</span><b class="${selectedSev.color==='red'?'text-red-700':selectedSev.color==='orange'?'text-orange-700':'text-green-700'}">${pct(selectedTaxa)}</b></div>
-          <div class="metric-line"><span>Leitura de atenção</span><b>${esc(selectedSev.label)}</b></div>
-          <div class="metric-line"><span>Matrículas EM</span><b>${fmt(sum(selectedAbandono.length ? selectedAbandono : abandonoMun, 'matriculas_em_total'))}</b></div>
-          <div class="metric-line"><span>Matrículas EPT</span><b>${fmt(sum(selectedAbandono.length ? selectedAbandono : abandonoMun, 'matriculas_ept_2026'))}</b></div>
-          <div class="metric-line"><span>Vínculos aderentes</span><b>${fmt(resumoVinculos)}</b></div>
-          <div class="metric-line"><span>Curso em destaque</span><b class="text-ietBlue text-right">${esc(cursoDestaque)}</b></div>
+        <div class="grid grid-cols-1 gap-3 mb-4">
+          ${socialMiniMetric('Principal fator', esc(fatorAtencao), 'radar', 'blue', 'Fator que mais ajuda a explicar a prioridade social no território filtrado.')}
+          ${socialMiniMetric('Pop. jovem', fmt(popJovem), 'users', 'purple')}
+          ${socialMiniMetric('Abandono EM', pct(abandonoMedia), 'log-out', abandonoMedia>=8?'red':abandonoMedia>=5?'orange':'green')}
+          ${socialMiniMetric('Cobertura EPT', pct(coberturaEpt), 'graduation-cap', coberturaEpt<10?'orange':'green')}
         </div>
-        <div class="recommendation-box"><p class="font-black text-red-700 flex items-center gap-2"><i data-lucide="trending-up" class="w-5 h-5"></i> Recomendação</p><p class="text-xs text-red-700 mt-2 leading-relaxed">Priorizar expansão quando o território combina abandono EM elevado, baixa cobertura EPT, lacuna territorial, evidência de mercado e capacidade mínima de implantação.</p></div>
+        <div class="recommendation-box"><p class="font-black text-red-700 flex items-center gap-2"><i data-lucide="compass" class="w-5 h-5"></i> Implicação para a EPT</p><p class="text-xs text-red-700 mt-2 leading-relaxed">A prioridade social indica onde a expansão, revisão ou fortalecimento da EPT pode ter maior impacto. A decisão deve cruzar esta leitura com Lacunas Territoriais, Mercado e Infraestrutura.</p></div>
       </div>
     </div>
+
+    <div class="chart-card p-5 mb-5">
+      ${sectionTitle('Perfil social da juventude', 'Bloco de destaque para entender quem são os jovens do território e como a EPT alcança essa população.')}
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+          ${socialIndicatorCard('Jovens 15 a 19', fmt(sum(profileBase,'pop_15_19_total')), 'Faixa etária mais próxima da idade regular do Ensino Médio.', 'user-round', 'blue')}
+          ${socialIndicatorCard('Jovens 20 a 24', fmt(sum(profileBase,'pop_20_24_total')), 'Faixa de transição para trabalho, continuidade dos estudos ou retorno escolar.', 'briefcase-business', 'purple')}
+          ${socialIndicatorCard('% jovens na população', pct(avg(profileBase,'pct_pop_15_24')), 'Peso da população jovem de 15 a 24 anos em relação à população total.', 'pie-chart', 'green')}
+        </div>
+        <div class="lg:col-span-3 chart-card p-4 shadow-none"><p class="mini-title mb-2">Faixa etária da juventude</p><div class="h-[260px]"><canvas id="chart-social-faixas"></canvas></div></div>
+        <div class="lg:col-span-3 chart-card p-4 shadow-none"><p class="mini-title mb-2">Distribuição por sexo</p>${genderProfileVisual(homensJovens, mulheresJovens)}</div>
+        <div class="lg:col-span-3 chart-card p-4 shadow-none"><p class="mini-title mb-2">Perfil por raça/cor</p><div class="h-[260px]"><canvas id="chart-social-raca"></canvas></div></div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Abandono EM por SRE', 'Ranking das regionais com maior taxa média de abandono.')}<div class="h-[340px]"><canvas id="chart-social-abandono-sre"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Top municípios — abandono EM', 'Municípios com maior taxa média de abandono do Ensino Médio.')}<div class="h-[340px]"><canvas id="chart-social-abandono-municipio"></canvas></div></div>
-    </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Perfil social da juventude', 'Indicadores complementares serão exibidos assim que estiverem disponíveis.')}
-        <div class="grid grid-cols-2 gap-3">
-          ${genderSplitCard(homens, mulheres)}
-          ${socialIndicatorPending('Por raça/cor', 'Distribuição por raça/cor declarada. Necessita base social ou educacional com esse recorte.', 'palette')}
-          ${socialIndicatorPending('NSE médio', 'NSE significa Nível Socioeconômico. É um indicador sintético que resume condições socioeconômicas dos estudantes/famílias ou território.', 'bar-chart-3')}
-          ${socialIndicatorPending('Renda per capita', 'Renda média por pessoa no domicílio ou território. Não deve ser confundida com remuneração média do mercado formal.', 'banknote')}
-        </div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Composição do Índice de Prioridade Social', 'Mostra quais dimensões mais pesam na prioridade de cada município.')}
+        <div class="h-[380px]"><canvas id="chart-social-composicao"></canvas></div>
       </div>
-      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Como ler esta tela')}
-        <div class="space-y-4">
-          <div class="bridge-item"><div class="icon-bullet bg-red-50 text-red-700"><i data-lucide="triangle-alert" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">Abandono EM elevado indica maior risco educacional e necessidade de estratégia de permanência.</p></div>
-          <div class="bridge-item"><div class="icon-bullet bg-blue-50 text-ietBlue"><i data-lucide="map-pin" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">Municípios com alta atenção e baixa oferta EPT devem ganhar prioridade na expansão.</p></div>
-          <div class="bridge-item"><div class="icon-bullet bg-green-50 text-green-700"><i data-lucide="git-merge" class="w-5 h-5"></i></div><p class="text-sm text-slate-600">A leitura social deve ser combinada com mercado, infraestrutura e escutas.</p></div>
+      <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Prioridade Social x Cobertura EPT', 'Bolhas maiores indicam maior população jovem; cores indicam a faixa do Índice de Prioridade Social.')}
+        <div class="h-[380px]"><canvas id="chart-social-quadrante"></canvas></div>
+        <div class="quadrant-legend">
+          <span class="quadrant-legend-title">Índice social</span>
+          <p><span class="quadrant-color-dot" style="background:#DC2626"></span>80 a 100: muito alta</p>
+          <p><span class="quadrant-color-dot" style="background:#F97316"></span>60 a 79: alta</p>
+          <p><span class="quadrant-color-dot" style="background:#FBBF24"></span>40 a 59: média</p>
+          <p><span class="quadrant-color-dot" style="background:#004990"></span>20 a 39: baixa relativa</p>
+          <p><span class="quadrant-color-dot" style="background:#16A34A"></span>0 a 19: acompanhamento</p>
+        </div>
+        <div class="quadrant-note">Prioridade alta + baixa cobertura = maior atenção para expansão.</div>
+      </div>
+    </div>
+
+    <div class="chart-card p-5">
+      ${sectionTitle('Como os indicadores desta aba são calculados', 'Definições, composição e fontes usadas na leitura de Marcadores Sociais.')}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="soft-panel p-4">
+          <p class="font-black text-ietBlue mb-3">Índice de Prioridade Social</p>
+          <div class="space-y-3 text-sm text-slate-600">
+            <p><b>30% Risco educacional:</b> taxa de abandono/evasão no Ensino Médio.</p>
+            <p><b>25% Vulnerabilidade socioeconômica:</b> INSE/NSE e rendimento médio do trabalho.</p>
+            <p><b>25% Baixa cobertura EPT:</b> distância da cobertura EPT em relação à referência de 50%.</p>
+            <p><b>20% Potencial de impacto:</b> tamanho da população jovem de 15 a 24 anos.</p>
+          </div>
+        </div>
+        <div class="soft-panel p-4">
+          <p class="font-black text-ietBlue mb-3">Fontes e definições</p>
+          <div class="space-y-3 text-sm text-slate-600">
+            <p><b>Fontes:</b> IBGE Censo Demográfico 2022; INEP INSE/SAEB 2023; INEP Sinopse Educação Básica 2025; base de abandono EM; Oferta EPT 2026.</p>
+            <p><b>Rendimento do trabalho:</b> representa remuneração das pessoas ocupadas e não deve ser lido como renda domiciliar per capita.</p>
+            <p><b>Uso do índice:</b> indicador de apoio à priorização territorial. Não substitui a análise de mercado, infraestrutura, escutas e viabilidade operacional.</p>
+          </div>
         </div>
       </div>
     </div>
   `;
+
   renderMap('map-sociais', mapRows, 'sociais');
-  renderChart('chart-social-abandono-sre', 'bar', { labels: abandonoSreTop.map(x=>x.sre), datasets: [{ label:'Abandono EM (%)', data: abandonoSreTop.map(x=>n(x.taxa_abandono_em_media)), backgroundColor: abandonoSreTop.map(x=> n(x.taxa_abandono_em_media)>=8 ? colors.red : n(x.taxa_abandono_em_media)>=5 ? colors.orange : colors.green), borderRadius:6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
-  renderChart('chart-social-abandono-municipio', 'bar', { labels: abandonoMunTop.map(x=>x.municipio), datasets: [{ label:'Abandono EM (%)', data: abandonoMunTop.map(x=>n(x.taxa_abandono_em_media)), backgroundColor: abandonoMunTop.map(x=> n(x.taxa_abandono_em_media)>=8 ? colors.red : n(x.taxa_abandono_em_media)>=5 ? colors.orange : colors.green), borderRadius:6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
+  renderChart('chart-social-faixas', 'bar', { labels: faixaPop.map(x=>x.faixa), datasets: [{ label:'População jovem', data: faixaPop.map(x=>x.valor), backgroundColor: colors.blue, borderRadius:6 }]}, { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} });
+  renderChart('chart-social-raca', 'bar', { labels:racaPop.map(x=>x[0]), datasets:[{ label:'População 15 a 19', data:racaPop.map(x=>x[1]), backgroundColor:colors.light, borderRadius:6 }]}, { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} });
+  renderChart('chart-social-composicao', 'bar', {
+    labels: compTop.map(x=>x.municipio),
+    datasets: [
+      { label:'Risco educacional', data:compTop.map(x=>n(x.componente_risco_educacional || x.risco_educacional)), backgroundColor:colors.red, borderRadius:4 },
+      { label:'Vulnerabilidade', data:compTop.map(x=>n(x.componente_vulnerabilidade_socioeconomica || x.vulnerabilidade_socioeconomica)), backgroundColor:colors.orange, borderRadius:4 },
+      { label:'Baixa cobertura EPT', data:compTop.map(x=>n(x.componente_baixa_cobertura_ept || x.baixa_cobertura_ept)), backgroundColor:colors.yellow, borderRadius:4 },
+      { label:'Potencial impacto', data:compTop.map(x=>n(x.componente_potencial_impacto || x.potencial_impacto)), backgroundColor:colors.blue, borderRadius:4 }
+    ]
+  }, { indexAxis:'y', scales:{x:{beginAtZero:true, stacked:true}, y:{stacked:true}} });
+  renderChart('chart-social-quadrante', 'bubble', { datasets:[{
+    label:'Municípios',
+    data:quadranteRows,
+    backgroundColor:quadranteRows.map(r => socialPriorityHex(r.x) + 'CC'),
+    borderColor:'#ffffff',
+    borderWidth:2,
+    hoverBorderWidth:3,
+    hoverRadius:quadranteRows.map(r => Math.min(34, r.r + 3))
+  }]}, { plugins:{legend:{display:false}, valueLabels:{display:false}, tooltip:{ callbacks:{ label:function(ctx){ const r = ctx.raw || {}; return `${r.municipio || 'Município'} (${r.sre || 'SRE'}): índice ${fmt(r.x,1)} | cobertura ${pct(r.y)} | jovens ${fmt(r.popJovem || 0)}`; } }}}, scales:{x:{beginAtZero:true, max:100, title:{display:true, text:'Índice de Prioridade Social'}}, y:{beginAtZero:true, title:{display:true, text:'Cobertura EPT no EM (%)'}}} });
 }
-
-
 
 function buildInfraMapRows(escolas) {
   const grupos = groupBy(escolas.filter(e => n(e.latitude) && n(e.longitude)), e => `${e.sre || 'Não informado'}|${e.municipio || 'Não informado'}`);
@@ -1632,7 +1875,7 @@ function resetMapView(id) {
 function getMapMetric(r, mode) {
   if (mode === 'executiva' || mode === 'oferta') return n(r.matriculas_ept_2026 || r.estudantes || r.matriculas || 0);
   if (mode === 'lacunas') return n(r.total_lacunas || r.escolas || r.cursos || 0);
-  if (mode === 'sociais') return n(r.escolas_abandono_alto || r.escolas_com_indicador_abandono || r.escolas_total || r.total_lacunas || r.matriculas_ept_2026 || 0);
+  if (mode === 'sociais') return n(r.indice_prioridade_social || r.indice_prioridade_social_v2 || r.total_lacunas || r.escolas_abandono_alto || r.escolas_com_indicador_abandono || r.matriculas_ept_2026 || 0);
   if (mode === 'infra') return n(r.total_escolas || r.escolas || r.qtd_escolas || 1);
   return n(r.matriculas_ept_2026 || r.estudantes || r.matriculas || 1);
 }
@@ -1651,7 +1894,14 @@ function quantityColor(value, mode) {
     if (v >= 2) return '#F97316';
     return '#FBBF24';
   }
-  if (mode === 'sociais' || mode === 'infra') {
+  if (mode === 'sociais') {
+    if (v >= 80) return '#DC2626';
+    if (v >= 60) return '#F97316';
+    if (v >= 40) return '#FBBF24';
+    if (v >= 20) return '#004990';
+    return '#10B981';
+  }
+  if (mode === 'infra') {
     if (v >= 20) return '#7E22CE';
     if (v >= 10) return '#E11D48';
     if (v >= 5) return '#F97316';
@@ -1708,7 +1958,7 @@ function renderMap(id, rows, mode) {
       const marker = L.circleMarker([lat,lng], { radius, color:'#fff', weight:2, fillColor:color, fillOpacity:.88 });
       const title = r.nome_escola || r.escola_candidata || r.municipio || 'Território';
       const details = mode === 'sociais'
-        ? `<small><b>Quantidade:</b> ${fmt(metric)}<br><b>Abandono EM:</b> ${pct(r.taxa_abandono_em_media || 0)}<br><b>Escolas com indicador:</b> ${fmt(r.escolas_com_indicador_abandono || 0)}<br><b>Escolas abandono alto:</b> ${fmt(r.escolas_abandono_alto || 0)}<br><b>Matrículas EPT:</b> ${fmt(r.matriculas_ept_2026 || 0)}</small>`
+        ? `<small><b>Índice social:</b> ${fmt(r.indice_prioridade_social || r.indice_prioridade_social_v2 || 0,1)}<br><b>Classificação:</b> ${esc(r.classificacao_prioridade_social || 'Acompanhar')}<br><b>Fator principal:</b> ${esc(r.principal_fator_atencao || 'Não informado')}<br><b>Pop. jovem:</b> ${fmt(r.pop_15_24_total || 0)}<br><b>Abandono EM:</b> ${pct(r.taxa_abandono_em_media || 0)}<br><b>INSE:</b> ${fmt(r.inse_estadual_media || 0,2)}<br><b>Cobertura EPT:</b> ${pct(r.cobertura_ept_em_pct || 0)}</small>`
         : mode === 'lacunas'
         ? `<small><b>Total:</b> ${fmt(r.total_lacunas || 0)} lacunas<br><b>Prioritárias:</b> ${fmt(r.lacunas_prioritarias || 0)}<br><b>Condicionadas:</b> ${fmt(r.lacunas_condicionadas || 0)}<br><b>Escolas aptas:</b> ${fmt(r.escolas_aptas || 0)}</small>`
         : mode === 'infra'
@@ -1723,7 +1973,7 @@ function renderMap(id, rows, mode) {
       sreFocus[sreKey].bounds.push([lat, lng]);
       sreFocus[sreKey].markers.push(marker);
       if (mode === 'lacunas' || mode === 'sociais' || mode === 'infra') {
-        const labelValue = mode === 'lacunas' ? (r.total_lacunas || r.escolas || 0) : mode === 'infra' ? (r.total_escolas || r.escolas || 0) : (r.escolas_abandono_alto || r.escolas_com_indicador_abandono || r.escolas_total || 0);
+        const labelValue = mode === 'lacunas' ? (r.total_lacunas || r.escolas || 0) : mode === 'infra' ? (r.total_escolas || r.escolas || 0) : (r.indice_prioridade_social || r.indice_prioridade_social_v2 || r.escolas_abandono_alto || r.escolas_com_indicador_abandono || r.escolas_total || 0);
         const labelText = fmt(labelValue);
         const bubbleSize = Math.max(28, Math.round(radius * 2.15));
         const bubbleWidth = Math.max(bubbleSize, Math.round(labelText.length * 8 + 18));
