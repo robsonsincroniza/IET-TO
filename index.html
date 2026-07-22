@@ -339,6 +339,58 @@
     @media (max-width: 768px) { .quadrant-legend { top:50px; right:10px; padding:8px 9px; max-width:160px; font-size:9px; } }
     @media (max-width: 1024px) { .social-ranking-filters { grid-template-columns:1fr; } .social-score-ring { width:68px; height:68px; } }
 
+
+
+    /* ===== Escutas: página preparada para respostas consolidadas ===== */
+    .escuta-tabs { display:flex; flex-wrap:wrap; gap:8px; }
+    .escuta-tab { border:1px solid #dbe3ef; background:#fff; color:#475569; border-radius:14px; padding:10px 13px; font-size:12px; font-weight:900; display:flex; align-items:center; gap:8px; transition:.15s ease; }
+    .escuta-tab:hover { background:#f8fafc; border-color:#bcd1ea; }
+    .escuta-tab.active { background:#004990; color:#fff; border-color:#004990; box-shadow:0 8px 20px rgba(0,73,144,.18); }
+    .escuta-tab.active i { color:#FFB81C; }
+    .escuta-filterbar { display:grid; grid-template-columns: repeat(6, minmax(120px, 1fr)); gap:10px; align-items:end; }
+    .escuta-filter .mini-title { margin-bottom:5px; display:block; }
+    .escuta-filter select { width:100%; min-width:0; height:36px; padding:7px 10px; font-size:12px; border-radius:11px; border:1px solid #d1d5db; background:#fff; color:#334155; outline:none; }
+    .escuta-filter select:focus { border-color:#004990; box-shadow:0 0 0 3px rgba(0,73,144,.10); }
+    .escuta-stage { border:1px solid #dbeafe; background:linear-gradient(180deg,#ffffff,#eff6ff); border-radius:20px; padding:18px; }
+    .escuta-stage-yellow { border-color:#fde68a; background:linear-gradient(180deg,#fff,#fffbeb); }
+    .escuta-card { border:1px solid #e2e8f0; background:linear-gradient(180deg,#fff,#f8fafc); border-radius:18px; padding:16px; min-height:132px; display:flex; flex-direction:column; gap:10px; }
+    .escuta-card .value { font-size:1.45rem; line-height:1.1; font-weight:900; color:#004990; letter-spacing:-.02em; }
+    .escuta-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 9px; border-radius:999px; border:1px solid #e2e8f0; background:#fff; font-size:10px; font-weight:900; color:#475569; }
+    .escuta-empty { min-height:255px; border:1px dashed #cbd5e1; background:repeating-linear-gradient(135deg,#f8fafc,#f8fafc 12px,#f1f5f9 12px,#f1f5f9 24px); border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:22px; position:relative; overflow:hidden; }
+    .escuta-empty::after { content:''; position:absolute; width:220px; height:220px; border-radius:999px; background:rgba(0,73,144,.06); right:-75px; bottom:-100px; }
+    .escuta-empty-icon { width:44px; height:44px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #dbeafe; color:#004990; box-shadow:0 8px 18px rgba(15,23,42,.08); z-index:1; }
+    .escuta-definition { border:1px solid #e2e8f0; background:#fff; border-radius:16px; padding:14px; }
+    .escuta-definition .formula { background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:10px; font-size:12px; font-weight:800; color:#334155; }
+    .escuta-question { border:1px solid #e2e8f0; background:linear-gradient(180deg,#fff,#f8fafc); border-radius:14px; padding:12px; }
+    .escuta-question .q { font-size:12px; color:#334155; font-weight:800; line-height:1.35; }
+    .escuta-question .a { font-size:11px; color:#64748b; line-height:1.35; margin-top:7px; white-space:pre-line; }
+    .escuta-source { border:1px solid #e2e8f0; border-left:5px solid #004990; background:#fff; border-radius:16px; padding:14px; }
+    .empty-table { width:100%; border-collapse:separate; border-spacing:0; font-size:12px; }
+    .empty-table th { background:#f8fafc; color:#64748b; font-size:10px; text-transform:uppercase; letter-spacing:.06em; font-weight:900; padding:10px; border-bottom:1px solid #e2e8f0; }
+    .empty-table td { padding:16px; text-align:center; color:#64748b; border-bottom:1px solid #eef2f7; }
+    .escuta-flow { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:10px; }
+    .escuta-flow-step { position:relative; background:#fff; border:1px solid #dbeafe; border-radius:16px; padding:13px; min-height:112px; }
+    .escuta-flow-step:not(:last-child)::after { content:'›'; position:absolute; right:-8px; top:50%; transform:translateY(-50%); width:18px; height:18px; background:#004990; color:#fff; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:900; z-index:1; }
+    .escuta-flow-step .step-num { width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:999px; background:#eff6ff; color:#004990; font-weight:900; font-size:12px; margin-bottom:8px; }
+    @media (max-width:1280px){ .escuta-filterbar { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width:768px){ .escuta-filterbar { grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; } .escuta-tabs { display:grid; grid-template-columns:1fr; } .escuta-flow { grid-template-columns:1fr; } .escuta-flow-step:not(:last-child)::after { display:none; } }
+    @media (max-width:520px){ .escuta-filterbar { grid-template-columns:1fr; } }
+
+    /* ===== Escutas: refinamento de navegação e comunicação ===== */
+    .escuta-hero-compact { padding:16px 18px !important; }
+    .escuta-hero-compact h2 { font-size:1.35rem; line-height:1.15; }
+    .escuta-status-compact { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); border-radius:18px; padding:12px 14px; min-width:210px; }
+    .escuta-status-compact .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:900; color:rgba(255,255,255,.68); }
+    .escuta-status-compact .main { font-size:14px; font-weight:900; margin-top:2px; color:white; }
+    .escuta-status-compact .sub { font-size:11px; line-height:1.35; color:rgba(255,255,255,.78); margin-top:4px; }
+    .escuta-mini-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); color:rgba(255,255,255,.86); font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.06em; }
+    .escuta-audience-panel { background:linear-gradient(180deg,#ffffff,#f8fafc); border:1px solid #dbeafe; border-radius:22px; padding:16px; box-shadow:0 10px 24px rgba(15,23,42,.06); display:flex; flex-direction:column; align-items:center; text-align:center; gap:13px; }
+    .escuta-audience-panel .audience-title { font-size:13px; font-weight:900; color:#0f172a; }
+    .escuta-audience-panel .audience-subtitle { font-size:11px; color:#64748b; margin-top:3px; }
+    .escuta-audience-panel .escuta-tabs { justify-content:center; width:100%; }
+    .escuta-audience-panel .escuta-tab { min-width:190px; justify-content:center; padding:11px 16px; border-radius:16px; box-shadow:0 6px 16px rgba(15,23,42,.04); }
+    @media (max-width: 768px) { .escuta-hero-compact { padding:14px !important; } .escuta-status-compact { min-width:0; width:100%; } .escuta-audience-panel { align-items:stretch; text-align:left; padding:14px; } .escuta-audience-panel .escuta-tab { min-width:0; width:100%; } }
+
   </style>
 </head>
 <body class="bg-ietGray text-slate-800 h-screen flex flex-col overflow-hidden">
@@ -1662,51 +1714,280 @@ function renderMiniInfraCursos() {
   return `<div class="space-y-2">${cursos.map(c=>`<div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100"><span class="text-sm font-bold text-slate-700">${esc(c)}</span><span class="text-xs text-green-700 font-black">verificar requisitos</span></div>`).join('') || '<p class="text-sm text-slate-500">Sem cursos candidatos para os filtros.</p>'}</div>`;
 }
 
-function renderEscutas() {
-  const m = filtered('escolaCurso');
-  const baixa = filtered('baixaDemanda');
-  const hasEscutaReal = m.some(x => x.estudantes_ouvidos || x.parceiros_consultados || x.interesse_estudantil || x.viabilidade_escolar || x.publico_escuta);
-  const cursosInteresse = topBy(m, 'curso_cnct', x => x.base_inter || x.score_final || 0, 10);
-  const viabilidade = topBy(m, 'curso_cnct', x => x.base_infra || x.score_final || 0, 10);
-  const mercadoByCurso = topBy(m, 'curso_cnct', x => x.base_econ || x.vinculos_aderentes_curso || 0, 10);
-  const convergenciaRows = cursosInteresse.slice(0,8).map((x,i)=>{
-    const inter = Math.max(1, Math.min(5, (x.value||0)/20));
-    const mercado = Math.max(1, Math.min(5, (mercadoByCurso.find(y=>y.label===x.label)?.value || x.value || 0)/20));
-    const viab = Math.max(1, Math.min(5, (viabilidade.find(y=>y.label===x.label)?.value || x.value || 0)/20));
-    const conv = (inter + mercado + viab) / 3;
-    return [esc(x.label), `<span class="heat-cell ${heatClass(inter*20)}">${fmt(inter,1)}</span>`, `<span class="heat-cell ${heatClass(mercado*20)}">${fmt(mercado,1)}</span>`, `<span class="heat-cell ${heatClass(viab*20)}">${fmt(viab,1)}</span>`, `<span class="heat-cell ${heatClass(conv*20)}">${fmt(conv,1)}</span>`];
-  });
-  const sinteseRows = m.slice(0,8).map(x=>[esc(x.curso_cnct || getCurso(x)), badge(n(x.base_inter || x.score_final)>70?'Muito alto':n(x.base_inter || x.score_final)>50?'Médio':'Baixo'), badge(n(x.base_infra || x.score_final)>70?'Alta':n(x.base_infra || x.score_final)>50?'Média':'Baixa'), badge(n(x.base_econ || x.vinculos)>70?'Muito alto':n(x.base_econ || x.vinculos)>50?'Alto':'Médio'), esc((x.observacao_validacao || x.justificativa || x.encaminhamento || 'Validação territorial necessária').slice(0,140)), actionBadge(x.classificacao_revisada || x.prioridade)]);
-  document.getElementById('view-escutas').innerHTML = `
-    <div class="rounded-2xl ${hasEscutaReal ? 'bg-green-50 border-green-200 text-green-800' : 'bg-yellow-50 border-yellow-200 text-yellow-900'} border p-4 mb-5 flex gap-3 items-start">
-      <i data-lucide="${hasEscutaReal ? 'check-circle-2' : 'info'}" class="w-5 h-5 mt-0.5 shrink-0"></i>
-      <div><p class="font-black">Base de dados da aba Escutas</p><p class="text-xs mt-1 leading-relaxed">${hasEscutaReal ? 'Foram encontrados campos específicos de escuta na base carregada.' : 'Ainda não há uma base específica de escutas com estudantes ou parceiros consultados. Os gráficos abaixo usam campos indiretos da matriz, como engajamento/interesse, infraestrutura/viabilidade e mercado. Os cards de volume permanecem como dados em consolidação.'}</p></div>
+
+function ensureEscutasState() {
+  if (!state.escutas) {
+    state.escutas = { mode: 'estudantes', filters: { sre: 'Todos', municipio: 'Todos', escola: 'Todos', curso: 'Todos', interesse: 'Todos', prontidao: 'Todos' } };
+  }
+  return state.escutas;
+}
+function setEscutasMode(mode) {
+  ensureEscutasState().mode = mode;
+  renderEscutas();
+  lucide.createIcons();
+}
+function setEscutaFilter(key, value) {
+  ensureEscutasState().filters[key] = value;
+  renderEscutas();
+  lucide.createIcons();
+}
+function escutaOptions(values, current, allLabel) {
+  const safeValues = uniq(values).sort((a,b)=>String(a).localeCompare(String(b), 'pt-BR')).slice(0, 450);
+  return `<option value="Todos" ${current === 'Todos' ? 'selected' : ''}>${esc(allLabel)}</option>` + safeValues.map(v => `<option value="${esc(v)}" ${String(current) === String(v) ? 'selected' : ''}>${esc(v)}</option>`).join('');
+}
+function escutaFilterBar(mode) {
+  const s = ensureEscutasState();
+  const filters = s.filters;
+  const all = allFilterSources();
+  const escolas = uniq([...(state.data.escolas || []).map(x => x.nome_escola || x.escola), ...(state.data.escolaCurso || []).map(x => x.escola_candidata || x.nome_escola)]);
+  const cursos = uniq([...(state.data.municipioCurso || []).map(getCurso), ...(state.data.escolaCurso || []).map(getCurso), ...(state.data.ofertaDetalhada || []).map(getCurso)]);
+  const interesseOptions = mode === 'estudantes'
+    ? ['Sim, gostaria de fazer curso técnico', 'Não, apenas Ensino Médio', 'Aguardando respostas']
+    : ['Sim, grande interesse', 'Sim, depende de condições', 'Ainda avaliando', 'Não tem interesse no momento'];
+  const prontidaoOptions = ['Alta prontidão declarada', 'Prontidão parcial', 'Sem condições atualmente', 'Não sei avaliar'];
+  return `<div class="escuta-stage mb-5">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div>
+        <p class="text-[11px] uppercase tracking-[.08em] text-slate-500 font-black">Filtros próprios da aba Escutas</p>
+        <p class="text-xs text-slate-500 mt-1">Estes filtros refinam apenas esta página. As demais abas permanecem sem alteração.</p>
+      </div>
+      <span class="escuta-chip"><i data-lucide="database-zap" class="w-3.5 h-3.5"></i> Estrutura pronta para dados reais</span>
     </div>
-    <div class="kpi-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-5">
-      ${kpiCard('Estudantes ouvidos', hasEscutaReal ? fmt(sum(m,'estudantes_ouvidos')) : 'A definir', 'users', 'blue', hasEscutaReal ? '' : 'Não há coluna específica de respondentes nas views atuais.')}
-      ${kpiCard('Escolas ouvidas', fmt(uniq(m.map(x=>x.codigo_inep || x.escola_candidata)).length), 'building-2', 'blue', 'Usa escolas presentes na matriz como aproximação quando não há base de escuta.')}
-      ${kpiCard('Parceiros consultados', hasEscutaReal ? fmt(sum(m,'parceiros_consultados')) : 'A definir', 'handshake', 'purple', 'Não há tabela específica de parceiros consultados nas views atuais.')}
-      ${kpiCard('Cursos com maior interesse', fmt(cursosInteresse.length), 'graduation-cap', 'blue')}
-      ${kpiCard('Alta viabilidade', fmt(m.filter(x=>n(x.base_infra || x.score_final)>70).length), 'shield-check', 'green')}
-      ${kpiCard('Baixa adesão', fmt(baixa.length), 'circle-x', 'red')}
+    <div class="escuta-filterbar">
+      <label class="escuta-filter"><span class="mini-title">SRE</span><select onchange="setEscutaFilter('sre', this.value)">${escutaOptions(all.map(x=>x.sre), filters.sre || state.filters.sre || 'Todos', 'Todas as SREs')}</select></label>
+      <label class="escuta-filter"><span class="mini-title">Município</span><select onchange="setEscutaFilter('municipio', this.value)">${escutaOptions(all.map(x=>x.municipio), filters.municipio || state.filters.municipio || 'Todos', 'Todos os municípios')}</select></label>
+      <label class="escuta-filter"><span class="mini-title">Escola</span><select onchange="setEscutaFilter('escola', this.value)">${escutaOptions(escolas, filters.escola || 'Todos', 'Todas as escolas')}</select></label>
+      <label class="escuta-filter"><span class="mini-title">Curso/eixo</span><select onchange="setEscutaFilter('curso', this.value)">${escutaOptions(cursos, filters.curso || 'Todos', 'Todos os cursos/eixos')}</select></label>
+      <label class="escuta-filter"><span class="mini-title">${mode === 'diretores' ? 'Interesse da escola' : 'Interesse em EPT'}</span><select onchange="setEscutaFilter('interesse', this.value)">${escutaOptions(interesseOptions, filters.interesse || 'Todos', 'Todos')}</select></label>
+      <label class="escuta-filter"><span class="mini-title">${mode === 'diretores' ? 'Prontidão' : 'Tipo de leitura'}</span><select onchange="setEscutaFilter('prontidao', this.value)">${escutaOptions(mode === 'diretores' ? prontidaoOptions : ['Conhecimento sobre EPT','Expectativas Ensino Médio','Motivos de interesse','Motivos de não interesse','Cursos desejados'], filters.prontidao || 'Todos', 'Todos')}</select></label>
     </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Interesse dos estudantes por curso', 'Quando não houver escuta, usa-se o campo de engajamento/interesse da matriz.')}
-        <div class="h-[350px]"><canvas id="chart-escutas-interesse"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Viabilidade apontada pela gestão escolar', 'Leitura de viabilidade operacional por curso.')}
-        <div class="h-[350px]"><canvas id="chart-escutas-viabilidade"></canvas></div></div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Interesse x mercado x viabilidade', 'Cruza interesse dos estudantes, sinal de mercado e viabilidade da escola em um score de convergência por curso.')}${compactHeatTable(['Curso','Interesse','Mercado','Viabilidade','Convergência'], convergenciaRows)}</div>
+  </div>`;
+}
+function escutaTabs(mode) {
+  const tabs = [
+    ['estudantes','Estudantes 9º ano','graduation-cap'],
+    ['diretores','Diretores(as)','school'],
+    ['comparativo','Comparativo','git-compare-arrows']
+  ];
+  return `<div class="escuta-tabs">${tabs.map(([id,label,icon]) => `<button class="escuta-tab ${mode === id ? 'active' : ''}" onclick="setEscutasMode('${id}')"><i data-lucide="${icon}" class="w-4 h-4"></i>${label}</button>`).join('')}</div>`;
+}
+function escutaEmptyViz(title, subtitle, icon = 'bar-chart-3', chartType = 'Gráfico preparado') {
+  return `<div class="escuta-empty">
+    <div class="escuta-empty-icon"><i data-lucide="${icon}" class="w-5 h-5"></i></div>
+    <p class="font-black text-slate-800 mt-3">${esc(title)}</p>
+    <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">${esc(subtitle)}</p>
+    <span class="escuta-chip mt-3">${esc(chartType)}</span>
+  </div>`;
+}
+function escutaKpi(label, definition, icon, color = 'blue') {
+  const colorMap = { blue:'text-ietBlue bg-blue-50', yellow:'text-amber-700 bg-amber-50', green:'text-green-700 bg-green-50', purple:'text-purple-700 bg-purple-50', red:'text-red-700 bg-red-50', slate:'text-slate-700 bg-slate-50' };
+  return `<div class="escuta-card">
+    <div class="flex justify-between gap-3 items-start">
+      <div><p class="mini-title">${esc(label)}</p><p class="value">Aguardando</p></div>
+      <div class="w-10 h-10 rounded-2xl ${colorMap[color] || colorMap.blue} flex items-center justify-center"><i data-lucide="${icon}" class="w-5 h-5"></i></div>
     </div>
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-8">${sectionTitle('Síntese das escutas', 'Tabela de convergência para decisão.')}${renderTable(['Curso','Interesse estudantil','Viabilidade escolar','Mercado','Comentário','Status'], sinteseRows, 10)}</div>
-      <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Parceiros e setores consultados', 'Estrutura visual preparada conforme a proposta.')}
-        <div class="space-y-3">${['Saúde','Tecnologia e inovação','Comércio e serviços','Indústria','Agropecuária','Logística e transporte','Meio ambiente','Educação e pesquisa'].map((t,i)=>`<div class="partner-row"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-blue-50 text-ietBlue flex items-center justify-center"><i data-lucide="${partnerIcon(t)}" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm">${t}</span></div><span class="text-ietBlue font-black">${hasEscutaReal ? fmt(0) : 'A definir'}</span></div>`).join('')}</div>
+    <p class="text-xs text-slate-500 leading-relaxed">${esc(definition)}</p>
+  </div>`;
+}
+function escutaIndicator(title, formula, perguntas, icon = 'calculator') {
+  return `<div class="escuta-definition">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-xl bg-blue-50 text-ietBlue flex items-center justify-center shrink-0"><i data-lucide="${icon}" class="w-4 h-4"></i></div>
+      <div>
+        <p class="font-black text-slate-800 text-sm">${esc(title)}</p>
+        <div class="formula mt-2">${formula}</div>
+        <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">${esc(perguntas)}</p>
       </div>
     </div>
-    ${decisionReadings(['Cursos com alta convergência entre interesse, mercado e viabilidade devem ser priorizados.', 'Parcerias fortalecem estágios, empregabilidade e adesão dos cursos.', 'Cursos com baixa adesão exigem revisão de posicionamento, infraestrutura ou estratégia de comunicação.', 'Escutas contínuas aumentam assertividade e reduzem riscos de implantação.'])}
+  </div>`;
+}
+function escutaQuestionCard(title, questions, icon = 'circle-help') {
+  return `<div class="escuta-question">
+    <div class="flex items-center gap-2 mb-2"><i data-lucide="${icon}" class="w-4 h-4 text-ietBlue"></i><p class="text-xs font-black text-slate-700">${esc(title)}</p></div>
+    <div class="q">${questions.map(q => `• ${esc(q)}`).join('<br>')}</div>
+  </div>`;
+}
+function emptyDataTable(headers, message) {
+  return `<div class="table-wrap bg-white"><table class="empty-table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody><tr><td colspan="${headers.length}"><div class="flex flex-col items-center justify-center py-8"><i data-lucide="table-properties" class="w-8 h-8 text-slate-300 mb-2"></i><p class="font-bold">${esc(message)}</p><p class="text-xs mt-1">A estrutura da tabela já está preparada para receber os dados consolidados das respostas.</p></div></td></tr></tbody></table></div>`;
+}
+function renderEscutaEstudantes() {
+  return `<div class="space-y-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${escutaKpi('Total de respostas', 'Quantidade de estudantes do 9º ano respondentes.', 'users', 'blue')}
+      ${escutaKpi('Interesse em EPT', 'Percentual que declara interesse em fazer curso técnico junto com o Ensino Médio.', 'heart-handshake', 'green')}
+      ${escutaKpi('Conhecem curso técnico', 'Percentual que afirma saber o que é um curso técnico.', 'badge-help', 'purple')}
+      ${escutaKpi('Curso mais desejado', 'Curso técnico mais selecionado entre as opções disponíveis.', 'graduation-cap', 'yellow')}
+    </div>
+
+    <div class="escuta-stage-yellow">
+      ${sectionTitle('Perfil da escuta dos estudantes do 9º ano', 'A leitura foi estruturada para acompanhar conhecimento, interesse, influência familiar, expectativas e cursos desejados.')}
+      <div class="escuta-flow mt-4">
+        <div class="escuta-flow-step"><div class="step-num">1</div><p class="font-black text-sm text-slate-800">Contexto do estudante</p><p class="text-xs text-slate-500 mt-1">Cidade onde mora, município onde estuda e escola atual.</p></div>
+        <div class="escuta-flow-step"><div class="step-num">2</div><p class="font-black text-sm text-slate-800">Conhecimento sobre EPT</p><p class="text-xs text-slate-500 mt-1">Sabe o que é curso técnico e conhece a oferta gratuita da rede estadual.</p></div>
+        <div class="escuta-flow-step"><div class="step-num">3</div><p class="font-black text-sm text-slate-800">Interesse e decisão</p><p class="text-xs text-slate-500 mt-1">Desejo de cursar EPT, motivos de interesse ou não interesse.</p></div>
+        <div class="escuta-flow-step"><div class="step-num">4</div><p class="font-black text-sm text-slate-800">Preferências de futuro</p><p class="text-xs text-slate-500 mt-1">Cidade pretendida para o Ensino Médio e cursos técnicos desejados.</p></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Jornada de conhecimento e interesse pela EPT', 'Funil preparado para acompanhar informação, conversa familiar e interesse declarado.')}${escutaEmptyViz('Funil de mobilização estudantil', 'Sabe o que é curso técnico → sabia da oferta gratuita → conversou com a família → tem interesse em EPT.', 'list-checks', 'Funil / barras sequenciais')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Interesse em cursar EPT no Ensino Médio', 'Distribuição entre estudantes interessados em cursar técnico e estudantes que preferem apenas o Ensino Médio regular.')}${escutaEmptyViz('Interesse declarado em EPT', 'Será preenchido com as respostas “Sim, gostaria de fazer curso técnico” e “Não, apenas Ensino Médio”.', 'bar-chart-3', 'Barra 100%')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Expectativas ao chegar ao Ensino Médio', 'Leitura das principais preocupações e expectativas dos estudantes.')}${escutaEmptyViz('Expectativas dos estudantes', 'Adaptação à rotina, matérias/exigências, decisões sobre futuro e incerteza sobre a nova etapa.', 'sparkles', 'Barras horizontais')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Cursos técnicos mais desejados', 'Ranking dos cursos selecionados pelos estudantes, considerando até 3 escolhas por resposta.')}${escutaEmptyViz('Ranking de cursos desejados', 'A futura carga deve normalizar cada curso selecionado em uma linha auxiliar para ranking por município, SRE e escola.', 'graduation-cap', 'Ranking horizontal')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Motivos para querer fazer curso técnico', 'Mostra o que mobiliza o interesse dos estudantes.')}${escutaEmptyViz('Motivos de interesse', 'Profissão e mundo do trabalho, descoberta de áreas, continuidade de estudos e formação prática.', 'thumbs-up', 'Ranking')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Motivos para não querer fazer curso técnico', 'Mostra barreiras de percepção, rotina ou desconhecimento.')}${escutaEmptyViz('Motivos de não interesse', 'Foco em ENEM/vestibular, rotina difícil, desconhecimento dos cursos e baixa relação com projeto de futuro.', 'circle-alert', 'Ranking')}</div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+      <div class="chart-card p-5 xl:col-span-7">${sectionTitle('Mapa de interesse estudantil', 'Bolhas por município para visualizar volume de respostas e percentual de interesse em EPT.')}${escutaEmptyViz('Mapa territorial preparado', 'Tamanho da bolha: total de respostas. Cor da bolha: percentual de interesse em EPT. Tooltip: município, SRE, curso mais citado e principal motivo.', 'map-pin', 'Mapa de bolhas')}</div>
+      <div class="chart-card p-5 xl:col-span-5">${sectionTitle('Cidade pretendida para cursar o Ensino Médio', 'Mostra possíveis movimentos territoriais de estudantes entre município onde estudam e cidade pretendida para o Ensino Médio.')}${escutaEmptyViz('Origem x destino escolar', 'A visualização poderá ser ranking de municípios, mapa ou matriz origem/destino simples.', 'route', 'Ranking / matriz')}</div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+      <div class="chart-card p-5">${sectionTitle('Indicador composto: Sinal de Interesse Estudantil em EPT', 'Será calculado apenas com respostas reais do formulário dos estudantes.')}
+        <div class="grid grid-cols-1 gap-3">
+          ${escutaIndicator('Sinal de Interesse Estudantil em EPT', '50% interesse declarado + 20% sabe o que é curso técnico + 15% sabia da oferta gratuita + 15% conversa familiar', 'Perguntas usadas: interesse em fazer curso técnico; sabe o que é curso técnico; sabia que a rede oferta cursos técnicos gratuitos; conversa familiar/responsáveis.', 'activity')}
+        </div>
+      </div>
+      <div class="chart-card p-5">${sectionTitle('Perguntas estruturantes — Estudantes', 'Referência das perguntas que orientarão a modelagem dos dados.')}
+        <div class="space-y-3">
+          ${escutaQuestionCard('Informações gerais', ['Em qual cidade você mora?', 'Em qual município você estuda atualmente?', 'Em qual escola você estuda atualmente?'], 'user-round')}
+          ${escutaQuestionCard('Conhecimento e interesse', ['Você sabia que a rede estadual oferece cursos técnicos gratuitos?', 'Na sua casa vocês já conversaram sobre fazer curso técnico?', 'Você sabe o que é um curso técnico?', 'Se disponível na sua escola, você teria interesse em se matricular?'], 'badge-help')}
+          ${escutaQuestionCard('Preferências', ['Principal motivo para querer ou não querer fazer curso técnico.', 'Em qual cidade pretende fazer o Ensino Médio?', 'Selecione até 3 cursos técnicos desejados.'], 'clipboard-list')}
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card p-5">${sectionTitle('Tabela analítica — estudantes', 'Estrutura preparada para análise por território, escola e curso.')}${emptyDataTable(['Município de estudo','Escola','Respostas','% interesse EPT','Curso mais citado','Motivo de interesse','Motivo de não interesse'], 'Dados dos estudantes ainda não sincronizados.')}</div>
+  </div>`;
+}
+function renderEscutaDiretores() {
+  return `<div class="space-y-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${escutaKpi('Total de respostas', 'Quantidade de respostas de diretores(as) ou representantes da gestão escolar.', 'users', 'blue')}
+      ${escutaKpi('Escolas respondentes', 'Quantidade distinta de escolas representadas na escuta.', 'school', 'blue')}
+      ${escutaKpi('Interesse em ofertar/ampliar', 'Percentual de escolas com interesse declarado em ofertar ou ampliar EPT.', 'trending-up', 'green')}
+      ${escutaKpi('Principal necessidade de apoio', 'Apoio mais citado para viabilizar a implantação ou qualificação da oferta.', 'hand-heart', 'yellow')}
+    </div>
+
+    <div class="escuta-stage">
+      ${sectionTitle('Leitura da gestão escolar', 'A análise dos diretores(as) foi organizada em duas trilhas: escolas que já ofertam EPT e escolas com potencial de implementação.')}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="escuta-source"><div class="flex gap-3"><div class="icon-bullet bg-blue-50 text-ietBlue"><i data-lucide="school" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">Escolas que já ofertam EPT</p><p class="text-xs text-slate-500 mt-1 leading-relaxed">Avaliação da oferta atual, parceria, tempo de oferta, desafios, aderência local e intenção de alterar cursos/turmas.</p></div></div></div>
+        <div class="escuta-source"><div class="flex gap-3"><div class="icon-bullet bg-green-50 text-green-700"><i data-lucide="building-2" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">Escolas que ainda não ofertam EPT</p><p class="text-xs text-slate-500 mt-1 leading-relaxed">Interesse em ofertar, condições favoráveis, desafios, percepção de interesse dos estudantes, cursos adequados e apoios necessários.</p></div></div></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Situação atual da oferta EPT', 'Identifica se a escola oferta cursos técnicos integrados ao Ensino Médio.')}${escutaEmptyViz('Oferta atual declarada', 'Categorias: oferta cursos técnicos integrados / não oferta cursos técnicos integrados.', 'bar-chart-3', 'Barra 100%')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Modelo de oferta e parceria', 'Mostra se a oferta ocorre de forma própria ou em parceria e como a parceria é avaliada.')}${escutaEmptyViz('Oferta própria, parceria e avaliação', 'Inclui avaliação do parceiro atual: atende, atende parcialmente, não atende ou não sabe avaliar.', 'handshake', 'Barras / matriz')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Desafios na implementação', 'Ranking dos desafios operacionais apontados pela gestão escolar.')}${escutaEmptyViz('Gargalos da implantação', 'Infraestrutura/equipamentos, profissionais, carga horária, rotina escolar, engajamento/permanência e outros.', 'triangle-alert', 'Ranking horizontal')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Aderência dos cursos às demandas locais', 'Avalia se os cursos ofertados atendem ao território, estudantes e mundo do trabalho.')}${escutaEmptyViz('Aderência territorial da oferta atual', 'Categorias: atende totalmente, atende parcialmente, não atende, não sei avaliar.', 'target', 'Barra 100%')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Interesse em ofertar EPT no próximo ano', 'Para escolas que ainda não ofertam, mostra disposição institucional para iniciar a oferta.')}${escutaEmptyViz('Interesse institucional', 'Grande interesse, depende de condições, ainda avaliando ou sem interesse no momento.', 'trending-up', 'Barra 100%')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Condições favoráveis para início da oferta', 'Prontidão declarada pela gestão escolar para implementar cursos técnicos.')}${escutaEmptyViz('Prontidão declarada', 'Condições adequadas, parciais, inexistentes ou não avaliadas.', 'shield-check', 'Barras')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Cursos técnicos sugeridos pela direção', 'Ranking dos cursos considerados mais adequados para cada escola ou território.')}${escutaEmptyViz('Cursos sugeridos', 'Considera cursos para escolas que já ofertam e escolas com potencial de implantação.', 'graduation-cap', 'Ranking horizontal')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Critérios e necessidades de apoio', 'Mostra os critérios usados para indicar cursos e o principal apoio necessário.')}${escutaEmptyViz('Critérios e apoios', 'Interesse dos estudantes, mercado local, vocação territorial, estrutura escolar, parceria local, infraestrutura, formação e apoio pedagógico.', 'clipboard-check', 'Ranking / matriz')}</div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+      <div class="chart-card p-5">${sectionTitle('Indicador composto: Prontidão Declarada da Escola para EPT', 'Será calculado apenas com respostas reais dos diretores(as).')}
+        ${escutaIndicator('Prontidão Declarada da Escola para EPT', '30% interesse em ofertar/ampliar + 30% condição institucional declarada + 20% interesse percebido dos estudantes + 20% ausência de desafios impeditivos', 'Perguntas usadas: interesse da escola; condições favoráveis; percepção de interesse dos estudantes; principais desafios; necessidades de apoio.', 'gauge')}
+        <p class="text-xs text-slate-500 mt-3 leading-relaxed"><b>Observação:</b> representa percepção da gestão escolar e não substitui validação técnica de infraestrutura, equipe, orçamento ou autorização formal.</p>
+      </div>
+      <div class="chart-card p-5">${sectionTitle('Perguntas estruturantes — Diretores(as)', 'Referência das perguntas que orientarão a modelagem dos dados.')}
+        <div class="space-y-3">
+          ${escutaQuestionCard('Identificação e oferta atual', ['Regional/SRE, município e escola.', 'A escola oferta cursos técnicos integrados ao Ensino Médio?', 'Oferta em parceria? Como avalia o parceiro atual?'], 'school')}
+          ${escutaQuestionCard('Qualificação da oferta existente', ['Há quanto tempo oferta cursos técnicos?', 'Quais desafios identifica na implementação?', 'Os cursos atendem às demandas locais?', 'Deseja alterar a oferta dos cursos atuais?'], 'settings')}
+          ${escutaQuestionCard('Potencial de implementação', ['Interesse em ofertar no próximo ano letivo.', 'Condições favoráveis para iniciar oferta.', 'Cursos adequados para implementação.', 'Critérios de indicação e apoio necessário.'], 'rocket')}
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card p-5">${sectionTitle('Tabela analítica — diretores(as)', 'Estrutura preparada para análise por escola, oferta, prontidão e necessidade de apoio.')}${emptyDataTable(['SRE','Município','Escola','Oferta EPT atual','Interesse em ofertar','Condição declarada','Curso prioritário','Principal desafio','Apoio necessário'], 'Dados dos diretores(as) ainda não sincronizados.')}</div>
+  </div>`;
+}
+function renderEscutaComparativo() {
+  return `<div class="space-y-5">
+    <div class="escuta-stage-yellow">
+      ${sectionTitle('Comparativo entre demanda estudantil e visão da gestão escolar', 'Esta leitura será ativada quando as respostas dos dois públicos estiverem consolidadas.')}
+      <p class="text-sm text-slate-600 leading-relaxed max-w-5xl">A visão comparativa conecta o que os estudantes desejam com o que as escolas consideram viável. O objetivo é identificar convergências por curso, território e escola, além de apontar lacunas de comunicação, infraestrutura ou mobilização.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${escutaKpi('Cursos convergentes', 'Cursos citados tanto por estudantes quanto por diretores(as).', 'git-compare-arrows', 'green')}
+      ${escutaKpi('Alto interesse + alta viabilidade', 'Territórios em que demanda e prontidão aparecem juntas.', 'target', 'blue')}
+      ${escutaKpi('Alto interesse + baixa condição', 'Territórios que podem exigir investimento ou apoio antes da implantação.', 'wrench', 'yellow')}
+      ${escutaKpi('Baixo interesse + alta condição', 'Territórios que podem exigir comunicação, orientação e validação de demanda.', 'megaphone', 'purple')}
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+      <div class="chart-card p-5 xl:col-span-7">${sectionTitle('Quadrante Interesse x Viabilidade', 'Principal visual comparativo da aba Escutas.')}${escutaEmptyViz('Interesse dos estudantes x prontidão da escola', 'Eixo X: interesse estudantil em EPT. Eixo Y: prontidão declarada dos diretores(as). Tamanho da bolha: volume de respostas. Cor: nível de convergência.', 'scatter-chart', 'Bolhas / quadrante')}</div>
+      <div class="chart-card p-5 xl:col-span-5">${sectionTitle('Matriz de convergência por curso/eixo', 'Compara cursos desejados pelos estudantes e cursos indicados pela gestão escolar.')}${escutaEmptyViz('Convergência por curso', 'Classificações previstas: forte, moderada, parcial, divergente ou sem dados suficientes.', 'table-2', 'Matriz')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Mapa de convergência territorial', 'Mostra municípios onde interesse estudantil e viabilidade escolar caminham juntos.')}${escutaEmptyViz('Convergência territorial', 'Bolha por município: interesse, prontidão, cursos convergentes e gargalos críticos.', 'map', 'Mapa')}</div>
+      <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Cursos prioritários por território', 'Identifica cursos com maior sinal combinado entre estudantes e diretores(as).')}${escutaEmptyViz('Prioridade combinada', 'Ranking por município e curso, cruzando interesse estudantil, indicação da escola e prontidão declarada.', 'list-ordered', 'Ranking')}</div>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+      <div class="chart-card p-5">${sectionTitle('Regras de leitura comparativa', 'Critérios propostos para orientar a interpretação dos dados.')}
+        <div class="space-y-3">
+          ${escutaIndicator('Convergência Forte', 'Alto interesse dos estudantes + alta indicação/prontidão dos diretores(as)', 'Leitura: curso ou território com sinal favorável para priorização.', 'badge-check')}
+          ${escutaIndicator('Lacuna de Viabilidade', 'Alto interesse dos estudantes + baixa condição/prontidão escolar', 'Leitura: há demanda, mas pode ser necessário planejamento de investimento, apoio ou parceria.', 'wrench')}
+          ${escutaIndicator('Lacuna de Demanda', 'Baixo interesse estudantil + alta condição/prontidão escolar', 'Leitura: exige comunicação, orientação profissional ou validação territorial antes de priorizar.', 'megaphone')}
+        </div>
+      </div>
+      <div class="chart-card p-5">${sectionTitle('Integração futura com a Mesa de Decisão', 'A escuta deve alimentar a priorização final sem substituir mercado, infraestrutura e marcadores sociais.')}
+        <div class="space-y-3">
+          <div class="partner-row"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-blue-50 text-ietBlue flex items-center justify-center"><i data-lucide="users" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm">Demanda dos estudantes</span></div><span class="text-xs font-black text-slate-500">Escuta 9º ano</span></div>
+          <div class="partner-row"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-green-50 text-green-700 flex items-center justify-center"><i data-lucide="school" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm">Viabilidade da escola</span></div><span class="text-xs font-black text-slate-500">Diretores(as)</span></div>
+          <div class="partner-row"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center"><i data-lucide="briefcase-business" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm">Sinal de mercado</span></div><span class="text-xs font-black text-slate-500">Aba Mercado</span></div>
+          <div class="partner-row"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center"><i data-lucide="building-2" class="w-5 h-5"></i></div><span class="font-bold text-slate-700 text-sm">Infraestrutura e capacidade</span></div><span class="text-xs font-black text-slate-500">Aba Infraestrutura</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card p-5">${sectionTitle('Tabela comparativa por município e curso', 'Estrutura preparada para cruzar respostas dos dois públicos.')}${emptyDataTable(['Município','Curso/eixo','Interesse estudantes','Indicação diretores','Prontidão','Convergência','Leitura'], 'Dados comparativos ainda não sincronizados.')}</div>
+  </div>`;
+}
+function renderEscutas() {
+  const s = ensureEscutasState();
+  const mode = s.mode || 'estudantes';
+  const body = mode === 'diretores' ? renderEscutaDiretores() : mode === 'comparativo' ? renderEscutaComparativo() : renderEscutaEstudantes();
+  document.getElementById('view-escutas').innerHTML = `
+    <div class="guide-hero escuta-hero-compact rounded-3xl text-white mb-4">
+      <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <div class="max-w-5xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/12 border border-white/20 text-[11px] font-black uppercase tracking-[.08em]"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-ietYellow"></i> Escutas e Participação</div>
+          <div class="flex flex-col md:flex-row md:items-center gap-3 mt-3">
+            <h2 class="font-black leading-tight">Escutas dos estudantes e diretores(as)</h2>
+            <span class="escuta-mini-badge"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Página preparada</span>
+          </div>
+          <p class="text-xs md:text-sm text-white/82 leading-relaxed mt-2">A página foi organizada a partir das perguntas revisadas dos dois públicos, com cards, gráficos, filtros e tabelas prontos para receber dados reais, sem simulações.</p>
+        </div>
+        <div class="escuta-status-compact">
+          <p class="eyebrow">Etapa atual</p>
+          <p class="main">Estrutura pronta</p>
+          <p class="sub">Os indicadores serão ativados quando as respostas estiverem consolidadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="escuta-audience-panel mb-5">
+      <div>
+        <p class="audience-title">Selecione o público analisado</p>
+        <p class="audience-subtitle">Cada público possui perguntas, indicadores e visualizações próprias.</p>
+      </div>
+      ${escutaTabs(mode)}
+    </div>
+
+    ${escutaFilterBar(mode)}
+
+    <div class="rounded-2xl bg-blue-50 border border-blue-100 text-blue-900 p-3 mb-5 flex gap-3 items-start">
+      <i data-lucide="info" class="w-4 h-4 mt-0.5 shrink-0"></i>
+      <div><p class="font-black text-sm">Dados ainda não sincronizados</p><p class="text-xs mt-1 leading-relaxed">Esta versão ainda não apresenta respostas consolidadas. O objetivo é deixar a página pronta, alinhada às perguntas e sem dados simulados.</p></div>
+    </div>
+
+    ${body}
   `;
-  renderChart('chart-escutas-interesse', 'bar', { labels:cursosInteresse.map(x=>x.label), datasets:[{label:'Interesse',data:cursosInteresse.map(x=>x.value),backgroundColor:colors.blue,borderRadius:6}]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
-  renderChart('chart-escutas-viabilidade', 'bar', { labels:viabilidade.map(x=>x.label), datasets:[{label:'Viabilidade',data:viabilidade.map(x=>x.value),backgroundColor:colors.light,borderRadius:6}]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
 }
 
 function renderMatrizConvergencia(rows) {
