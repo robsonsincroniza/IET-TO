@@ -837,8 +837,8 @@ function tableShell(id) {
 }
 function tableColClass(headers, i) {
   const h = String(headers[i] || '').toLowerCase();
-  const center = ['escolas','turmas','matrícula','matriculas','média','media','vínculo','vinculo','nº','n°','total','%','score','prioridade','leitura','tipo','sinal','infraestrutura'].some(k => h.includes(k));
-  const small = ['escolas','turmas','matrículas','matriculas','média','media','vínculos','vinculos','nº','n°','score','%'].some(k => h.includes(k));
+  const center = ['escolas','turmas','matrícula','matriculas','média','media','vínculo','vinculo','nº','n°','total','%','Aderência','prioridade','leitura','tipo','sinal','infraestrutura'].some(k => h.includes(k));
+  const small = ['escolas','turmas','matrículas','matriculas','média','media','vínculos','vinculos','nº','n°','Aderência','%'].some(k => h.includes(k));
   const large = ['curso','escola','município','municipio','condição','condicao','comentário','comentario','gargalo'].some(k => h.includes(k));
   return `${center ? ' col-center' : ''}${small ? ' col-small' : ''}${large ? ' col-large' : ''}`;
 }
