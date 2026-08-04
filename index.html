@@ -1050,7 +1050,7 @@ function renderGuia() {
             ['Mercado de trabalho','Força da demanda por vínculos, remuneração, CBO/CNAE e relação com cursos CNCT.','briefcase-business','blue'],
             ['Infraestrutura','Condições da escola para receber o curso: laboratórios, internet, sala técnica, docentes e parceiros.','building-2','yellow'],
             ['Prioridade social','Potencial da EPT para reduzir desigualdades e ampliar inclusão produtiva.','users','purple'],
-            ['Escutas e participação','Interesse dos estudantes, viabilidade percebida pela gestão e validações do território.','messages-square','green'],
+            ['Escutas e participação','Interesse dos estudantes, viabilidade percebida pela gestão.','messages-square','green'],
             ['Viabilidade de implantação','Leitura prática de prazo, fase, parceiro, escala mínima e risco operacional.','settings','orange'],
             ['Meta PNE','Alinha as decisões aos cenários de expansão e ao desafio de 2036.','target','blue']
           ].map(x=>`<div class="bridge-item"><div class="bridge-icon bg-${x[3]==='yellow'?'yellow':x[3]==='green'?'green':x[3]==='purple'?'purple':x[3]==='orange'?'orange':'blue'}-50 text-${x[3]==='yellow'?'yellow-700':x[3]==='green'?'green-700':x[3]==='purple'?'purple-700':x[3]==='orange'?'orange-700':'ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500 mt-1 leading-relaxed">${x[1]}</p></div></div>`).join('')}
