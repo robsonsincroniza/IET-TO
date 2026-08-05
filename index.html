@@ -391,6 +391,68 @@
     .escuta-audience-panel .escuta-tab { min-width:190px; justify-content:center; padding:11px 16px; border-radius:16px; box-shadow:0 6px 16px rgba(15,23,42,.04); }
     @media (max-width: 768px) { .escuta-hero-compact { padding:14px !important; } .escuta-status-compact { min-width:0; width:100%; } .escuta-audience-panel { align-items:stretch; text-align:left; padding:14px; } .escuta-audience-panel .escuta-tab { min-width:0; width:100%; } }
 
+
+    /* ===== Ajustes v16: filtros cascata, responsividade adicional, mapas sociais e simuladores ===== */
+    .lacuna-explain-box { border:1px solid #bfdbfe; background:linear-gradient(180deg,#eff6ff,#ffffff); border-radius:18px; padding:14px 16px; margin-bottom:18px; display:flex; gap:12px; align-items:flex-start; }
+    .lacuna-explain-box p { font-size:12px; line-height:1.45; color:#1e3a8a; font-weight:650; }
+    .lacuna-summary-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
+    .lacuna-summary-grid > div { min-width:0; overflow:hidden; border-radius:14px; background:#fff; border:1px solid #e2e8f0; padding:10px 12px; }
+    .lacuna-summary-grid .summary-value { font-size:clamp(1rem,1.5vw,1.28rem); font-weight:900; line-height:1.1; overflow-wrap:anywhere; word-break:break-word; }
+    .lacuna-reading-cards > div { min-width:0; overflow-wrap:anywhere; }
+    .market-side-table .table-wrap, .compact-side-table .table-wrap { width:100%; max-width:100%; overflow-x:auto; }
+    .market-side-table table.data-table, .compact-side-table table.data-table { table-layout:fixed; }
+    .market-side-table table.data-table th, .market-side-table table.data-table td,
+    .compact-side-table table.data-table th, .compact-side-table table.data-table td { overflow-wrap:anywhere; word-break:normal; line-height:1.35; }
+    .municipio-score-label { background:transparent; border:none; }
+    .municipio-score-label .score-label-wrap {
+      display:inline-flex; align-items:center; justify-content:flex-start; overflow:hidden;
+      max-width:132px; height:30px; border-radius:11px; border:2px solid rgba(255,255,255,.96);
+      background:rgba(255,255,255,.96); box-shadow:0 8px 18px rgba(15,23,42,.26);
+      line-height:1; white-space:nowrap;
+    }
+    .municipio-score-label .score-badge {
+      display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+      min-width:36px; height:100%; padding:0 8px; background:var(--score-color,#004990); color:#fff;
+      font-size:11px; font-weight:950; letter-spacing:-.01em; text-shadow:0 1px 2px rgba(0,0,0,.28);
+    }
+    .municipio-score-label .mun-name {
+      display:block; min-width:0; max-width:88px; padding:0 8px;
+      color:#0f172a; font-size:10px; font-weight:900; overflow:hidden; text-overflow:ellipsis;
+    }
+    .social-map-status { position:absolute; left:14px; top:86px; z-index:520; max-width:260px; background:rgba(255,255,255,.95); border:1px solid #e2e8f0; border-radius:14px; padding:10px 12px; font-size:11px; color:#475569; font-weight:700; box-shadow:0 10px 24px rgba(15,23,42,.12); }
+    .social-map-status strong { color:#0f172a; }
+    .leaflet-interactive.social-choropleth-feature, .leaflet-interactive.choropleth-feature { transition: fill-opacity .15s ease, stroke-width .15s ease; }
+    .decision-reset-btn { display:inline-flex; align-items:center; gap:7px; border:1px solid #bfdbfe; background:#eff6ff; color:#004990; border-radius:999px; padding:7px 11px; font-size:11px; font-weight:900; transition:.15s ease; }
+    .decision-reset-btn:hover { background:#dbeafe; border-color:#93c5fd; }
+    @media (max-width: 1280px) {
+      .market-side-table table.data-table { min-width:820px !important; }
+      .compact-side-table table.data-table { min-width:700px !important; }
+      .lacuna-summary-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width: 900px) {
+      .lacuna-summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .chart-card .h-\[380px\] { height:340px !important; }
+      .quadrant-legend { top:76px !important; max-width:170px; }
+    }
+    @media (max-width: 768px) {
+      .lacuna-explain-box { padding:12px; }
+      .lacuna-summary-grid { grid-template-columns:1fr; }
+      .market-side-table table.data-table, .compact-side-table table.data-table { min-width:760px !important; }
+      .municipio-score-label .score-label-wrap { max-width:112px; height:28px; }
+      .municipio-score-label .score-badge { min-width:32px; padding:0 7px; font-size:10px; }
+      .municipio-score-label .mun-name { max-width:74px; padding:0 7px; font-size:9px; }
+      .quadrant-legend { position:static !important; display:block; max-width:none !important; margin:8px 0 12px auto; font-size:9.5px; pointer-events:auto; }
+      .quadrant-note { position:static !important; margin-top:8px; display:block; }
+      .social-quadrant-chart { height:430px !important; }
+      .kpi-grid { gap:10px !important; }
+      .chart-card { min-width:0; }
+      .table-wrap { max-width:100%; }
+    }
+    @media (max-width: 480px) {
+      .market-side-table table.data-table, .compact-side-table table.data-table { min-width:720px !important; }
+      .chart-card .h-\[260px\], .compact-chart-h { height:245px !important; }
+    }
+
   </style>
 </head>
 <body class="bg-ietGray text-slate-800 h-screen flex flex-col overflow-hidden">
@@ -589,24 +651,49 @@ function getCurso(it) { return it.curso_cnct || it.curso_tecnico || it.nome_curs
 function getEixo(it) { return it.eixo_tecnologico || ''; }
 function getPrioridade(it) { return it.prioridade || it.classificacao_prioridade_social || it.classificacao_revisada || it.tipo_acao || ''; }
 
-function populateSelect(id, values, label) {
-  const el = document.getElementById(id); if (!el) return;
-  el.innerHTML = `<option value="Todos">${label}</option>` + values.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+function populateSelect(id, values, label, current = 'Todos') {
+  const el = document.getElementById(id); if (!el) return 'Todos';
+  const cleanValues = uniq(values).sort((a,b) => String(a).localeCompare(String(b), 'pt-BR'));
+  el.innerHTML = `<option value="Todos">${label}</option>` + cleanValues.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  const selected = current !== 'Todos' && cleanValues.includes(current) ? current : 'Todos';
+  el.value = selected;
+  return selected;
 }
-function populateFilters() {
+function optionMatches(it, exclude) {
+  const f = state.filters;
+  if (exclude !== 'sre' && f.sre !== 'Todos' && it.sre !== f.sre) return false;
+  if (exclude !== 'municipio' && f.municipio !== 'Todos' && it.municipio !== f.municipio) return false;
+  const curso = getCurso(it);
+  if (exclude !== 'curso' && f.curso !== 'Todos' && !(curso === f.curso || String(curso).includes(f.curso))) return false;
+  if (exclude !== 'eixo' && f.eixo !== 'Todos' && getEixo(it) !== f.eixo) return false;
+  if (exclude !== 'prioridade' && f.prioridade !== 'Todos' && getPrioridade(it) !== f.prioridade) return false;
+  return true;
+}
+function updateCascadingFilters() {
   const all = allFilterSources();
-  populateSelect('filter-sre', uniq(all.map(x => x.sre)).sort(), 'Todas as SREs');
-  populateSelect('filter-municipio', uniq(all.map(x => x.municipio)).sort(), 'Todos os municípios');
-  populateSelect('filter-curso', uniq(all.map(getCurso)).sort(), 'Todos os cursos');
-  populateSelect('filter-eixo', uniq(all.map(getEixo)).sort(), 'Todos os eixos');
-  populateSelect('filter-prioridade', uniq(all.map(getPrioridade)).sort(), 'Todas as prioridades');
+  state.filters.sre = populateSelect('filter-sre', all.filter(x => optionMatches(x, 'sre')).map(x => x.sre), 'Todas as SREs', state.filters.sre);
+  state.filters.municipio = populateSelect('filter-municipio', all.filter(x => optionMatches(x, 'municipio')).map(x => x.municipio), 'Todos os municípios', state.filters.municipio);
+  state.filters.curso = populateSelect('filter-curso', all.filter(x => optionMatches(x, 'curso')).map(getCurso), 'Todos os cursos', state.filters.curso);
+  state.filters.eixo = populateSelect('filter-eixo', all.filter(x => optionMatches(x, 'eixo')).map(getEixo), 'Todos os eixos', state.filters.eixo);
+  state.filters.prioridade = populateSelect('filter-prioridade', all.filter(x => optionMatches(x, 'prioridade')).map(getPrioridade), 'Todas as prioridades', state.filters.prioridade);
 }
+function populateFilters() { updateCascadingFilters(); }
 function wireEvents() {
   document.querySelectorAll('.nav-link').forEach(btn => {
     btn.addEventListener('click', () => navigate(btn.dataset.view, btn.dataset.title, btn.dataset.subtitle, btn));
   });
   ['sre','municipio','curso','eixo','prioridade'].forEach(k => {
-    const el = document.getElementById(`filter-${k}`); if (el) el.addEventListener('change', () => { state.filters[k] = el.value; renderAll(); });
+    const el = document.getElementById(`filter-${k}`);
+    if (el) el.addEventListener('change', () => {
+      state.filters[k] = el.value;
+      if (k === 'municipio' && el.value !== 'Todos') state.filters.sre = 'Todos';
+      if (k === 'sre' && el.value !== 'Todos') {
+        const municipiosValidos = uniq(allFilterSources().filter(x => x.sre === el.value).map(x => x.municipio));
+        if (state.filters.municipio !== 'Todos' && !municipiosValidos.includes(state.filters.municipio)) state.filters.municipio = 'Todos';
+      }
+      updateCascadingFilters();
+      renderAll();
+    });
   });
 }
 function openGuideView() {
@@ -628,7 +715,7 @@ function navigate(view, title, subtitle, btn) {
 }
 function resetFilters() {
   state.filters = { sre: 'Todos', municipio: 'Todos', curso: 'Todos', eixo: 'Todos', prioridade: 'Todos' };
-  ['sre','municipio','curso','eixo','prioridade'].forEach(k => { const el = document.getElementById(`filter-${k}`); if (el) el.value = 'Todos'; });
+  updateCascadingFilters();
   renderAll();
 }
 function matchFilters(it) {
@@ -957,10 +1044,10 @@ function setSocialFilter(field, value) {
       state.filters.municipio = 'Todos';
     }
   }
-  if (field === 'municipio' && value !== 'Todos' && state.filters.sre === 'Todos') {
-    const row = base.find(x => x.municipio === value);
-    if (row && row.sre) state.filters.sre = row.sre;
+  if (field === 'municipio' && value !== 'Todos') {
+    state.filters.sre = 'Todos';
   }
+  updateCascadingFilters();
   ['sre','municipio','curso','eixo','prioridade'].forEach(k => {
     const top = document.getElementById(`filter-${k}`);
     if (top) top.value = state.filters[k] || 'Todos';
@@ -1050,10 +1137,10 @@ function renderGuia() {
             ['Mercado de trabalho','Força da demanda por vínculos, remuneração, CBO/CNAE e relação com cursos CNCT.','briefcase-business','blue'],
             ['Infraestrutura','Condições da escola para receber o curso: laboratórios, internet, sala técnica, docentes e parceiros.','building-2','yellow'],
             ['Prioridade social','Potencial da EPT para reduzir desigualdades e ampliar inclusão produtiva.','users','purple'],
-            ['Escutas e participação','Interesse dos estudantes, viabilidade percebida pela gestão.','messages-square','green'],
-            ['Viabilidade de implantação','Viabilidade de implantação: leitura prática de condições mínimas para oferta, considerando escola apta, infraestrutura, possibilidade de parceria, escala de turma e riscos operacionais.','settings','orange'],
+            ['Escutas e participação','Interesse dos estudantes, viabilidade percebida pela gestão e validações do território.','messages-square','green','O painel organiza evidências para apoiar a leitura territorial. A validação final da oferta permanece como etapa institucional da SEDUC, podendo considerar audiências, escutas e decisões da rede.'],
+            ['Viabilidade de implantação','Leitura prática de prazo, fase, parceiro, escala mínima e risco operacional.','settings','orange','Escala mínima indica se há volume suficiente de demanda e capacidade escolar para justificar a oferta. Risco operacional indica condições que podem dificultar a implantação, como ausência de laboratório, docente, parceiro, campo de prática ou infraestrutura adequada.'],
             ['Meta PNE','Alinha as decisões aos cenários de expansão e ao desafio de 2036.','target','blue']
-          ].map(x=>`<div class="bridge-item"><div class="bridge-icon bg-${x[3]==='yellow'?'yellow':x[3]==='green'?'green':x[3]==='purple'?'purple':x[3]==='orange'?'orange':'blue'}-50 text-${x[3]==='yellow'?'yellow-700':x[3]==='green'?'green-700':x[3]==='purple'?'purple-700':x[3]==='orange'?'orange-700':'ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500 mt-1 leading-relaxed">${x[1]}</p></div></div>`).join('')}
+          ].map(x=>`<div class="bridge-item" data-tooltip="${esc(x[4] || x[1])}" tabindex="0"><div class="bridge-icon bg-${x[3]==='yellow'?'yellow':x[3]==='green'?'green':x[3]==='purple'?'purple':x[3]==='orange'?'orange':'blue'}-50 text-${x[3]==='yellow'?'yellow-700':x[3]==='green'?'green-700':x[3]==='purple'?'purple-700':x[3]==='orange'?'orange-700':'ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500 mt-1 leading-relaxed">${x[1]}</p></div></div>`).join('')}
         </div>
       </div>
       <div class="chart-card p-6 lg:col-span-5">
@@ -1073,6 +1160,8 @@ function renderExecutiva() {
   const t = totals();
   const regionais = filtered('regionais');
   const municipioCurso = filtered('municipioCurso');
+  const globalMatriculasPne = sum(state.data.ofertaResumo, 'estudantes') || sum(state.data.escolas, 'matriculas_ept_2026') || t.matriculas;
+  const deficitPneCard = Math.max(0, 35000 - globalMatriculasPne);
   const deficit = Math.max(0, 35000 - t.matriculas);
   const emTotal = sum(t.escolas, 'matriculas_em_total');
   const pctEmEpt = emTotal ? (t.matriculas / emTotal * 100) : 0;
@@ -1087,10 +1176,10 @@ function renderExecutiva() {
       ${kpiCard('Cursos ofertados', fmt(t.cursos), 'book-open', 'blue')}
       ${kpiCard('Turmas ativas', fmt(t.turmas), 'users-round', 'blue')}
       ${kpiCard('% EM com EPT', pct(pctEmEpt), 'graduation-cap', 'blue')}
-      ${kpiCard('Déficit PNE', `+${fmt(deficit)}`, 'target', 'yellow', 'Meta referencial: 35.000 matrículas')}
+      ${kpiCard('Déficit PNE', `+${fmt(deficitPneCard)}`, 'target', 'yellow', 'Meta referencial: 35.000 matrículas. Este card não é alterado pelos filtros.')}
     </div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-      <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Cobertura territorial da EPT', 'Total de matrículas EPT por território. O tamanho, a cor e o rótulo da bolha representam o volume de matrículas.', 'As bolhas consideram o total de matrículas EPT registrado no território selecionado.')}${mapToolbarHtml('map-executiva')}<div id="map-executiva" class="mapbox"></div>${mapQuantityLegend('matriculas')}</div>
+      <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Cobertura territorial da EPT', 'Total de matrículas EPT por território. Cada município é colorido conforme o volume de matrículas.', 'As cores consideram o total de matrículas EPT registrado no território selecionado.')}${mapToolbarHtml('map-executiva')}<div id="map-executiva" class="mapbox"></div>${mapQuantityLegend('matriculas')}</div>
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Meta PNE 12.a', 'Oferecer, no mínimo, 50% das matrículas de educação básica em EPT até 2036.')}${metaGauge(pctEmEpt, 50, t.matriculas, deficit, 'Expansão anual acima do crescimento orgânico é necessária para atingir a meta.')}</div>
       <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Matrículas por SRE')}<div class="h-[280px]"><canvas id="chart-exec-sre"></canvas></div></div>
       <div class="chart-card p-5 xl:col-span-4">${sectionTitle('Regime de funcionamento', 'Distribuição das matrículas EPT por regime: integral, parcial, alternância ou internato.')}<div class="h-[280px]"><canvas id="chart-exec-forma"></canvas></div></div>
@@ -1140,7 +1229,7 @@ function renderOferta() {
     </div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5 items-start">
       <div class="xl:col-span-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div class="chart-card p-4 relative">${sectionTitle('Distribuição territorial', 'Total de matrículas EPT por território. As bolhas variam por cor e tamanho conforme o volume de matrículas.')}${mapToolbarHtml('map-oferta')}<div id="map-oferta" class="mapbox mini-mapbox"></div>${mapQuantityLegend('matriculas')}</div>
+        <div class="chart-card p-4 relative">${sectionTitle('Distribuição territorial', 'Total de matrículas EPT por território. Cada município é colorido conforme o volume de matrículas.')}${mapToolbarHtml('map-oferta')}<div id="map-oferta" class="mapbox mini-mapbox"></div>${mapQuantityLegend('matriculas')}</div>
         <div class="chart-card p-4">${sectionTitle('Matrículas por SRE')}<div class="compact-chart-h"><canvas id="chart-oferta-sre"></canvas></div></div>
         <div class="chart-card p-4">${sectionTitle('Perfil da oferta por regime', 'Distribuição das matrículas conforme o regime de funcionamento informado na base.')}<div class="compact-chart-h"><canvas id="chart-oferta-forma"></canvas></div></div>
         <div class="chart-card p-4">${sectionTitle('Top cursos da rede')}<div class="compact-chart-h"><canvas id="chart-oferta-cursos"></canvas></div></div>
@@ -1149,7 +1238,7 @@ function renderOferta() {
     </div>
     ${decisionReadings(['A oferta atual mostra o ponto de partida real antes de qualquer decisão de expansão.', 'Concentração territorial e por curso deve orientar a análise de lacunas.', 'Cursos com baixa escala podem exigir revisão, reposicionamento ou validação adicional.', 'Todos os cenários devem ser avaliados em diálogo com a meta PNE e a capacidade instalada.'])}
   `;
-  renderMap('map-oferta', (filtered('escolas').length ? filtered('escolas') : filtered('escolasMapa')).filter(e => n(e.matriculas_ept_2026)>0 || yes(e.tem_ept_2026)), 'oferta');
+  renderMap('map-oferta', buildEptMapRows(filtered('escolas').length ? filtered('escolas') : filtered('escolasMapa')), 'oferta');
   renderChart('chart-oferta-sre', 'bar', { labels: topSre.map(x=>x.label), datasets: [{ label:'Matrículas', data: topSre.map(x=>x.value), backgroundColor: colors.blue, borderRadius: 6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
   renderChart('chart-oferta-forma', forma.length ? 'doughnut' : 'bar', { labels: forma.length ? forma.map(x=>x.label) : ['Sem dado'], datasets: [{ data: forma.length ? forma.map(x=>x.value) : [1], backgroundColor: [colors.blue, colors.yellow, colors.light, colors.gray, colors.green, colors.purple] }]}, { plugins:{legend:{position:'bottom'}} });
   renderChart('chart-oferta-cursos', 'bar', { labels: topCursos.map(x=>x.label), datasets: [{ label:'Matrículas', data: topCursos.map(x=>x.value), backgroundColor: colors.blue, borderRadius: 6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
@@ -1217,6 +1306,7 @@ function renderLacunas() {
       ${kpiCard('Cursos indicados', fmt(cursos), 'book-open', 'blue')}
       ${kpiCard('A confirmar', fmt(all.filter(x => /validar|confirm|revis/i.test(String(x.encaminhamento || x.observacao_validacao || ''))).length), 'clipboard-check', 'orange')}
     </div>
+    <div class="lacuna-explain-box"><div class="w-10 h-10 rounded-2xl bg-blue-100 text-ietBlue flex items-center justify-center shrink-0"><i data-lucide="info" class="w-5 h-5"></i></div><p><b>O que é uma lacuna territorial?</b> Lacuna territorial indica uma possibilidade de curso identificada a partir do cruzamento entre demanda formal, aderência ao CNCT e ausência ou baixa presença de oferta no território. A lacuna não representa decisão automática de implantação.</p></div>
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
       <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Mapa de lacunas por território', 'Cores diferenciam prioridade, condicionamento e monitoramento. O número indica o total de lacunas no município.')}${mapToolbarHtml('map-lacunas')}
         <div id="map-lacunas" class="mapbox min-h-[420px]"></div>
@@ -1224,16 +1314,16 @@ function renderLacunas() {
       </div>
       <div class="chart-card p-5 xl:col-span-6">${sectionTitle('Leitura por SRE / município selecionado', 'Resumo visual no formato da proposta: território, evidências e cursos indicados.')}
         <div class="selection-card mb-4">
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-            <div><p class="mini-title">SRE</p><p class="text-xl font-black text-ietBlue">${esc(sreSelecionada)}</p></div>
-            <div><p class="mini-title">Município</p><p class="text-xl font-black text-ietBlue">${esc(munSelecionado)}</p></div>
-            <div><p class="mini-title">Vínculos técnicos</p><p class="text-xl font-black text-slate-800">${fmt(sum(all,'vinculos'))}</p></div>
-            <div><p class="mini-title">Escolas aptas</p><p class="text-xl font-black text-green-700">${fmt(escolasAptas)}</p></div>
-            <div><p class="mini-title">Cursos indicados</p><p class="text-xl font-black text-yellow-700">${fmt(cursos)}</p></div>
+          <div class="lacuna-summary-grid">
+            <div><p class="mini-title">SRE</p><p class="summary-value text-ietBlue">${esc(sreSelecionada)}</p></div>
+            <div><p class="mini-title">Município</p><p class="summary-value text-ietBlue">${esc(munSelecionado)}</p></div>
+            <div><p class="mini-title">Vínculos técnicos</p><p class="summary-value text-slate-800">${fmt(sum(all,'vinculos'))}</p></div>
+            <div><p class="mini-title">Escolas aptas</p><p class="summary-value text-green-700">${fmt(escolasAptas)}</p></div>
+            <div><p class="mini-title">Cursos indicados</p><p class="summary-value text-yellow-700">${fmt(cursos)}</p></div>
           </div>
           <p class="text-[11px] text-slate-500 mt-3">Quando nenhum município específico está selecionado, a leitura apresenta o consolidado de <b>TODOS</b> os municípios do filtro atual.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="lacuna-reading-cards grid grid-cols-1 md:grid-cols-2 gap-3">
           ${leitura.map(x => `<div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 text-ietBlue flex items-center justify-center shrink-0"><i data-lucide="target" class="w-5 h-5"></i></div><div><p class="font-black text-ietBlue">${esc(x.curso_cnct)}</p><p class="text-xs text-slate-500 mt-1">${esc(x.eixo_tecnologico || 'Eixo não informado')} • ${fmt(x.vinculos)} vínculos</p><div class="mt-2">${badge(x.prioridade || x.classificacao_revisada || 'Analisar')}</div><p class="text-xs text-slate-500 mt-2">${fmt(x.escolas_aptas_premissa || x.escolas_aptas)} escolas aptas</p></div></div>`).join('') || emptyBox('Sem lacunas para os filtros selecionados.')}
         </div>
         ${leituraBase.length > leitura.length ? `<p class="text-[11px] text-slate-400 font-semibold mt-3">Mostrando ${leitura.length} de ${leituraBase.length} — veja a tabela decisória completa, com busca e paginação, logo abaixo.</p>` : ''}
@@ -1291,7 +1381,7 @@ function renderMercado() {
               ['Curso correspondente','CNCT e eixo tecnológico','graduation-cap','blue'],
               ['Recorte territorial','SRE, município e escolas aptas','map-pin','blue'],
               ['Decisão','Prioritária, condicionada ou revisar','check-circle-2','green']
-            ].map(x=>`<div class="bridge-item"><div class="bridge-icon ${x[3]==='green'?'bg-green-50 text-green-700':'bg-blue-50 text-ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500">${x[1]}</p></div></div>`).join('')}
+            ].map(x=>`<div class="bridge-item" data-tooltip="${esc(x[4] || x[1])}" tabindex="0"><div class="bridge-icon ${x[3]==='green'?'bg-green-50 text-green-700':'bg-blue-50 text-ietBlue'}"><i data-lucide="${x[2]}" class="w-5 h-5"></i></div><div><p class="font-black text-slate-800">${x[0]}</p><p class="text-xs text-slate-500">${x[1]}</p></div></div>`).join('')}
           </div>
         </div>
         <div class="chart-card p-4">${sectionTitle('Critérios para recomendação', 'Recomendação forte, condicionada e monitoramento.')}
@@ -1537,9 +1627,9 @@ function renderSociais() {
     </div>
 
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5">
-      <div class="chart-card p-5 xl:col-span-4 relative">${sectionTitle('Mapa de Prioridade Social', 'Cor e número indicam o Índice de Prioridade Social. O tamanho da bolha cresce conforme o índice e a leitura territorial.')}${mapToolbarHtml('map-sociais')}
+      <div class="chart-card p-5 xl:col-span-4 relative">${sectionTitle('Mapa de Prioridade Social', 'Cada município é colorido conforme a faixa do Índice de Prioridade Social. Passe o mouse ou clique para ver município, índice e principais indicadores.')}${mapToolbarHtml('map-sociais')}
         <div id="map-sociais" class="mapbox min-h-[440px]"></div>
-        <div class="map-legend"><p class="font-black text-slate-700 mb-2">Índice social</p><p><span class="status-dot bg-red-600"></span>80 a 100: muito alta</p><p><span class="status-dot bg-orange-500"></span>60 a 79: alta</p><p><span class="status-dot bg-yellow-400"></span>40 a 59: média</p><p><span class="status-dot bg-ietBlue"></span>20 a 39: baixa relativa</p><p><span class="status-dot bg-green-600"></span>0 a 19: acompanhamento</p></div>
+        <div class="map-legend"><p class="font-black text-slate-700 mb-2">Índice social</p><p><span class="status-dot bg-red-600"></span>80 a 100: muito alta</p><p><span class="status-dot bg-orange-500"></span>60 a 79: alta</p><p><span class="status-dot bg-yellow-400"></span>40 a 59: média</p><p><span class="status-dot bg-ietBlue"></span>20 a 39: baixa relativa</p><p><span class="status-dot bg-green-600"></span>0 a 19: acompanhamento</p><p class="mt-2 pt-2 border-t border-slate-200 text-slate-400"><span class="status-dot bg-slate-300"></span>Sem dado no filtro</p></div>
       </div>
       <div class="chart-card p-5 xl:col-span-5">${sectionTitle('Ranking de municípios por prioridade social', 'Tabela completa com filtros próprios, busca e formatação condicional dos principais indicadores.')}${socialRankingControls(sres, muns, classes)}${renderTable(['#','Município','SRE','Índice Social (0-100)','Classificação','Fator principal','Abandono EM','INSE/NSE','Cobertura EPT','Pop. jovem','Rendimento'], rankingRows, 'all', '560px')}</div>
       <div class="chart-card p-5 xl:col-span-3">${sectionTitle('Leitura do território selecionado')}
@@ -1587,7 +1677,7 @@ function renderSociais() {
         <div class="h-[380px]"><canvas id="chart-social-composicao"></canvas></div>
       </div>
       <div class="chart-card p-5 xl:col-span-6 relative">${sectionTitle('Prioridade Social x Cobertura EPT', 'Bolhas maiores indicam maior população jovem; cores indicam a faixa do Índice de Prioridade Social.')}
-        <div class="h-[380px]"><canvas id="chart-social-quadrante"></canvas></div>
+        <div class="social-quadrant-chart h-[380px]"><canvas id="chart-social-quadrante"></canvas></div>
         <div class="quadrant-legend">
           <span class="quadrant-legend-title">Índice social</span>
           <p><span class="quadrant-color-dot" style="background:#DC2626"></span>80 a 100: muito alta</p>
@@ -2039,7 +2129,7 @@ function renderDecisao() {
 }
 
 function renderSimuladorPNE(t) {
-  return `<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+  return `<div class="flex justify-end mb-3"><button type="button" class="decision-reset-btn" onclick="resetSimuladorPNE()"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Limpar simulação</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     <div class="space-y-4">
       ${slider('sim-mat-turma', 'Matrículas por turma', 20, 45, 35)}
       ${slider('sim-turmas-escola', 'Turmas novas por escola', 1, 6, 2)}
@@ -2082,8 +2172,28 @@ function calcScenario(t) {
   const bar = document.getElementById('sim-result-bar');
   if (bar) bar.style.width = `${Math.max(3, Math.min(100, total / 35000 * 100))}%`;
 }
+function resetSimuladorPNE() {
+  const defaults = { 'sim-mat-turma':35, 'sim-turmas-escola':2, 'sim-escolas':40, 'sim-expansao':30, 'sim-eja':15 };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+    const val = document.getElementById(`${id}-val`);
+    if (val) val.textContent = value;
+  });
+  const trigger = document.getElementById('sim-mat-turma');
+  if (trigger && typeof trigger.oninput === 'function') trigger.oninput();
+}
+function resetMotorPesos() {
+  const defaults = { 'motor-mercado':30, 'motor-social':25, 'motor-infra':20, 'motor-escuta':15, 'motor-viab':10 };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+    const val = document.getElementById(`${id}-val`);
+    if (val) val.textContent = `${value}%`;
+  });
+}
 function renderMotorDecisao() {
-  return `<div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+  return `<div class="flex justify-end mb-3"><button type="button" class="decision-reset-btn" onclick="resetMotorPesos()"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Limpar pesos</button></div><div class="grid grid-cols-1 md:grid-cols-5 gap-3">
     ${weightSlider('motor-mercado','Mercado de trabalho', 30, 'briefcase-business', 'blue')}
     ${weightSlider('motor-social','Prioridade social', 25, 'users', 'purple')}
     ${weightSlider('motor-infra','Infraestrutura', 20, 'building-2', 'yellow')}
@@ -2132,6 +2242,11 @@ function focusMapTerritory(id, key) {
   const points = focus.municipios || focus;
   if (!map || !points || !key || !points[key]) return;
   const p = points[key];
+  if (p.bounds) {
+    map.fitBounds(p.bounds, { padding: [42, 42], maxZoom: 10 });
+    if (p.layer && p.layer.openPopup) p.layer.openPopup();
+    return;
+  }
   map.setView([p.lat, p.lng], 11, { animate: true });
   if (p.marker) p.marker.openPopup();
 }
@@ -2197,7 +2312,264 @@ function quantityRadius(value, mode) {
   if (mode === 'sociais' || mode === 'infra') return Math.max(9, Math.min(28, 9 + Math.sqrt(v) * 2.8));
   return Math.max(7, Math.min(24, 7 + Math.sqrt(v) * 2));
 }
+const TO_MUNICIPIOS_GEOJSON_URL = 'https://servicodados.ibge.gov.br/api/v3/malhas/estados/17?formato=application/vnd.geo+json&qualidade=minima&intrarregiao=municipio';
+const TO_MUNICIPIOS_LIST_URL = 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/17/municipios';
+let tocantinsMunicipiosGeoJsonCache = null;
+let tocantinsMunicipiosNameByCodeCache = null;
+
+function normalizeGeoName(value) {
+  return String(value || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\bDO TOCANTINS\b/gi, '')
+    .replace(/\bTO\b/gi, '')
+    .replace(/[^a-zA-Z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+function normalizeIbgeCode(value) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  if (!digits) return '';
+  return digits.length === 6 ? `0${digits}` : digits;
+}
+function getGeoMunicipioName(feature, nameByCode = new Map()) {
+  const p = feature?.properties || {};
+  const directName = p.nome || p.name || p.NM_MUN || p.NM_MUNICIP || p.NM_MUNICIPIO || p.description || p.municipio || p.MUNICIPIO || '';
+  if (directName) return directName;
+  const codeCandidates = [p.codarea, p.CODAREA, p.cd_mun, p.CD_MUN, p.CD_GEOCMU, p.geocodigo, p.GEOCODIGO, p.id, p.ID, feature?.id];
+  for (const code of codeCandidates) {
+    const normalized = normalizeIbgeCode(code);
+    if (normalized && nameByCode.has(normalized)) return nameByCode.get(normalized);
+    if (code !== undefined && code !== null && nameByCode.has(String(code))) return nameByCode.get(String(code));
+  }
+  return '';
+}
+async function loadTocantinsMunicipiosGeoJson() {
+  if (tocantinsMunicipiosGeoJsonCache) return tocantinsMunicipiosGeoJsonCache;
+  const resp = await fetch(TO_MUNICIPIOS_GEOJSON_URL, { cache: 'force-cache' });
+  if (!resp.ok) throw new Error('Falha ao carregar malha municipal do Tocantins');
+  tocantinsMunicipiosGeoJsonCache = await resp.json();
+  return tocantinsMunicipiosGeoJsonCache;
+}
+async function loadTocantinsMunicipiosNameByCode() {
+  if (tocantinsMunicipiosNameByCodeCache) return tocantinsMunicipiosNameByCodeCache;
+  const resp = await fetch(TO_MUNICIPIOS_LIST_URL, { cache: 'force-cache' });
+  if (!resp.ok) throw new Error('Falha ao carregar lista de municípios do Tocantins');
+  const municipios = await resp.json();
+  const map = new Map();
+  (municipios || []).forEach(m => {
+    const code = normalizeIbgeCode(m.id);
+    if (code && m.nome) map.set(code, m.nome);
+    if (m.id && m.nome) map.set(String(m.id), m.nome);
+  });
+  tocantinsMunicipiosNameByCodeCache = map;
+  return map;
+}
+function municipioKeyVariants(value) {
+  const raw = String(value || '').replace(/\s+-\s*TO$/i, '').replace(/,\s*TO$/i, '').trim();
+  const variants = new Set([raw]);
+  variants.add(raw.replace(/TO/gi, '').trim());
+  variants.add(raw.replace(/DO TOCANTINS/gi, '').trim());
+  // Alias práticos para diferenças comuns entre bases internas e a malha oficial do IBGE.
+  const k = normalizeGeoName(raw);
+  const aliases = {
+    'COLINAS': 'COLINAS DO TOCANTINS',
+    'SANTA FE': 'SANTA FE DO ARAGUAIA',
+    'PRESIDENTE KENNEDY': 'PRESIDENTE KENNEDY',
+    'TABOCAO': 'FORTALEZA DO TABOCAO',
+    'SAO MIGUEL': 'SAO MIGUEL DO TOCANTINS',
+    'SAO SALVADOR': 'SAO SALVADOR DO TOCANTINS',
+    'PONTE ALTA': 'PONTE ALTA DO TOCANTINS',
+    'LAGOA DO TO': 'LAGOA DO TOCANTINS',
+    'SANTA TEREZA': 'SANTA TEREZA DO TOCANTINS'
+  };
+  if (aliases[k]) variants.add(aliases[k]);
+  return [...variants].map(normalizeGeoName).filter(Boolean);
+}
+function levenshteinDistance(a, b) {
+  a = String(a || ''); b = String(b || '');
+  const m = a.length, n2 = b.length;
+  if (!m) return n2;
+  if (!n2) return m;
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= n2; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n2; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+    }
+  }
+  return dp[m][n2];
+}
+function findSocialItemByFeatureName(featureName, byMunicipio) {
+  const keys = municipioKeyVariants(featureName);
+  for (const key of keys) if (byMunicipio.has(key)) return byMunicipio.get(key);
+  const primary = keys[0] || normalizeGeoName(featureName);
+  if (!primary || primary.length < 4) return null;
+  // Primeiro tenta correspondência contida, útil quando uma base usa o nome abreviado.
+  for (const [key, item] of byMunicipio.entries()) {
+    if (key.length >= 5 && primary.length >= 5 && (key.includes(primary) || primary.includes(key))) return item;
+  }
+  // Depois tenta similaridade alta para pequenos desvios de grafia.
+  let best = null, bestScore = 0;
+  for (const [key, item] of byMunicipio.entries()) {
+    const maxLen = Math.max(primary.length, key.length);
+    if (!maxLen) continue;
+    const score = 1 - (levenshteinDistance(primary, key) / maxLen);
+    if (score > bestScore) { bestScore = score; best = item; }
+  }
+  return bestScore >= 0.88 ? best : null;
+}
+function socialChoroplethLegendHtml() {
+  return `<div class="map-legend"><p class="font-black text-slate-700 mb-2">Índice social</p><p><span class="status-dot bg-red-600"></span>80 a 100: muito alta</p><p><span class="status-dot bg-orange-500"></span>60 a 79: alta</p><p><span class="status-dot bg-yellow-400"></span>40 a 59: média</p><p><span class="status-dot bg-ietBlue"></span>20 a 39: baixa relativa</p><p><span class="status-dot bg-green-600"></span>0 a 19: acompanhamento</p><p class="mt-2 pt-2 border-t border-slate-200 text-slate-400"><span class="status-dot bg-slate-300"></span>Sem dado no filtro</p></div>`;
+}
+function renderSocialFallbackPoints(map, rows, bounds, focusPoints, sreFocus) {
+  rows.forEach(r => {
+    const lat = n(r.latitude), lng = n(r.longitude);
+    if (!lat || !lng) return;
+    const score = n(r.indice_prioridade_social || r.indice_prioridade_social_v2 || 0);
+    const color = quantityColor(score, 'sociais');
+    const marker = L.circleMarker([lat, lng], { radius: 8, color:'#fff', weight:2, fillColor:color, fillOpacity:.88 });
+    const title = r.municipio || 'Município';
+    const details = `<small><b>Índice social:</b> ${fmt(score,1)}<br><b>Classificação:</b> ${esc(r.classificacao_prioridade_social || 'Acompanhar')}<br><b>Fator principal:</b> ${esc(r.principal_fator_atencao || 'Não informado')}<br><b>Pop. jovem:</b> ${fmt(r.pop_15_24_total || 0)}<br><b>Abandono EM:</b> ${pct(r.taxa_abandono_em_media || 0)}<br><b>INSE:</b> ${fmt(r.inse_estadual_media || 0,2)}<br><b>Cobertura EPT:</b> ${pct(r.cobertura_ept_em_pct || 0)}</small>`;
+    marker.bindPopup(`<b>${esc(title)}</b><br>${esc(r.sre || '')}<br>${details}`).addTo(map);
+    bounds.push([lat, lng]);
+    if (!focusPoints[title]) focusPoints[title] = { lat, lng, marker };
+    const sreKey = r.sre || 'Sem SRE';
+    if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
+    sreFocus[sreKey].bounds.push([lat, lng]);
+    sreFocus[sreKey].markers.push(marker);
+  });
+}
+function renderSocialChoroplethMap(id, rows) {
+  setTimeout(async () => {
+    const el = document.getElementById(id); if (!el || !window.L) return;
+    if (state.maps[id]) { state.maps[id].remove(); delete state.maps[id]; }
+    const map = L.map(id, { scrollWheelZoom: false }).setView([-10.1844, -48.3336], 6);
+    state.maps[id] = map;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; OpenStreetMap contributors',
+      maxZoom:19,
+      detectRetina:true
+    }).addTo(map);
+
+    const byMunicipio = new Map();
+    rows.forEach(r => {
+      const keys = municipioKeyVariants(r.municipio);
+      if (!keys.length) return;
+      keys.forEach(key => {
+        const current = byMunicipio.get(key);
+        if (!current || n(r.indice_prioridade_social || r.indice_prioridade_social_v2) > n(current.indice_prioridade_social || current.indice_prioridade_social_v2)) byMunicipio.set(key, r);
+      });
+    });
+
+    const bounds = [];
+    const focusPoints = {};
+    const sreFocus = {};
+    let geoLayer = null;
+    let matched = 0;
+
+    try {
+      const [geojson, municipioNameByCode] = await Promise.all([
+        loadTocantinsMunicipiosGeoJson(),
+        loadTocantinsMunicipiosNameByCode()
+      ]);
+      const focusedLayers = [];
+      geoLayer = L.geoJSON(geojson, {
+        className: 'social-choropleth-feature',
+        style: feature => {
+          const name = getGeoMunicipioName(feature, municipioNameByCode);
+          const item = findSocialItemByFeatureName(name, byMunicipio);
+          const score = n(item?.indice_prioridade_social || item?.indice_prioridade_social_v2 || 0);
+          const selectedMunicipio = state.filters.municipio !== 'Todos' && normalizeGeoName(state.filters.municipio) === normalizeGeoName(name);
+          return {
+            color: selectedMunicipio ? '#0f172a' : '#ffffff',
+            weight: selectedMunicipio ? 2.6 : (item ? 1.1 : 0.55),
+            opacity: 1,
+            fillColor: item ? quantityColor(score, 'sociais') : '#E5E7EB',
+            fillOpacity: item ? 0.72 : 0.16
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          const name = getGeoMunicipioName(feature, municipioNameByCode);
+          const item = findSocialItemByFeatureName(name, byMunicipio);
+          if (!item) {
+            layer.bindTooltip(`<b>${esc(name)}</b><br><span style="color:#64748b">Sem indicador para os filtros atuais</span>`, { sticky:true, opacity:.92 });
+            return;
+          }
+          matched += 1;
+          const score = n(item.indice_prioridade_social || item.indice_prioridade_social_v2 || 0);
+          const color = quantityColor(score, 'sociais');
+          const details = `<small><b>Índice social:</b> ${fmt(score,1)}<br><b>Classificação:</b> ${esc(item.classificacao_prioridade_social || 'Acompanhar')}<br><b>Fator principal:</b> ${esc(item.principal_fator_atencao || 'Não informado')}<br><b>Pop. jovem:</b> ${fmt(item.pop_15_24_total || 0)}<br><b>Abandono EM:</b> ${pct(item.taxa_abandono_em_media || 0)}<br><b>INSE:</b> ${fmt(item.inse_estadual_media || 0,2)}<br><b>Cobertura EPT:</b> ${pct(item.cobertura_ept_em_pct || 0)}</small>`;
+          layer.bindTooltip(`<b>${esc(item.municipio || name)}</b><br>Índice social: <b>${fmt(score,1)}</b><br>${esc(item.classificacao_prioridade_social || 'Acompanhar')}`, { sticky:true, opacity:.95 });
+          layer.bindPopup(`<b>${esc(item.municipio || name)}</b><br>${esc(item.sre || '')}<br>${details}`);
+          layer.on({
+            mouseover: e => e.target.setStyle({ weight: 2.4, fillOpacity: 0.88, color: '#0f172a' }),
+            mouseout: e => geoLayer && geoLayer.resetStyle(e.target),
+            click: () => setSocialFilter('municipio', item.municipio || name)
+          });
+          const layerBounds = layer.getBounds();
+          focusedLayers.push(layer);
+          focusPoints[item.municipio || name] = { bounds: layerBounds, layer };
+          const sreKey = item.sre || 'Sem SRE';
+          if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
+          sreFocus[sreKey].bounds.push(layerBounds.getSouthWest(), layerBounds.getNorthEast());
+        }
+      }).addTo(map);
+
+      if (focusedLayers.length) {
+        const fg = L.featureGroup(focusedLayers);
+        map._fullBounds = fg.getBounds();
+        map.fitBounds(map._fullBounds, { padding:[42,42], maxZoom: state.filters.municipio !== 'Todos' ? 10 : 8 });
+      } else if (geoLayer.getBounds && geoLayer.getBounds().isValid()) {
+        map._fullBounds = geoLayer.getBounds();
+        map.fitBounds(map._fullBounds, { padding:[42,42] });
+      }
+
+      if (!matched && rows.length) {
+        const msg = L.control({ position:'topleft' });
+        msg.onAdd = () => {
+          const div = L.DomUtil.create('div', 'social-map-status');
+          div.innerHTML = '<strong>Atenção:</strong> a malha carregou, mas os nomes/códigos dos municípios não cruzaram com os dados filtrados. Exibindo pontos de referência.';
+          return div;
+        };
+        msg.addTo(map);
+        renderSocialFallbackPoints(map, rows, bounds, focusPoints, sreFocus);
+      }
+    } catch (err) {
+      const msg = L.control({ position:'topleft' });
+      msg.onAdd = () => {
+        const div = L.DomUtil.create('div', 'social-map-status');
+        div.innerHTML = '<strong>Mapa municipal indisponível:</strong> exibindo pontos de referência até a malha territorial carregar.';
+        return div;
+      };
+      msg.addTo(map);
+      renderSocialFallbackPoints(map, rows, bounds, focusPoints, sreFocus);
+    }
+
+    if (!map._fullBounds && bounds.length) {
+      const llBounds = L.latLngBounds(bounds);
+      map._fullBounds = llBounds;
+      map.fitBounds(llBounds, { padding:[42,42], maxZoom:8 });
+    }
+
+    const focusSel = document.getElementById(`${id}-focus`);
+    if (focusSel) {
+      const opts = Object.keys(focusPoints).sort().map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join('');
+      focusSel.innerHTML = `<option value="">Focar município... (${Object.keys(focusPoints).length})</option>${opts}`;
+    }
+    const sreSel = document.getElementById(`${id}-sre-focus`);
+    if (sreSel) {
+      const opts = Object.keys(sreFocus).sort().map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join('');
+      sreSel.innerHTML = `<option value="">Focar SRE... (${Object.keys(sreFocus).length})</option>${opts}`;
+    }
+    state.mapFocus[id] = { municipios: focusPoints, sres: sreFocus };
+    setTimeout(() => map.invalidateSize(), 140);
+  }, 80);
+}
+
 function renderMap(id, rows, mode) {
+  if (mode === 'sociais') { renderSocialChoroplethMap(id, rows); return; }
   setTimeout(() => {
     const el = document.getElementById(id); if (!el || !window.L) return;
     if (state.maps[id]) { state.maps[id].remove(); delete state.maps[id]; }
@@ -2211,12 +2583,22 @@ function renderMap(id, rows, mode) {
     const bounds = [];
     const focusPoints = {};
     const sreFocus = {};
+    function registerMarker(marker, r, lat, lng, title, details) {
+      marker.bindPopup(`<b>${esc(title)}</b><br>${esc(r.municipio || '')} - ${esc(r.sre || '')}<br>${details}`);
+      marker.addTo(map);
+      bounds.push([lat,lng]);
+      const muniKey = r.municipio || title;
+      if (muniKey && !focusPoints[muniKey]) focusPoints[muniKey] = { lat, lng, marker };
+      const sreKey = r.sre || 'Sem SRE';
+      if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
+      sreFocus[sreKey].bounds.push([lat, lng]);
+      sreFocus[sreKey].markers.push(marker);
+    }
     rows.forEach(r => {
       const lat = n(r.latitude), lng = n(r.longitude);
       if (!lat || !lng) return;
       const matriculas = n(r.matriculas_ept_2026 || r.estudantes || r.matriculas || 0);
       const hasEpt = matriculas > 0 || yes(r.tem_ept_2026);
-      const cap = String(r.classificacao_capacidade_escolar || r.parecer_fisico || '').toLowerCase();
       const metric = getMapMetric(r, mode);
       let color = quantityColor(metric, mode);
       let radius = quantityRadius(metric, mode);
@@ -2224,19 +2606,10 @@ function renderMap(id, rows, mode) {
         color = hasEpt ? quantityColor(metric, mode) : '#CBD5E1';
         radius = hasEpt ? quantityRadius(metric, mode) : 4;
       }
-      if (mode === 'infra') {
+      if (mode === 'infra' || mode === 'lacunas' || mode === 'sociais') {
         color = quantityColor(metric, mode);
         radius = quantityRadius(metric, mode);
       }
-      if (mode === 'lacunas') {
-        color = quantityColor(metric, mode);
-        radius = quantityRadius(metric, mode);
-      }
-      if (mode === 'sociais') {
-        color = quantityColor(metric, mode);
-        radius = quantityRadius(metric, mode);
-      }
-      const marker = L.circleMarker([lat,lng], { radius, color:'#fff', weight:2, fillColor:color, fillOpacity:.88 });
       const title = r.nome_escola || r.escola_candidata || r.municipio || 'Território';
       const details = mode === 'sociais'
         ? `<small><b>Índice social:</b> ${fmt(r.indice_prioridade_social || r.indice_prioridade_social_v2 || 0,1)}<br><b>Classificação:</b> ${esc(r.classificacao_prioridade_social || 'Acompanhar')}<br><b>Fator principal:</b> ${esc(r.principal_fator_atencao || 'Não informado')}<br><b>Pop. jovem:</b> ${fmt(r.pop_15_24_total || 0)}<br><b>Abandono EM:</b> ${pct(r.taxa_abandono_em_media || 0)}<br><b>INSE:</b> ${fmt(r.inse_estadual_media || 0,2)}<br><b>Cobertura EPT:</b> ${pct(r.cobertura_ept_em_pct || 0)}</small>`
@@ -2245,16 +2618,31 @@ function renderMap(id, rows, mode) {
         : mode === 'infra'
         ? `<small><b>Total de escolas:</b> ${fmt(r.total_escolas || r.escolas || 0)}<br><b>Aptas:</b> ${fmt(r.escolas_aptas || 0)}<br><b>Parciais:</b> ${fmt(r.escolas_parciais || 0)}<br><b>Críticas:</b> ${fmt(r.escolas_criticas || 0)}<br><b>Matrículas EPT:</b> ${fmt(matriculas)}</small>`
         : `<small><b>Total de matrículas EPT:</b> ${fmt(matriculas)}</small>`;
-      marker.bindPopup(`<b>${esc(title)}</b><br>${esc(r.municipio || '')} - ${esc(r.sre || '')}<br>${details}`);
-      marker.addTo(map); bounds.push([lat,lng]);
-      const muniKey = r.municipio || title;
-      if (muniKey && !focusPoints[muniKey]) focusPoints[muniKey] = { lat, lng, marker };
-      const sreKey = r.sre || 'Sem SRE';
-      if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
-      sreFocus[sreKey].bounds.push([lat, lng]);
-      sreFocus[sreKey].markers.push(marker);
-      if (mode === 'lacunas' || mode === 'sociais' || mode === 'infra') {
-        const labelValue = mode === 'lacunas' ? (r.total_lacunas || r.escolas || 0) : mode === 'infra' ? (r.total_escolas || r.escolas || 0) : (r.indice_prioridade_social || r.indice_prioridade_social_v2 || r.escolas_abandono_alto || r.escolas_com_indicador_abandono || r.escolas_total || 0);
+
+      if (mode === 'sociais') {
+        const score = n(r.indice_prioridade_social || r.indice_prioridade_social_v2 || 0);
+        const labelText = fmt(score, 0);
+        const municipioLabel = String(r.municipio || title || 'Município').replace(/\s+/g, ' ').trim();
+        const shortMunicipio = municipioLabel.length > 18 ? `${municipioLabel.slice(0, 16).trim()}…` : municipioLabel;
+        const labelWidth = Math.max(72, Math.min(132, 44 + shortMunicipio.length * 5.4));
+        const marker = L.marker([lat,lng], {
+          icon: L.divIcon({
+            className:'municipio-score-label',
+            html:`<div class="score-label-wrap" style="--score-color:${color};" title="${esc(municipioLabel)} — índice ${labelText}"><span class="score-badge">${labelText}</span><span class="mun-name">${esc(shortMunicipio)}</span></div>`,
+            iconSize:[labelWidth,32],
+            iconAnchor:[labelWidth/2,16]
+          }),
+          zIndexOffset:1000
+        });
+        registerMarker(marker, r, lat, lng, title, details);
+        return;
+      }
+
+      const marker = L.circleMarker([lat,lng], { radius, color:'#fff', weight:2, fillColor:color, fillOpacity:.88 });
+      registerMarker(marker, r, lat, lng, title, details);
+
+      if (mode === 'lacunas' || mode === 'infra') {
+        const labelValue = mode === 'lacunas' ? (r.total_lacunas || r.escolas || 0) : (r.total_escolas || r.escolas || 0);
         const labelText = fmt(labelValue);
         const bubbleSize = Math.max(28, Math.round(radius * 2.15));
         const bubbleWidth = Math.max(bubbleSize, Math.round(labelText.length * 8 + 18));
@@ -2304,6 +2692,190 @@ function renderMap(id, rows, mode) {
       selSre.innerHTML = `<option value="">Focar SRE... (${sres.length})</option>` + sres.map(sr => `<option value="${esc(sr)}">${esc(sr)}</option>`).join('');
     }
   }, 100);
+}
+
+
+/* ===== v20: mapas coropléticos em todas as visualizações territoriais ===== */
+function choroplethMetricLabel(mode) {
+  if (mode === 'executiva' || mode === 'oferta') return 'Matrículas EPT';
+  if (mode === 'lacunas') return 'Lacunas territoriais';
+  if (mode === 'infra') return 'Escolas no território';
+  if (mode === 'sociais') return 'Índice social';
+  return 'Indicador';
+}
+function choroplethMapIntro(mode) {
+  if (mode === 'executiva' || mode === 'oferta') return 'Cada município é colorido conforme o volume de matrículas EPT.';
+  if (mode === 'lacunas') return 'Cada município é colorido conforme a quantidade de lacunas identificadas.';
+  if (mode === 'infra') return 'Cada município é colorido conforme o volume de escolas consideradas na análise de infraestrutura.';
+  if (mode === 'sociais') return 'Cada município é colorido conforme a faixa do Índice de Prioridade Social.';
+  return 'Cada município é colorido conforme o indicador territorial selecionado.';
+}
+function choroplethPopupDetails(item, mode, metric) {
+  if (mode === 'sociais') {
+    return `<small><b>Índice social:</b> ${fmt(metric,1)}<br><b>Classificação:</b> ${esc(item.classificacao_prioridade_social || 'Acompanhar')}<br><b>Fator principal:</b> ${esc(item.principal_fator_atencao || 'Não informado')}<br><b>Pop. jovem:</b> ${fmt(item.pop_15_24_total || 0)}<br><b>Abandono EM:</b> ${pct(item.taxa_abandono_em_media || 0)}<br><b>INSE:</b> ${fmt(item.inse_estadual_media || 0,2)}<br><b>Cobertura EPT:</b> ${pct(item.cobertura_ept_em_pct || 0)}</small>`;
+  }
+  if (mode === 'lacunas') {
+    return `<small><b>Total:</b> ${fmt(item.total_lacunas || 0)} lacunas<br><b>Prioritárias:</b> ${fmt(item.lacunas_prioritarias || 0)}<br><b>Condicionadas:</b> ${fmt(item.lacunas_condicionadas || 0)}<br><b>Cursos distintos:</b> ${fmt(item.cursos || 0)}<br><b>Escolas aptas:</b> ${fmt(item.escolas_aptas || 0)}</small>`;
+  }
+  if (mode === 'infra') {
+    return `<small><b>Total de escolas:</b> ${fmt(item.total_escolas || item.escolas || 0)}<br><b>Aptas:</b> ${fmt(item.escolas_aptas || 0)}<br><b>Parciais:</b> ${fmt(item.escolas_parciais || 0)}<br><b>Críticas:</b> ${fmt(item.escolas_criticas || 0)}<br><b>Matrículas EPT:</b> ${fmt(item.matriculas_ept_2026 || 0)}</small>`;
+  }
+  return `<small><b>Total de matrículas EPT:</b> ${fmt(metric)}<br><b>Escolas:</b> ${fmt(item.escolas || item.escolas_com_ept || 0)}<br><b>Escolas com EPT:</b> ${fmt(item.escolas_com_ept || 0)}</small>`;
+}
+function setMapTerritoryFilter(municipio) {
+  state.filters.municipio = municipio || 'Todos';
+  state.filters.sre = 'Todos';
+  ['sre','municipio','curso','eixo','prioridade'].forEach(k => {
+    const top = document.getElementById(`filter-${k}`);
+    if (top) top.value = state.filters[k] || 'Todos';
+  });
+  renderAll();
+}
+function addChoroplethStatus(map, html) {
+  const msg = L.control({ position:'topleft' });
+  msg.onAdd = () => {
+    const div = L.DomUtil.create('div', 'social-map-status');
+    div.innerHTML = html;
+    return div;
+  };
+  msg.addTo(map);
+}
+function renderGenericFallbackPoints(map, rows, mode, bounds, focusPoints, sreFocus) {
+  rows.forEach(r => {
+    const lat = n(r.latitude), lng = n(r.longitude);
+    if (!lat || !lng) return;
+    const metric = getMapMetric(r, mode);
+    const color = quantityColor(metric, mode);
+    const marker = L.circleMarker([lat, lng], { radius: Math.max(7, Math.min(13, quantityRadius(metric, mode) / 2)), color:'#fff', weight:2, fillColor:color, fillOpacity:.88 });
+    const title = r.municipio || r.nome_escola || 'Território';
+    marker.bindPopup(`<b>${esc(title)}</b><br>${esc(r.sre || '')}<br>${choroplethPopupDetails(r, mode, metric)}`).addTo(map);
+    bounds.push([lat, lng]);
+    if (title && !focusPoints[title]) focusPoints[title] = { lat, lng, marker };
+    const sreKey = r.sre || 'Sem SRE';
+    if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
+    sreFocus[sreKey].bounds.push([lat, lng]);
+    sreFocus[sreKey].markers.push(marker);
+  });
+}
+function prepareChoroplethItems(rows, mode) {
+  const byMunicipioExact = new Map();
+  rows.forEach(r => {
+    const mun = r.municipio || r.nome_municipio || '';
+    const keys = municipioKeyVariants(mun);
+    if (!keys.length) return;
+    keys.forEach(key => {
+      const current = byMunicipioExact.get(key);
+      if (!current || getMapMetric(r, mode) > getMapMetric(current, mode)) byMunicipioExact.set(key, r);
+    });
+  });
+  return byMunicipioExact;
+}
+function renderChoroplethMap(id, rows, mode) {
+  setTimeout(async () => {
+    const el = document.getElementById(id); if (!el || !window.L) return;
+    if (state.maps[id]) { state.maps[id].remove(); delete state.maps[id]; }
+    const map = L.map(id, { scrollWheelZoom: false }).setView([-10.1844, -48.3336], 6);
+    state.maps[id] = map;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; OpenStreetMap contributors',
+      maxZoom:19,
+      detectRetina:true
+    }).addTo(map);
+
+    const byMunicipio = prepareChoroplethItems(rows, mode);
+    const bounds = [];
+    const focusPoints = {};
+    const sreFocus = {};
+    let geoLayer = null;
+    let matched = 0;
+
+    try {
+      const [geojson, municipioNameByCode] = await Promise.all([
+        loadTocantinsMunicipiosGeoJson(),
+        loadTocantinsMunicipiosNameByCode()
+      ]);
+      const focusedLayers = [];
+      geoLayer = L.geoJSON(geojson, {
+        className: mode === 'sociais' ? 'social-choropleth-feature' : 'choropleth-feature',
+        style: feature => {
+          const name = getGeoMunicipioName(feature, municipioNameByCode);
+          const item = findSocialItemByFeatureName(name, byMunicipio);
+          const metric = item ? getMapMetric(item, mode) : 0;
+          const selectedMunicipio = state.filters.municipio !== 'Todos' && normalizeGeoName(state.filters.municipio) === normalizeGeoName(item?.municipio || name);
+          return {
+            color: selectedMunicipio ? '#0f172a' : '#ffffff',
+            weight: selectedMunicipio ? 2.8 : (item ? 1.05 : 0.55),
+            opacity: 1,
+            fillColor: item ? quantityColor(metric, mode) : '#E5E7EB',
+            fillOpacity: item ? (mode === 'sociais' ? 0.72 : 0.66) : 0.12
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          const name = getGeoMunicipioName(feature, municipioNameByCode);
+          const item = findSocialItemByFeatureName(name, byMunicipio);
+          if (!item) {
+            layer.bindTooltip(`<b>${esc(name)}</b><br><span style="color:#64748b">Sem dado para os filtros atuais</span>`, { sticky:true, opacity:.92 });
+            return;
+          }
+          matched += 1;
+          const metric = getMapMetric(item, mode);
+          const itemMunicipio = item.municipio || name;
+          const metricLabel = choroplethMetricLabel(mode);
+          layer.bindTooltip(`<b>${esc(itemMunicipio)}</b><br>${esc(metricLabel)}: <b>${mode === 'sociais' ? fmt(metric,1) : fmt(metric)}</b>`, { sticky:true, opacity:.95 });
+          layer.bindPopup(`<b>${esc(itemMunicipio)}</b><br>${esc(item.sre || '')}<br>${choroplethPopupDetails(item, mode, metric)}`);
+          layer.on({
+            mouseover: e => e.target.setStyle({ weight: 2.4, fillOpacity: 0.86, color: '#0f172a' }),
+            mouseout: e => geoLayer && geoLayer.resetStyle(e.target),
+            click: () => setMapTerritoryFilter(itemMunicipio)
+          });
+          const layerBounds = layer.getBounds();
+          focusedLayers.push(layer);
+          focusPoints[itemMunicipio] = { bounds: layerBounds, layer };
+          const sreKey = item.sre || 'Sem SRE';
+          if (!sreFocus[sreKey]) sreFocus[sreKey] = { bounds: [], markers: [] };
+          sreFocus[sreKey].bounds.push(layerBounds.getSouthWest(), layerBounds.getNorthEast());
+        }
+      }).addTo(map);
+
+      if (focusedLayers.length) {
+        const fg = L.featureGroup(focusedLayers);
+        map._fullBounds = fg.getBounds();
+        map.fitBounds(map._fullBounds, { padding:[42,42], maxZoom: state.filters.municipio !== 'Todos' ? 10 : 8 });
+      } else if (geoLayer.getBounds && geoLayer.getBounds().isValid()) {
+        map._fullBounds = geoLayer.getBounds();
+        map.fitBounds(map._fullBounds, { padding:[42,42] });
+      }
+      if (!matched && rows.length) {
+        addChoroplethStatus(map, `<strong>Atenção:</strong> a malha carregou, mas os municípios não cruzaram com os dados filtrados. Exibindo pontos de referência.`);
+        renderGenericFallbackPoints(map, rows, mode, bounds, focusPoints, sreFocus);
+      }
+    } catch (err) {
+      addChoroplethStatus(map, `<strong>Mapa municipal indisponível:</strong> exibindo pontos de referência até a malha territorial carregar.`);
+      renderGenericFallbackPoints(map, rows, mode, bounds, focusPoints, sreFocus);
+    }
+
+    if (!map._fullBounds && bounds.length) {
+      const llBounds = L.latLngBounds(bounds);
+      map._fullBounds = llBounds;
+      map.fitBounds(llBounds, { padding:[42,42], maxZoom:8 });
+    }
+
+    const focusSel = document.getElementById(`${id}-focus`);
+    if (focusSel) {
+      const names = Object.keys(focusPoints).sort((a,b) => a.localeCompare(b, 'pt-BR'));
+      focusSel.innerHTML = `<option value="">Focar município... (${names.length})</option>` + names.map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join('');
+    }
+    const sreSel = document.getElementById(`${id}-sre-focus`);
+    if (sreSel) {
+      const sres = Object.keys(sreFocus).sort((a,b) => a.localeCompare(b, 'pt-BR'));
+      sreSel.innerHTML = `<option value="">Focar SRE... (${sres.length})</option>` + sres.map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join('');
+    }
+    state.mapFocus[id] = { municipios: focusPoints, sres: sreFocus };
+    setTimeout(() => map.invalidateSize(), 140);
+  }, 80);
+}
+function renderMap(id, rows, mode) {
+  renderChoroplethMap(id, rows, mode);
 }
 
 function exportPDF() {
