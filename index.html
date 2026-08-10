@@ -1396,8 +1396,46 @@ function renderMercado() {
     </div>
     ${decisionReadings(['Mercado passa a ser a evidência que sustenta a indicação do curso no mapa de lacunas.', 'A tela usa a mesma lógica: território, curso, vínculos, remuneração e decisão.', 'A aba Mercado fica ao lado das Lacunas para reforçar que as leituras são complementares.', 'Demanda econômica forte ainda precisa ser validada por infraestrutura, escutas e viabilidade.'])}
   `;
-  renderChart('chart-mercado-setores', 'bar', { labels: setores.map(x=>x.label), datasets: [{ label:'Vínculos', data: setores.map(x=>x.value), backgroundColor: colors.blue, borderRadius:6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
-  renderChart('chart-mercado-cursos', 'bar', { labels: cursos.map(x=>x.label), datasets: [{ label:'Vínculos', data: cursos.map(x=>x.value), backgroundColor: colors.green, borderRadius:6 }]}, { indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true}} });
+ // Função auxiliar para forçar a quebra de linha de textos longos no eixo Y
+  const formatLabels = (labelList) => labelList.map(label => {
+      // Se a string tiver mais de 18 caracteres, nós a dividimos na metade, no espaço mais próximo
+      if (label.length > 18) {
+          const middle = Math.floor(label.length / 2);
+          const spaceIndex = label.lastIndexOf(' ', middle);
+          if (spaceIndex !== -1) {
+              return [label.substring(0, spaceIndex), label.substring(spaceIndex + 1)];
+          }
+      }
+      return label;
+  });
+
+  // Gráfico 1: Sinais de mercado (Agora com labels formatados e fonte que encolhe no mobile)
+  renderChart('chart-mercado-setores', 'bar', { 
+    labels: formatLabels(setores.map(x => x.label)), 
+    datasets: [{ label:'Vínculos', data: setores.map(x => x.value), backgroundColor: colors.blue, borderRadius:6 }]
+  }, { 
+    indexAxis: 'y', 
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } }, 
+    scales: { 
+      x: { beginAtZero: true, grid: { borderDash: [4,4] } },
+      y: { ticks: { autoSkip: false, font: { size: window.innerWidth < 768 ? 9 : 11 } } }
+    } 
+  });
+
+  // Gráfico 2: Vocação econômica (Também aplicando a mesma correção visual)
+  renderChart('chart-mercado-cursos', 'bar', { 
+    labels: formatLabels(cursos.map(x => x.label)), 
+    datasets: [{ label:'Vínculos', data: cursos.map(x => x.value), backgroundColor: colors.green, borderRadius:6 }]
+  }, { 
+    indexAxis: 'y', 
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } }, 
+    scales: { 
+      x: { beginAtZero: true, grid: { borderDash: [4,4] } },
+      y: { ticks: { autoSkip: false, font: { size: window.innerWidth < 768 ? 9 : 11 } } }
+    } 
+  });
 }
 
 
