@@ -683,9 +683,21 @@ function groupBy(arr, keyFn) {
 
 async function fetchView(name, limit = 5000) {
   try {
-    const { data, error } = await supabaseClient.from(name).select('*').limit(limit);
-    if (error) throw error;
-    return data || [];
+    const pageSize = Math.min(1000, Math.max(1, Number(limit) || 1000));
+    const rows = [];
+
+    for (let from = 0; from < limit; from += pageSize) {
+      const to = Math.min(from + pageSize - 1, limit - 1);
+      const { data, error } = await supabaseClient.from(name).select('*').range(from, to);
+      if (error) throw error;
+
+      const batch = data || [];
+      rows.push(...batch);
+
+      if (batch.length < pageSize) break;
+    }
+
+    return rows;
   } catch (err) {
     if (!state.warnings.length) state.warnings.push('Alguns conjuntos de dados não puderam ser carregados agora. Tente atualizar a página em instantes.');
     return [];
@@ -1545,8 +1557,26 @@ function actionBadge(text) {
   return badge(label);
 }
 
+function matchMercadoFilters(it) {
+  const f = state.filters;
+  if (!it) return false;
+
+  const sreOk = f.sre === 'Todos' || sameOption(it.sre, f.sre, 'sre');
+  const munOk = f.municipio === 'Todos' || sameOption(it.municipio, f.municipio, 'municipio');
+  const curso = getCurso(it);
+  const cursoOk = f.curso === 'Todos' || sameOption(curso, f.curso, 'curso') || stripAccentsForKey(curso).includes(stripAccentsForKey(f.curso));
+
+  // A base de mercado (vw_mercado_cbo) não possui prioridade e, em parte dos registros, não possui eixo tecnológico.
+  // Por isso, a aba Mercado deve respeitar SRE, município e curso, sem descartar registros por eixo/prioridade vazios.
+  return sreOk && munOk && cursoOk;
+}
+
+function filteredMercado() {
+  return (state.data.mercado || []).filter(matchMercadoFilters);
+}
+
 function renderMercado() {
-  const mercado = filtered('mercado');
+  const mercado = filteredMercado();
   const m = filtered('municipioCurso');
   const source = mercado.length ? mercado : m;
   const setores = topBy(source, x => x.cnae_1_descricao_secao || x.setores_cnae_vinculados || x.cnae_1_descricao_divisao || x.eixo_tecnologico || 'Não informado', x => x.total_vinculos || x.vinculos, 8);
