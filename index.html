@@ -2349,15 +2349,180 @@ function renderMatrizConvergencia(rows) {
   return `<div class="table-wrap"><table class="w-full text-xs"><thead><tr class="bg-slate-50 text-slate-500"><th class="p-2 text-left">Curso</th><th>Mercado</th><th>Viabilidade</th><th>Convergência</th></tr></thead><tbody>${rows.map(x=>{ const mercado = Math.min(5, Math.ceil(n(x.vinculos)/300)); const viab = Math.min(5, Math.max(1, Math.ceil(n(x.score_tecnico || 60)/20))); const conv = ((mercado+viab)/2).toFixed(1); return `<tr><td class="p-2 border-b">${esc(x.curso_cnct)}</td><td class="text-center border-b">${mercado}</td><td class="text-center border-b">${viab}</td><td class="text-center border-b font-black text-ietBlue">${conv}</td></tr>`; }).join('') || '<tr><td colspan="4" class="p-6 text-center text-slate-500">Sem dados.</td></tr>'}</tbody></table></div>`;
 }
 
+
+function matchDecisionCoreFilters(it, courseGetter = getCurso, eixoGetter = getEixo) {
+  const f = state.filters;
+  if (!it) return false;
+  if (f.sre !== 'Todos' && !sameOption(it.sre, f.sre, 'sre')) return false;
+  if (f.municipio !== 'Todos' && !sameOption(it.municipio, f.municipio, 'municipio')) return false;
+
+  const curso = courseGetter(it) || '';
+  if (f.curso !== 'Todos') {
+    const cursoOk = sameOption(curso, f.curso, 'curso') || stripAccentsForKey(curso).includes(stripAccentsForKey(f.curso));
+    if (!cursoOk) return false;
+  }
+
+  const eixo = eixoGetter(it) || '';
+  if (f.eixo !== 'Todos' && eixo && !sameOption(eixo, f.eixo, 'eixo')) return false;
+
+  // A Mesa de Decisão combina bases de naturezas diferentes. Oferta atual e mercado não possuem prioridade.
+  // Por isso, prioridade só restringe registros que efetivamente têm esse campo preenchido.
+  const prioridade = getPrioridade(it) || '';
+  if (f.prioridade !== 'Todos' && prioridade && !sameOption(prioridade, f.prioridade, 'prioridade')) return false;
+  return true;
+}
+
+function usefulDecisionCourseName(value) {
+  const s = String(value || '').trim();
+  if (!s) return false;
+  const key = stripAccentsForKey(s);
+  return !['sem dados','sem informacao','nao informado','nao informada','curso nao informado','-'].includes(key);
+}
+
+function marketEvidenceText(row) {
+  return [
+    row?.cbo_2002_descricao,
+    row?.cbo_2002_descricao_familia,
+    row?.cbo_2002_descricao_grande_grupo,
+    row?.cnae_1_descricao_secao,
+    row?.cnae_1_descricao_divisao
+  ].filter(Boolean).join(' ');
+}
+
+function findCnctRuleForMarket(row) {
+  const txt = stripAccentsForKey(marketEvidenceText(row));
+  if (!txt) return null;
+  return (state.data.regras || []).find(rule => {
+    const token = stripAccentsForKey(rule.regra_cbo_contem);
+    return token && txt.includes(token);
+  }) || null;
+}
+
+function decisionCourseFromMarket(row) {
+  const direct = row?.curso_cnct || row?.curso_tecnico || row?.nome_curso || row?.curso;
+  if (usefulDecisionCourseName(direct)) return { curso: String(direct).trim(), eixo: row?.eixo_tecnologico || '', origem: 'Curso informado na base' };
+  const rule = findCnctRuleForMarket(row);
+  if (rule?.curso_cnct) return { curso: String(rule.curso_cnct).trim(), eixo: rule.eixo_tecnologico || '', origem: 'DEPARA CBO-CNCT' };
+  const cbo = row?.cbo_2002_descricao || row?.ocupacao_cbo || '';
+  return { curso: cbo ? `A validar: ${cbo}` : 'Curso a validar', eixo: row?.eixo_tecnologico || '', origem: 'CBO sem curso associado' };
+}
+
+function decisionMarketCourseGetter(row) { return decisionCourseFromMarket(row).curso; }
+function decisionMarketEixoGetter(row) { return decisionCourseFromMarket(row).eixo || getEixo(row); }
+
+function decisionSchoolsFor(sre, municipio) {
+  const pool = (state.data.escolas && state.data.escolas.length) ? state.data.escolas : (state.data.escolasMapa || []);
+  return pool.filter(e => sameOption(e.sre, sre, 'sre') && sameOption(e.municipio, municipio, 'municipio'));
+}
+
+function decisionIsSchoolApta(row) {
+  const cap = String(row?.classificacao_capacidade_escolar || row?.possibilidade_oferta || '').toLowerCase();
+  return yes(row?.atende_premissa_2_turmas) || /apta|alta/.test(cap);
+}
+
+function decisionSocialLabel(sre, municipio) {
+  const row = (state.data.socialMunicipio || []).find(s => sameOption(s.sre, sre, 'sre') && sameOption(s.municipio, municipio, 'municipio'));
+  if (!row) return 'A validar';
+  return row.classificacao_prioridade_social || row.classificacao_prioridade_social_painel || (n(row.indice_prioridade_social || row.indice_prioridade_social_painel) ? `Índice ${fmt(row.indice_prioridade_social || row.indice_prioridade_social_painel, 1)}` : 'A validar');
+}
+
+function buildDecisionOfertaRows() {
+  const source = (state.data.ofertaDetalhada || []).filter(r => matchDecisionCoreFilters(r));
+  const groups = new Map();
+  source.forEach(r => {
+    const escola = r.escola_rede || r.nome_escola || r.escola || 'Escola não informada';
+    const curso = r.curso_tecnico || r.curso_cnct || r.nome_curso || 'Curso não informado';
+    const key = [r.sre || '', r.municipio || '', escola, curso].join('|');
+    if (!groups.has(key)) groups.set(key, { sre: r.sre, municipio: r.municipio, escola, curso, matriculas: 0, turmas: new Set(), series: new Set(), tipo: new Set(), regime: new Set() });
+    const g = groups.get(key);
+    g.matriculas += n(r.total_estudantes || r.estudantes || r.matriculas || r.matriculas_ept_2026);
+    if (r.turma) g.turmas.add(String(r.turma));
+    if (r.ano_escolar) g.series.add(String(r.ano_escolar));
+    if (r.tipo_implantacao) g.tipo.add(String(r.tipo_implantacao));
+    if (r.regime_funcionamento) g.regime.add(String(r.regime_funcionamento));
+  });
+  return [...groups.values()].sort((a,b)=>b.matriculas-a.matriculas).map(g => {
+    const complemento = [
+      g.turmas.size ? `${fmt(g.turmas.size)} turma(s)` : '',
+      g.series.size ? `${g.series.size} série(s)` : '',
+      [...g.regime].slice(0,1).join('')
+    ].filter(Boolean).join(' • ');
+    return [
+      esc(g.sre),
+      esc(g.municipio),
+      esc(g.escola),
+      esc(g.curso),
+      esc(g.curso),
+      fmt(g.matriculas),
+      badge(complemento ? `Oferta atual — ${complemento}` : 'Oferta atual')
+    ];
+  });
+}
+
+function buildDecisionMarketPossibilityRows() {
+  const mercadoRows = (state.data.mercado || []).filter(r => matchDecisionCoreFilters(r, decisionMarketCourseGetter, decisionMarketEixoGetter));
+  const groups = new Map();
+  mercadoRows.forEach(r => {
+    const info = decisionCourseFromMarket(r);
+    const key = [r.sre || '', r.municipio || '', info.curso].join('|');
+    if (!groups.has(key)) groups.set(key, { sre: r.sre, municipio: r.municipio, curso: info.curso, origem: info.origem, eixo: info.eixo, vinculos: 0, remuneracoes: [], cbos: new Set(), setores: new Set(), cursoInformado: usefulDecisionCourseName(r.nome_curso || r.curso_cnct || r.curso_tecnico) });
+    const g = groups.get(key);
+    g.vinculos += n(r.total_vinculos || r.vinculos);
+    if (n(r.remuneracao_media) > 0) g.remuneracoes.push(n(r.remuneracao_media));
+    if (r.cbo_2002_descricao || r.id_cbo) g.cbos.add(r.cbo_2002_descricao || r.id_cbo);
+    if (r.cnae_1_descricao_secao) g.setores.add(r.cnae_1_descricao_secao);
+    if (usefulDecisionCourseName(r.nome_curso || r.curso_cnct || r.curso_tecnico)) g.cursoInformado = true;
+  });
+
+  return [...groups.values()].sort((a,b)=>b.vinculos-a.vinculos).map(g => {
+    const escolas = decisionSchoolsFor(g.sre, g.municipio);
+    const aptas = escolas.filter(decisionIsSchoolApta).length;
+    const sinal = g.vinculos > 1000 ? 'Forte' : g.vinculos > 300 ? 'Médio' : 'Baixo';
+    const tipo = g.cursoInformado ? 'Oferta atual com sinal de mercado' : 'Sinal de mercado a validar';
+    const infra = aptas > 0 ? 'Com escola apta' : (escolas.length ? 'Exige validação' : 'Sem escola apta');
+    return [
+      esc(g.sre),
+      esc(g.municipio),
+      esc(g.curso),
+      badge(tipo),
+      fmt(aptas),
+      badge(sinal),
+      badge(decisionSocialLabel(g.sre, g.municipio)),
+      badge(infra),
+      fmt(aptas > 0 ? aptas * 35 : 0)
+    ];
+  });
+}
+
+function buildDecisionLacunaRows() {
+  const municipioCurso = (state.data.municipioCurso || []).filter(r => matchDecisionCoreFilters(r));
+  const territoriais = (state.data.territoriais || []).filter(r => matchDecisionCoreFilters(r));
+  const baixaDemanda = (state.data.baixaDemanda || []).filter(r => matchDecisionCoreFilters(r));
+  const base = municipioCurso.length ? municipioCurso : (territoriais.length ? territoriais : baixaDemanda);
+  if (!base.length) return buildDecisionMarketPossibilityRows();
+  return base.slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos)).map(x => [
+    esc(x.sre),
+    esc(x.municipio),
+    esc(x.curso_cnct || getCurso(x)),
+    badge(x.prioridade || x.classificacao_revisada || x.tipo_lacuna || x.tipo_acao || 'A validar'),
+    fmt(x.escolas_aptas_premissa || x.escolas_aptas || x.escolas_aptas_implementacao_replicacao),
+    badge(n(x.vinculos)>1000?'Forte':n(x.vinculos)>300?'Médio':'Baixo'),
+    badge(x.prioridade_social || x.prioridade || decisionSocialLabel(x.sre, x.municipio)),
+    badge(x.infraestrutura || x.capacidade_instalada || 'Com ajuste'),
+    fmt(Math.max(0, Math.round(n(x.escolas_aptas_premissa || x.escolas_aptas || 0) * 35)))
+  ]);
+}
+
 function renderDecisao() {
   const t = totals();
   const emTotal = sum(t.escolas, 'matriculas_em_total') || Math.max(1, t.matriculas * 10);
   const pctAtual = t.matriculas / emTotal * 100;
   const deficit = Math.max(0, 35000 - t.matriculas);
-  const escolaCurso = filtered('escolaCurso');
-  const municipioCurso = filtered('municipioCurso');
-  const rows1 = escolaCurso.slice().sort((a,b)=>n(b.score_final)-n(a.score_final)).map(x => [esc(x.sre), esc(x.municipio), esc(x.escola_candidata || x.nome_escola), esc(x.oferta_atual || x.cursos_ept_2026 || 'Sem oferta'), esc(getCurso(x)), fmt(x.matriculas_atuais || x.matriculas_ept_2026), badge(x.classificacao_revisada || x.prioridade || 'Analisar')]);
-  const rows2 = municipioCurso.slice().sort((a,b)=>n(b.vinculos)-n(a.vinculos)).map(x => [esc(x.sre), esc(x.municipio), esc(x.curso_cnct), badge(x.prioridade || x.classificacao_revisada), fmt(x.escolas_aptas_premissa), badge(n(x.vinculos)>1000?'Forte':n(x.vinculos)>300?'Médio':'Baixo'), badge(x.prioridade_social || x.prioridade || 'Média'), badge(x.infraestrutura || 'Com ajuste'), fmt(Math.max(0, Math.round(n(x.escolas_aptas_premissa || 1)*35)))]);
+  const escolaCurso = (state.data.escolaCurso || []).filter(r => matchDecisionCoreFilters(r));
+  const rows1Matriz = escolaCurso.slice().sort((a,b)=>n(b.score_final)-n(a.score_final)).map(x => [esc(x.sre), esc(x.municipio), esc(x.escola_candidata || x.nome_escola), esc(x.oferta_atual || x.cursos_ept_2026 || 'Sem oferta'), esc(getCurso(x)), fmt(x.matriculas_atuais || x.matriculas_ept_2026), badge(x.classificacao_revisada || x.prioridade || 'Analisar')]);
+  const rows1Oferta = buildDecisionOfertaRows();
+  const rows1 = rows1Matriz.length ? rows1Matriz : rows1Oferta;
+  const rows2 = buildDecisionLacunaRows();
   document.getElementById('view-decisao').innerHTML = `
     <div class="decision-panel mb-5">
       ${sectionTitle('1. Onde estamos hoje na meta PNE e qual o tamanho do desafio?', 'A Mesa de Decisão consolida cenário, meta e prioridades de implantação.')}
